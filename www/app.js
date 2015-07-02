@@ -15,16 +15,19 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        ionic: './lib/ionic/js/ionic.bundle.min',
         bootstrap: './js/bootstrap',
+        ionic: './lib/ionic/js/ionic.bundle.min',
+        
         app: './js',
 
-        testapp : './js/app',
-        testcontroller : './js/controllers',
+        application: './js/application',
+
+        // testapp : './js/app',
+        // testcontroller : './js/controllers',
         
-        // application: '../app/static/cores/application',
+        
         // modules: '../app/static/settings/modules',
-        // settings: '../app/static/settings/settings',
+        settings: './js/settings/settings',
         // controllers : '../app/static/cores/controllers',
         // services : '../app/static/cores/services',
         // exobject : 'extensions/object',
@@ -37,15 +40,15 @@ requirejs.config({
         // directives : '../app/static/cores/directives',
     },
     shim: {
-        /*ionic: {
+        ionic: {
             exports: 'ionic'
         },
         application: {
-            deps: ['settings', 'exobject', 'gmax', 'gdraw', 'gthrow' , 'gdrag', 'jquery', 'extendScope']
+            deps: ['settings'/*, 'exobject', 'gmax', 'gdraw', 'gthrow' , 'gdrag', 'jquery', 'extendScope'*/]
         },
         bootstrap: {
             deps: ['application']
-        }*/
+        }
     },
     priority: [
         'ionic',
@@ -57,8 +60,9 @@ requirejs.config({
 
 requirejs([
         'ionic',
-        'testapp',
-        'testcontroller'
+        'application',
+        // 'testapp',
+        // 'testcontroller'
     ],
     function() {
 

@@ -7,10 +7,10 @@ define([
     function(ionic) {
         'use strict';
         MyApp.start();
-
+        
         var $html,
             onDeviceReady = function() {
-                angular.bootstrap(document.body, ['starter']);
+                angular.bootstrap(document.body, [MyApp.appName]);
                 window.myappOuterHeight = window.outerHeight;
             };
 
@@ -20,7 +20,7 @@ define([
             $html = angular.element(document.getElementsByTagName('html')[0]);
             angular.element().ready(function() {
                 try {
-                    angular.bootstrap(document.body, ['starter']);
+                    angular.bootstrap(document.body, [MyApp.appName]);
                 } catch (e) {
                     console.error(e.stack || e.message || e);
                 }
