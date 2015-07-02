@@ -1,10 +1,10 @@
 define([
         'ionic',
-        // 'modules',
+        'modules',
         'settings',
-        //'extendScope'
+        'extendScope'
     ],
-    function(ionic, /*modules, */ settings /*, $extendScope*/ ) {
+    function(ionic, modules, settings, $extendScope) {
 
         var Application = function(settings) {
             this.appName = settings.appName;
@@ -25,154 +25,45 @@ define([
             var dis = this;
 
             angular.module(this.appName, [
-                    'ionic',
-                    'ui.router',
+                'ionic',
+                'ui.router',
 
-                ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
+            ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
 
-                    // Turn off js scroll
-                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
-                        $ionicConfigProvider.scrolling.jsScrolling(false);
-                    }
+                // Turn off js scroll
+                if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                    $ionicConfigProvider.scrolling.jsScrolling(false);
+                }
 
-                    // Turn off animate transition
-                    $ionicConfigProvider.views.transition('none');
+                // Turn off animate transition
+                $ionicConfigProvider.views.transition('none');
 
-                    // Add white list src
-                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
+                // Add white list src
+                $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
 
-                    $stateProvider
-                        // .state('app', {
-                        //     url: "/app",
-                        //     abstract: true,
-                        //     // templateUrl: "js/app/static/templates/menu.html",
-                        //     templateUrl: "js/static/templates/menu.html",
-                        //     controller: 'DefaultCtr'
-                        // })
-
+                $stateProvider
                     .state('app', {
                         url: "/app",
                         abstract: true,
-                        templateUrl: "templates/menu.html",
-                        controller: 'AppCtrl'
-                    })
+                        templateUrl: "js/app/static/templates/menu.html",
+                        controller: 'DefaultCtr'
+                    });
 
-                    .state('app.search', {
-                        url: "/search",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/search.html"
-                            }
-                        }
-                    })
+                // Default router...
+                $urlRouterProvider.otherwise('/app/' + dis.settings.homeUrl);
 
-                    .state('app.browse', {
-                            url: "/browse",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/browse.html"
-                                }
-                            }
-                        })
-                        .state('app.playlists', {
-                            url: "/playlists",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/playlists.html",
-                                    controller: 'PlaylistsCtrl'
-                                }
-                            }
-                        })
+            }).controller('DefaultCtr', function($scope, $ionicModal, $timeout, $rootScope, $state) {
+                // console.log($state);
 
-                    .state('app.single', {
-                        url: "/playlists/:playlistId",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/playlist.html",
-                                controller: 'PlaylistCtrl'
-                            }
-                        }
-                    });;
+                $.extend($scope, $extendScope);
+                $scope.menus = MyApp.menus;
+                $scope.controllers = MyApp.controllers;
+                $scope.getUser();
 
-                    // Default router...
-                    $urlRouterProvider.otherwise('/app/' + dis.settings.homeUrl);
-
-                }).controller('DefaultCtr', function($scope, $ionicModal, $timeout, $rootScope, $state) {
-                    // console.log($state);
-
-                    $.extend($scope, $extendScope);
-                    $scope.menus = MyApp.menus;
-                    $scope.controllers = MyApp.controllers;
+                $rootScope.$on('user.change', function() {
                     $scope.getUser();
-
-                    $rootScope.$on('user.change', function() {
-                        $scope.getUser();
-                    });
-                })
-                .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
-                    // With the new view caching in Ionic, Controllers are only called
-                    // when they are recreated or on app start, instead of every page change.
-                    // To listen for when this page is active (for example, to refresh data),
-                    // listen for the $ionicView.enter event:
-                    //$scope.$on('$ionicView.enter', function(e) {
-                    //});
-
-                    // Form data for the login modal
-                    $scope.loginData = {};
-
-                    // Create the login modal that we will use later
-                    $ionicModal.fromTemplateUrl('templates/login.html', {
-                        scope: $scope
-                    }).then(function(modal) {
-                        $scope.modal = modal;
-                    });
-
-                    // Triggered in the login modal to close it
-                    $scope.closeLogin = function() {
-                        $scope.modal.hide();
-                    };
-
-                    // Open the login modal
-                    $scope.login = function() {
-                        $scope.modal.show();
-                    };
-
-                    // Perform the login action when the user submits the login form
-                    $scope.doLogin = function() {
-                        console.log('Doing login', $scope.loginData);
-
-                        // Simulate a login delay. Remove this and replace with your login
-                        // code if using a login system
-                        $timeout(function() {
-                            $scope.closeLogin();
-                        }, 1000);
-                    };
-                })
-
-            .controller('PlaylistsCtrl', function($scope) {
-                $scope.playlists = [{
-                    title: 'Reggae',
-                    id: 1
-                }, {
-                    title: 'Chill',
-                    id: 2
-                }, {
-                    title: 'Dubstep',
-                    id: 3
-                }, {
-                    title: 'Indie',
-                    id: 4
-                }, {
-                    title: 'Rap',
-                    id: 5
-                }, {
-                    title: 'Cowbell',
-                    id: 6
-                }];
-            })
-
-            .controller('PlaylistCtrl', function($scope, $stateParams) {});;
+                });
+            });
         };
 
         Application.prototype.registerModule = function(sModule) {
@@ -329,32 +220,25 @@ define([
             });
         }
 
-        Application.prototype.loadModules = function( /*modules*/ ) {
-            // var modulePaths = [];
-            // for (i = 0; i < modules.length; i++) {
-            //     modulePaths.push('../app/module/' + modules[i] + '/run');
-            // }
-            // this.modulePaths = modulePaths;
-            // modulePaths.push('controllers');
-            // modulePaths.push('services');
-            // modulePaths.push('directives');
+        Application.prototype.loadModules = function(modules) {
+            var modulePaths = [];
+            for (i = 0; i < modules.length; i++) {
+                modulePaths.push('../app/module/' + modules[i] + '/run');
+            }
+            this.modulePaths = modulePaths;
+            modulePaths.push('controllers');
+            modulePaths.push('services');
+            modulePaths.push('directives');
 
-            // require(modulePaths, function() {
-            //     console.log('Load all modules complete...');
-            //     require([
-            //             'bootstrap'
-            //         ],
-            //         function() {
-            //             console.log('load bootstrap successfully...');
-            //         });
-            // });
-
-            require([
-                    'bootstrap'
-                ],
-                function() {
-                    console.log('load bootstrap successfully...');
-                });
+            require(modulePaths, function() {
+                console.log('Load all modules complete...');
+                require([
+                        'bootstrap'
+                    ],
+                    function() {
+                        console.log('load bootstrap successfully...');
+                    });
+            });
         }
 
         Application.prototype.addMenu = function(title, link) {
@@ -366,7 +250,7 @@ define([
         }
 
         MyApp = new Application(settings);
-        MyApp.loadModules( /*modules*/ );
+        MyApp.loadModules(modules);
 
         return MyApp;
     });
