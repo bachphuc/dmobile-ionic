@@ -1,10 +1,10 @@
 define([
         'ionic',
-        // 'modules',
+        'modules',
         'settings',
-        //'extendScope'
+        'extendScope'
     ],
-    function(ionic, /*modules, */ settings /*, $extendScope*/ ) {
+    function(ionic, modules, settings, $extendScope) {
 
         var Application = function(settings) {
             this.appName = settings.appName;
@@ -42,57 +42,56 @@ define([
                     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
 
                     $stateProvider
-                        // .state('app', {
-                        //     url: "/app",
-                        //     abstract: true,
-                        //     // templateUrl: "js/app/static/templates/menu.html",
-                        //     templateUrl: "js/static/templates/menu.html",
-                        //     controller: 'DefaultCtr'
-                        // })
+                        .state('app', {
+                            url: "/app",
+                            abstract: true,
+                            templateUrl: "./js/static/templates/menu.html",
+                            controller: 'DefaultCtr'
+                        });
 
-                    .state('app', {
-                        url: "/app",
-                        abstract: true,
-                        templateUrl: "templates/menu.html",
-                        controller: 'AppCtrl'
-                    })
+                    // .state('app', {
+                    //     url: "/app",
+                    //     abstract: true,
+                    //     templateUrl: "templates/menu.html",
+                    //     controller: 'AppCtrl'
+                    // })
 
-                    .state('app.search', {
-                        url: "/search",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/search.html"
-                            }
-                        }
-                    })
+                    // .state('app.search', {
+                    //     url: "/search",
+                    //     views: {
+                    //         'menuContent': {
+                    //             templateUrl: "templates/search.html"
+                    //         }
+                    //     }
+                    // })
 
-                    .state('app.browse', {
-                            url: "/browse",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/browse.html"
-                                }
-                            }
-                        })
-                        .state('app.playlists', {
-                            url: "/playlists",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/playlists.html",
-                                    controller: 'PlaylistsCtrl'
-                                }
-                            }
-                        })
+                    // .state('app.browse', {
+                    //         url: "/browse",
+                    //         views: {
+                    //             'menuContent': {
+                    //                 templateUrl: "templates/browse.html"
+                    //             }
+                    //         }
+                    //     })
+                    //     .state('app.playlists', {
+                    //         url: "/playlists",
+                    //         views: {
+                    //             'menuContent': {
+                    //                 templateUrl: "templates/playlists.html",
+                    //                 controller: 'PlaylistsCtrl'
+                    //             }
+                    //         }
+                    //     })
 
-                    .state('app.single', {
-                        url: "/playlists/:playlistId",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/playlist.html",
-                                controller: 'PlaylistCtrl'
-                            }
-                        }
-                    });;
+                    // .state('app.single', {
+                    //     url: "/playlists/:playlistId",
+                    //     views: {
+                    //         'menuContent': {
+                    //             templateUrl: "templates/playlist.html",
+                    //             controller: 'PlaylistCtrl'
+                    //         }
+                    //     }
+                    // });
 
                     // Default router...
                     $urlRouterProvider.otherwise('/app/' + dis.settings.homeUrl);
@@ -150,29 +149,32 @@ define([
                     };
                 })
 
-            .controller('PlaylistsCtrl', function($scope) {
-                $scope.playlists = [{
-                    title: 'Reggae',
-                    id: 1
-                }, {
-                    title: 'Chill',
-                    id: 2
-                }, {
-                    title: 'Dubstep',
-                    id: 3
-                }, {
-                    title: 'Indie',
-                    id: 4
-                }, {
-                    title: 'Rap',
-                    id: 5
-                }, {
-                    title: 'Cowbell',
-                    id: 6
-                }];
-            })
+            // .controller('PlaylistsCtrl', function($scope) {
+            //     $scope.playlists = [{
+            //         title: 'Reggae',
+            //         id: 1
+            //     }, {
+            //         title: 'Chill',
+            //         id: 2
+            //     }, {
+            //         title: 'Dubstep',
+            //         id: 3
+            //     }, {
+            //         title: 'Indie',
+            //         id: 4
+            //     }, {
+            //         title: 'Rap',
+            //         id: 5
+            //     }, {
+            //         title: 'Cowbell',
+            //         id: 6
+            //     }];
+            // })
 
-            .controller('PlaylistCtrl', function($scope, $stateParams) {});;
+            // .controller('PlaylistCtrl', function($scope, $stateParams) {})
+
+            ;
+
         };
 
         Application.prototype.registerModule = function(sModule) {
@@ -186,7 +188,7 @@ define([
 
         Application.prototype._createRouter = function(sRouter, sController, $module) {
             var state = 'app.' + sController.replace('.', '_');
-            var sTemplate = 'js/app/module/' + $module.sModule + '/templates/' + $module.sController + '.html';
+            var sTemplate = './js/modules/' + $module.sModule + '/templates/' + $module.sController + '.html';
 
             angular.module(this.appName).config(function($stateProvider, $urlRouterProvider) {
 
@@ -208,7 +210,7 @@ define([
         };
 
         Application.prototype._createController = function(sController, $module, $controller) {
-            var sControllerPath = 'app/module/' + $module.sModule + '/controllers/' + $module.sController;
+            var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sController;
             var dis = this;
             var sArgs = $controller.getArgs().join();
             console.log('Add controller ' + sController + '...');
@@ -223,6 +225,7 @@ define([
             if (this.modules.indexOf(aParts[0]) == -1) {
                 return false;
             }
+            console.log(sController);
             var sController = aParts[0].ucFrist() + aParts[1].ucFrist();
 
             var $module = {
@@ -233,7 +236,7 @@ define([
             if (this.controllers.indexOf(sController) == -1) {
                 this.controllers.push(sController);
             }
-            var sControllerPath = 'app/module/' + $module.sModule + '/controllers/' + $module.sController;
+            var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sController;
             console.log(sControllerPath);
             var dis = this;
 
@@ -300,7 +303,7 @@ define([
                 sFactory: aParts[1]
             };
 
-            var sFactoryPath = 'app/module/' + $module.sModule + '/factories/' + $module.sFactory;
+            var sFactoryPath = './js/modules/' + $module.sModule + '/factories/' + $module.sFactory;
             console.log(sFactoryPath);
             var dis = this;
             require([sFactoryPath], function($factory) {
@@ -329,32 +332,25 @@ define([
             });
         }
 
-        Application.prototype.loadModules = function( /*modules*/ ) {
-            // var modulePaths = [];
-            // for (i = 0; i < modules.length; i++) {
-            //     modulePaths.push('../app/module/' + modules[i] + '/run');
-            // }
-            // this.modulePaths = modulePaths;
-            // modulePaths.push('controllers');
-            // modulePaths.push('services');
-            // modulePaths.push('directives');
+        Application.prototype.loadModules = function(modules) {
+            var modulePaths = [];
+            for (i = 0; i < modules.length; i++) {
+                modulePaths.push('./js/modules/' + modules[i] + '/run');
+            }
+            this.modulePaths = modulePaths;
+            modulePaths.push('./js/static/cores/controllers');
+            modulePaths.push('./js/static/cores/services');
+            modulePaths.push('./js/static/cores/directives');
 
-            // require(modulePaths, function() {
-            //     console.log('Load all modules complete...');
-            //     require([
-            //             'bootstrap'
-            //         ],
-            //         function() {
-            //             console.log('load bootstrap successfully...');
-            //         });
-            // });
-
-            require([
-                    'bootstrap'
-                ],
-                function() {
-                    console.log('load bootstrap successfully...');
-                });
+            require(modulePaths, function() {
+                console.log('Load all modules complete...');
+                require([
+                        'bootstrap'
+                    ],
+                    function() {
+                        console.log('load bootstrap successfully...');
+                    });
+            });
         }
 
         Application.prototype.addMenu = function(title, link) {
@@ -364,9 +360,9 @@ define([
             });
             return this;
         }
-
+        console.log(modules);
         MyApp = new Application(settings);
-        MyApp.loadModules( /*modules*/ );
+        MyApp.loadModules(modules);
 
         return MyApp;
     });

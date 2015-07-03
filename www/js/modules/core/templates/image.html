@@ -1,0 +1,32 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Image</h1>
+    </ion-header-bar>
+    <style type="text/css">
+    .image-test {
+        width: 25%;
+    }
+    
+    .spinner svg {
+        width: 28px;
+        height: 28px;
+        stroke: #444;
+        fill: #444;
+    }
+    </style>
+    <ion-content>
+        <div>
+            <ion-spinner class="spinner-energized" icon="android"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="ios"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="ios-small"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="bubbles"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="circles"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="crescent"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="dots"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="lines"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="ripple"></ion-spinner>
+            <ion-spinner class="spinner-energized" icon="spiral"></ion-spinner>
+        </div>
+        <img class="image-test" ng-repeat="image in images" ng-src="{{image}}" fallback-src loading-src />
+    </ion-content>
+</ion-modal-view>

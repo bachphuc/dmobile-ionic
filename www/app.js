@@ -19,32 +19,27 @@ requirejs.config({
         ionic: './lib/ionic/js/ionic.bundle.min',
         
         app: './js',
-
         application: './js/application',
-
-        // testapp : './js/app',
-        // testcontroller : './js/controllers',
         
-        
-        // modules: '../app/static/settings/modules',
+        modules: './js/settings/modules',
         settings: './js/settings/settings',
         // controllers : '../app/static/cores/controllers',
         // services : '../app/static/cores/services',
-        // exobject : 'extensions/object',
+        exobject : './js/static/libs/extensions/object',
         // gdraw : '../lib/gsap/DrawSVGPlugin',
         // gmax : '../lib/gsap/TweenMax.min',
         // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
         // gdrag : '../lib/gsap/utils/Draggable.min',
-        // jquery : '../lib/jquery/jquery-2.1.3.min',
-        // extendScope : '../app/static/cores/extendScope',
-        // directives : '../app/static/cores/directives',
+        jquery : './js/static/libs/jquery/jquery-2.1.3.min',
+        extendScope : './js/static/cores/extendScope',
+        directives : './js/static/cores/directives',
     },
     shim: {
         ionic: {
             exports: 'ionic'
         },
         application: {
-            deps: ['settings'/*, 'exobject', 'gmax', 'gdraw', 'gthrow' , 'gdrag', 'jquery', 'extendScope'*/]
+            deps: ['settings', 'exobject', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'extendScope']
         },
         bootstrap: {
             deps: ['application']

@@ -1,0 +1,41 @@
+<ion-view view-title="Core">
+    <!-- <fake-statusbar></fake-statusbar> -->
+    <ion-header-bar class="bar-positive">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        <h1 class="title">Things</h1>
+    </ion-header-bar>
+    <ion-content header-shrink scroll-event-interval="5">
+        <ion-refresher refreshing-icon="ion-loading-c" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list" id="custom-list-scroll">
+            <div class="list card" ng-repeat="item in items">
+                <div class="item item-avatar">
+                    <img ng-src="http://lorempixel.com/g/50/50/">
+                    <h2>Marty McFly </h2>
+                    <p>November 05, 1955</p>
+                </div>
+                <div class="item item-body">
+                    <img class="full-image" ng-src="http://lorempixel.com/g/400/400/">
+                    <p>
+                        This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                    </p>
+                    <p>
+                        <a href="#" class="subdued">1 Like</a>
+                        <a href="#" class="subdued">5 Comments</a>
+                    </p>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-thumbsup"></i> Like
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-chatbox"></i> Comment
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-share"></i> Share
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>
