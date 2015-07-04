@@ -17,8 +17,9 @@ requirejs.config({
     paths: {
         bootstrap: './js/bootstrap',
         ionic: './lib/ionic/js/ionic.bundle.min',
+        ngcordova : './js/static/libs/ngcordova/ng-cordova.min',
         
-        app: './js',
+        app: './app',
         application: './js/application',
         
         modules: './js/settings/modules',
@@ -33,6 +34,9 @@ requirejs.config({
         jquery : './js/static/libs/jquery/jquery-2.1.3.min',
         extendScope : './js/static/cores/extendScope',
         directives : './js/static/cores/directives',
+
+        corePath : './js/static/cores',
+        modulePath : './js/modules'
     },
     shim: {
         ionic: {

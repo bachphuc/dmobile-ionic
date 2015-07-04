@@ -1,20 +1,21 @@
-define([], function() {
+define([
+    'corePath/services/viewer'
+    ], function() {
     console.log('Load services core...');
 
     angular.module(MyApp.appName)
         .factory('$dhttp', function($http, $ionicLoading) {
             return {
                 post: function(api, data) {
-                    var token = localStorage.getItem('token');
-                    var aPostData = {
+                    var token = MyApp.token;
+                    $.extend(data, {
                         api: api,
-                        args: data
-                    };
+                    });
 
                     if (token) {
-                        aPostData.token = token;
+                        data.token = token;
                     }
-                    return $http.post(MyApp.settings.serviceUrl, aPostData, {
+                    return $http.post(MyApp.settings.serviceUrl, data, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
@@ -81,7 +82,7 @@ define([], function() {
                         console.log(result);
                         $ionicLoading.hide();
                         if (typeof successCallBack !== 'undefined' && successCallBack) {
-                            if(typeof result.response !== 'undefined'){
+                            if (typeof result.response !== 'undefined') {
                                 result = JSON.parse(result.response);
                             }
                             successCallBack(result);

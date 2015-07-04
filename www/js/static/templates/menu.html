@@ -16,15 +16,18 @@
             <h1 class="title">Left</h1>
         </ion-header-bar>
         <ion-content>
-            <div class="list user-image-menu" ng-if="isUser">
+            <div class="list user-image-menu" ng-if="viewer">
                 <div class="item">
-                    <img ng-src="{{user.images.normal}}" />
+                    <img ng-src="{{viewer.images.full.url}}" />
                 </div>
-                <div class="item">{{user.full_name}}</div>
+                <div class="item">{{viewer.full_name}}</div>
             </div>
             <ion-list>
                 <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
                     {{menu.title}}
+                </ion-item>
+                <ion-item ng-click="logout()">
+                    LOGOUT
                 </ion-item>
             </ion-list>
         </ion-content>

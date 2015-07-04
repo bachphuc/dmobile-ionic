@@ -2,6 +2,7 @@ define([], function() {
 	return {
 		appName : 'myapp',
 		homeUrl : 'core',
+		securityKey : 'dmobile',
 		// Company url API Service 1
 		// serviceUrl : 'http://localhost/phpfox3.7.7/module/dmobile/api.php',
 		// Company url API Service 2

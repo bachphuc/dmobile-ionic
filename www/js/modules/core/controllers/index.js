@@ -3,11 +3,9 @@
 
 define([],
     function() {
-        return function($scope, $timeout, $userService) {
-            alert('chan qua di');
-            console.log('Core.index');
+        return function($scope, $timeout, $userService, $viewer) {
             $scope.items = [];
-
+            console.log($viewer.get());
             $userService.GetFeed().then(function(items) {
                 $scope.items = items;
             });

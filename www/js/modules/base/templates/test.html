@@ -1,0 +1,57 @@
+<ion-view view-title="Base">
+    <style type="text/css">
+    .dlist {
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -o-box-sizing: border-box;
+    }
+    
+    /*.card:nth-child(odd) {
+        visibility: hidden;
+    }
+    .card:nth-child(3n+1) {
+        visibility: hidden;
+    }
+    .card:nth-child(4n+1) {
+        visibility: hidden;
+    }*/
+    </style>
+    <div class="dlist" id="custom-list">
+        <div class="list" id="custom-list-scroll">
+            <div class="list card" ng-repeat="item in data">
+                <div class="item item-avatar">
+                    <img ng-src="http://lorempixel.com/g/50/50/">
+                    <h2>Marty McFly {{item}}</h2>
+                    <p>November 05, 1955</p>
+                </div>
+                <div class="item item-body">
+                    <img class="full-image" ng-src="http://lorempixel.com/g/400/400/">
+                    <p>
+                        This is a "Facebook" styled Card. The header is created from a Thumbnail List item, the content is from a card-body consisting of an image and paragraph text. The footer consists of tabs, icons aligned left, within the card-footer.
+                    </p>
+                    <p>
+                        <a href="#" class="subdued">1 Like</a>
+                        <a href="#" class="subdued">5 Comments</a>
+                    </p>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-thumbsup"></i> Like
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-chatbox"></i> Comment
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-share"></i> Share
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-view>

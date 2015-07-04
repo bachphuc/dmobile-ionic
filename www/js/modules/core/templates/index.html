@@ -1,10 +1,9 @@
 <ion-view view-title="Core">
-    <!-- <fake-statusbar></fake-statusbar> -->
     <ion-header-bar class="bar-positive">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
         <h1 class="title">Things</h1>
     </ion-header-bar>
-    <ion-content header-shrink scroll-event-interval="5">
+    <ion-content>
         <ion-refresher refreshing-icon="ion-loading-c" on-refresh="doRefresh()"></ion-refresher>
         <div class="list" id="custom-list-scroll">
             <div class="list card" ng-repeat="item in items">

@@ -1,13 +1,13 @@
 define([], function() {
 	return [
-		// 'base',
+		'base',
 		'core',
-		// 'user',
-		// 'feed',
-		// 'photo',
-		// 'link',
-		// 'video',
-		// 'music',
-		// 'blog',
+		'user',
+		'feed',
+		'photo',
+		'link',
+		'video',
+		'music',
+		'blog',
 	]
 });
