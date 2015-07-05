@@ -1,1 +1,23 @@
 /* Empty. Add your own CSS if you like */
+
+.ratio-image {
+    position: relative;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.dcard {
+    box-shadow: 0 0px 10px #DDD;
+    -moz-box-shadow: 0 0px 10px #DDD;
+    -webkit-box-shadow: 0 0px 10px #DDD;
+}
+
+.dcard .item-avatar {
+    border-bottom: none;
+}
+
+.dcard-content:empty {
+	display: none;
+}

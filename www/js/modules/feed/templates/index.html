@@ -6,14 +6,14 @@
     <ion-content class="has-header">
         <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
         <div class="list">
-            <div class="list card" ng-repeat="item in items">
+            <div class="list dcard" ng-repeat="item in items">
                 <div class="item item-avatar">
                     <img ng-src="{{item.user.images.avatar.url}}">
                     <h2>{{item.user.full_name}}</h2>
                     <p>{{item.time}}</p>
                 </div>
-                <div class="item item-body">
-                	<p>{{item.content}}</p>
+                <div class="dcard-body">
+                	<p class="dcard-content">{{item.content}}</p>
                 	<div ng-html-compile="item.getItemContent()"></div>
                 </div>
                 <feed-action-bar-dir obj="item.item"></feed-action-bar-dir>
