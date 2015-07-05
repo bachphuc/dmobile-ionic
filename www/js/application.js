@@ -70,10 +70,9 @@ define([
 
         Application.prototype.isLiveSite = function() {
             var sLiveSite = localStorage.getItem(this.settings.securityKey + '_runmode');
-            if(!sLiveSite || sLiveSite == 'local'){
+            if (!sLiveSite || sLiveSite == 'local') {
                 this.bLiveSite = false;
-            }
-            else if(sLiveSite == 'livesite'){
+            } else if (sLiveSite == 'livesite') {
                 this.bLiveSite = true;
             }
             return this.bLiveSite;
@@ -81,11 +80,10 @@ define([
 
         Application.prototype.setLiveSite = function(bLiveSite) {
             this.bLiveSite = bLiveSite;
-            if(this.bLiveSite){
+            if (this.bLiveSite) {
                 this.settings.serviceUrl = this.settings.liveServiceUrl;
                 localStorage.setItem(this.settings.securityKey + '_runmode', 'livesite');
-            }
-            else{
+            } else {
                 this.settings.serviceUrl = this.settings.localServiceUrl;
                 localStorage.setItem(this.settings.securityKey + '_runmode', 'local');
             }
@@ -219,6 +217,7 @@ define([
                         });
                 });
             }
+            return this;
         }
 
         Application.prototype.addFactory = function(factoryName) {

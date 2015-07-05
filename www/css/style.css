@@ -19,5 +19,23 @@
 }
 
 .dcard-content:empty {
-	display: none;
+    display: none;
 }
+
+.dcontent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: -1px;
+    padding-top: 1px;
+    margin-bottom: -1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dcontent:not(.has-header):not(.has-subheader) {
+    top: 0;
+}
+
+.dcontent-scroll {}

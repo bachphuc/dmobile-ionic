@@ -48,7 +48,8 @@ define([
             }
             $scope.isProcessing = true;
             var sendData = {
-                page: $scope.iPage
+                page: $scope.iPage,
+                limit : 200
             }
 
             $dhttp.post('feed.gets', sendData).success(function(data) {
@@ -70,5 +71,7 @@ define([
                 alert('Can not get data from server.');
             });
         };
+
+        $scope.loadMore();
     }
 });
