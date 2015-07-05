@@ -1,5 +1,5 @@
 define([], function() {
-    return function($scope, $dhttp, $location, $rootScope, $ionicActionSheet, $ionicPopup) {
+    return function($scope, $dhttp, $location, $rootScope, $ionicActionSheet, $ionicPopup, $timeout, $cordovaToast) {
         $scope.data = {
             module: 'user'
         };
@@ -26,15 +26,19 @@ define([], function() {
             $scope.isProcessing = false;
             if (data.status) {
                 $rootScope.$broadcast('feed.refresh');
-                $location.path('/app/feed/index');
+                $timeout(function() {
+                    $location.path('/app/feed/index');
+                }, 2000);
+                $cordovaToast.show('Successfully.', 'short', 'bottom');
+
             } else {
-                alert(data.errors.join('.'));
+                $cordovaToast.show(data.errors.join('.'), 'long', 'bottom');
             }
         }
 
         $scope.postFail = function(data) {
             $scope.isProcessing = false;
-            alert('Can not get data from server.');
+            $cordovaToast.show('Can not get data from server.', 'long', 'bottom');
         }
 
         $scope.choosePhoto = function(bTakePhoto) {
@@ -90,7 +94,7 @@ define([], function() {
         };
 
         $scope.getPreviewLInk = function() {
-            if($scope.isProcessing){
+            if ($scope.isProcessing) {
                 return;
             }
 

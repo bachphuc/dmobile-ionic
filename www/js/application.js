@@ -31,6 +31,8 @@ define([
 
             this.token = null;
 
+            this.bLiveSite = false;
+
             var dis = this;
 
             angular.module(this.appName, [
@@ -41,10 +43,10 @@ define([
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
 
                     // Turn off js scroll if current platform different ios or ipad
-                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
-                        console.log('Turn off ionic scroll on android');
-                        $ionicConfigProvider.scrolling.jsScrolling(false);
-                    }
+                    // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                    //     console.log('Turn off ionic scroll on android');
+                    //     $ionicConfigProvider.scrolling.jsScrolling(false);
+                    // }
 
                     // Turn off animate transition to increase performan
                     // $ionicConfigProvider.views.transition('none');
@@ -64,6 +66,38 @@ define([
                     // Default controller, leftmenu controller
                 })
                 .controller('DefaultCtr', $menuCtrl);
+        };
+
+        Application.prototype.isLiveSite = function() {
+            var sLiveSite = localStorage.getItem(this.settings.securityKey + '_runmode');
+            if(!sLiveSite || sLiveSite == 'local'){
+                this.bLiveSite = false;
+            }
+            else if(sLiveSite == 'livesite'){
+                this.bLiveSite = true;
+            }
+            return this.bLiveSite;
+        };
+
+        Application.prototype.setLiveSite = function(bLiveSite) {
+            this.bLiveSite = bLiveSite;
+            if(this.bLiveSite){
+                this.settings.serviceUrl = this.settings.liveServiceUrl;
+                localStorage.setItem(this.settings.securityKey + '_runmode', 'livesite');
+            }
+            else{
+                this.settings.serviceUrl = this.settings.localServiceUrl;
+                localStorage.setItem(this.settings.securityKey + '_runmode', 'local');
+            }
+        };
+
+        Application.prototype.switchLiveMode = function() {
+            var liveSite = !this.bLiveSite;
+            this.setLiveSite(liveSite);
+        };
+
+        Application.prototype.initMode = function() {
+            this.setLiveSite(this.isLiveSite());
         };
 
         Application.prototype.registerModule = function(sModule) {
@@ -268,6 +302,7 @@ define([
         }
         console.log(modules);
         MyApp = new Application(settings);
+        MyApp.initMode();
         MyApp.loadModules(modules);
 
         return MyApp;

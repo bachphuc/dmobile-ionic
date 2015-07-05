@@ -53,15 +53,14 @@ define([
                     var ft = new FileTransfer();
                     var options = new FileUploadOptions();
 
-                    var params = {
+                    $.extend(data, {
                         api: api,
-                        args: data
-                    };
+                    });
 
-                    var token = localStorage.getItem('token');
+                    var token = MyApp.token;
 
                     if (token) {
-                        params.token = token;
+                        data.token = token;
                     }
 
                     if (typeof type === 'undefined') {
@@ -73,7 +72,7 @@ define([
                         fileName: this.getFileName(fileUrl, type),
                         mimeType: this.getMimetype(type),
                         chunkedMode: false,
-                        params: params
+                        params: data
                     });
 
                     var percent = 0;

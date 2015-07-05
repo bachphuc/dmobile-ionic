@@ -9,26 +9,20 @@
             </ion-nav-buttons>
         </ion-nav-bar> -->
         <div id="main-content" ng-html-compile="getNavViewContent()"></div>
-
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-header-bar class="bar-stable bar-assertive">
-            <h1 class="title">Left</h1>
-        </ion-header-bar>
         <ion-content>
             <div class="list user-image-menu" ng-if="viewer">
-                <div class="item">
-                    <img ng-src="{{viewer.images.full.url}}" />
+                <div class="item item-avatar">
+                    <img class="full-image" ng-src="{{viewer.images.full.url}}" /><span>{{viewer.full_name}}</span>
                 </div>
-                <div class="item">{{viewer.full_name}}</div>
             </div>
             <ion-list>
                 <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
                     {{menu.title}}
                 </ion-item>
-                <ion-item ng-click="logout()">
-                    LOGOUT
-                </ion-item>
+                <ion-item nav-clear menu-close ng-click="switchLiveMode()" ng-class="{'balanced' : bLiveSite, 'assertive' : !bLiveSite}">Switch Mode</ion-item>
+                <ion-item nav-clear menu-close ng-click="logout()">LOGOUT</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

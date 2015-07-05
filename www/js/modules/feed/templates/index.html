@@ -4,7 +4,7 @@
         <h1 class="title">Home</h1>
     </div>
     <ion-content class="has-header">
-        <ion-refresher ng-if="!isProcessing" refreshing-icon="ion-loading-c" on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
         <div class="list">
             <div class="list card" ng-repeat="item in items">
                 <div class="item item-avatar">
@@ -19,6 +19,6 @@
                 <feed-action-bar-dir obj="item.item"></feed-action-bar-dir>
             </div>
         </div>
-        <ion-infinite-scroll icon="ion-loading-c" ng-if="canLoadMore" on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

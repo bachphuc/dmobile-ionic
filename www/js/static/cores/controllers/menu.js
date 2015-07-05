@@ -2,7 +2,7 @@ define([
         'extendScope'
     ],
     function($extendScope) {
-        return function($scope, $ionicModal, $timeout, $rootScope, $state, $viewer) {
+        return function($scope, $ionicModal, $timeout, $rootScope, $state, $viewer, $location) {
             $.extend($scope, $extendScope);
 
             $scope.menus = MyApp.menus;
@@ -19,6 +19,14 @@ define([
 
             $scope.logout = function(){
             	$viewer.logout();
+                $location.path('/app/' + MyApp.settings.homeUrl)
+            }
+
+            $scope.bLiveSite = MyApp.isLiveSite();
+
+            $scope.switchLiveMode = function(){
+                MyApp.switchLiveMode();
+                $scope.bLiveSite = MyApp.isLiveSite();
             }
         }
     });

@@ -13,8 +13,8 @@ define([], function() {
             }
             $scope.obj.like.is_like = !$scope.obj.like.is_like;
             var postData = {
-                type_id: $scope.obj.type_item,
-                item_id: $scope.obj.id_item
+                type_id: $scope.obj.item_type,
+                item_id: $scope.obj.item_id
             };
 
             var sApi = ($scope.obj.like.is_like ? 'like.like' : 'like.removeLike');
