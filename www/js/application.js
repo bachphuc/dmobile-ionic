@@ -41,7 +41,7 @@ define([
                     'ngCordova'
 
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
-
+                    $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
                     // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
                     //     console.log('Turn off ionic scroll on android');

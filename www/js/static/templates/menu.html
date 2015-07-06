@@ -1,5 +1,5 @@
 <ion-side-menus enable-menu-with-back-views="true">
-    <ion-side-menu-content>
+    <ion-side-menu-content drag-content="false">
         <!-- <ion-nav-bar class="bar-stable">
             <ion-nav-back-button>
             </ion-nav-back-button>
@@ -11,19 +11,19 @@
         <div id="main-content" ng-html-compile="getNavViewContent()"></div>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-content>
+        <ion-content class="dleft-menu">
             <div class="list user-image-menu" ng-if="viewer">
                 <div class="item item-avatar">
                     <img class="full-image" ng-src="{{viewer.images.full.url}}" /><span>{{viewer.full_name}}</span>
                 </div>
             </div>
-            <ion-list>
-                <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
+            <div class="list">
+                <div class="item" ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
                     {{menu.title}}
-                </ion-item>
-                <ion-item nav-clear menu-close ng-click="switchLiveMode()" ng-class="{'balanced' : bLiveSite, 'assertive' : !bLiveSite}">Switch Mode</ion-item>
-                <ion-item nav-clear menu-close ng-click="logout()">LOGOUT</ion-item>
-            </ion-list>
+                </div>
+                <div class="item" nav-clear menu-close ng-click="switchLiveMode()" ng-class="{'balanced' : bLiveSite, 'assertive' : !bLiveSite}">Switch Mode</div>
+                <div class="item" nav-clear menu-close ng-click="logout()">LOGOUT</div>
+            </div>
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>

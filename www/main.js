@@ -578,7 +578,7 @@ define('application',[
                     'ngCordova'
 
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
-
+                    $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
                     // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
                     //     console.log('Turn off ionic scroll on android');
@@ -862,6 +862,7 @@ requirejs.config({
     //the paths config could be for a directory.
     paths: {
         bootstrap: './js/bootstrap',
+        // ionic: './lib/ionic/js/ionic.bundle.min',
         ionic: './lib/ionic/js/ionic.bundle.min',
         ngcordova : './js/static/libs/ngcordova/ng-cordova.min',
         

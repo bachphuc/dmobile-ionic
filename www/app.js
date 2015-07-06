@@ -16,6 +16,7 @@ requirejs.config({
     //the paths config could be for a directory.
     paths: {
         bootstrap: './js/bootstrap',
+        // ionic: './lib/ionic/js/ionic.bundle.min',
         ionic: './lib/ionic/js/ionic.bundle.min',
         ngcordova : './js/static/libs/ngcordova/ng-cordova.min',
         
