@@ -1,0 +1,11 @@
+<div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item {{obj.like.is_like ? 'active' : ''}}" ng-click="likeToggle()">
+        <i class="icon ion-thumbsup"></i>{{obj.like.total_like}} Like{{obj.like.total_like > 1 ? 's' : ''}}
+    </a>
+    <a class="tab-item">
+        <i class="icon ion-chatbox"></i>{{obj.total_comment}} Comment{{obj.total_comment > 1 ? 's' : ''}}
+    </a>
+    <a class="tab-item">
+        <i class="icon ion-share"></i> Share
+    </a>
+</div>

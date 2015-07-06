@@ -1,0 +1,11 @@
+<div class="link-feed-item">
+	<div class="link-feed-item-left">
+		<img class="full-image" ng-src="{{obj.item.image}}" fallback-src loading-src />
+	</div>
+	<div class="link-feed-item-right">
+		<h2><a ng-href="{{obj.item.link}}">{{obj.item.title}}</a></h2>
+		<p><a href="{{obj.item.site_url}}">{{obj.item.site}}</a></p>
+		<p>{{obj.item.description}}</p>
+	</div>
+	<div class="clear"></div>
+</div>
