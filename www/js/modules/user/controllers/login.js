@@ -23,7 +23,7 @@ define([], function() {
                         $location.path('/app/feed/index');
                     }, 2000);
 
-                    $cordovaToast.show('Login successfully.', 'long', 'bottom');
+                    $cordovaToast.show('Login successfully.', 'short', 'bottom');
                 } else {
                     alert(data.errors.join('.'));
                 }

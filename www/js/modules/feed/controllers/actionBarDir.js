@@ -1,7 +1,7 @@
 define([
     'text!js/modules/feed/templates/comment-modal.html'
 ], function() {
-    return function($scope, $dhttp, $ionicModal) {
+    return function($scope, $dhttp, $ionicModal, $timeout) {
         $scope.theme = MyApp.theme;
         $scope.likeToggle = function() {
             if ($scope.isLikeProcessing) {
@@ -40,6 +40,9 @@ define([
 
         $scope.openCommentModal = function() {
             if($scope.parentObj.isFeedDetail){
+                $timeout(function(){
+                    $('#comment-text').focus();
+                }, 100);
                 return;
             }
             if ($scope.commentModal) {

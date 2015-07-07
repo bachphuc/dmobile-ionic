@@ -4,7 +4,7 @@
         <h1 class="title">Home</h1>
     </div>
     <ion-content class="has-header">
-        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>
         <div class="list">
             <div class="list dcard" ng-repeat="item in items">
                 <div class="item item-avatar">
@@ -13,7 +13,7 @@
                     <p>{{item.time}}</p>
                 </div>
                 <div class="dcard-body">
-                	<p class="dcard-content">{{item.content}}</p>
+                	<p class="dcard-content padding-10 no-margin">{{item.content}}</p>
                 	<div ng-html-compile="item.getItemContent()"></div>
                 </div>
                 <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
