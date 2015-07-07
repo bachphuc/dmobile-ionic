@@ -1,0 +1,39 @@
+<ion-modal-view ng-controller="FeedCommentModalCtrl">
+    <ion-header-bar class="bar-royal">
+        <button class="button button-icon button-clear {{theme.backIcon}}" ng-click="closeCommentModal()"></button>
+        <h1 class="title">Comments</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="list dcard">
+                <div class="item item-avatar">
+                    <img ng-src="{{item.user.images.avatar.url}}">
+                    <h2>{{item.user.full_name}}</h2>
+                    <p>{{item.time}}</p>
+                </div>
+                <div class="dcard-body">
+                    <p class="dcard-content">{{item.content}}</p>
+                    <div ng-html-compile="item.getItemContent()"></div>
+                </div>
+                <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-avatar item-icon-right" ng-repeat="commentItem in commentItems">
+                <img ng-src="{{commentItem.user.images.avatar.url}}" />
+                <h2>{{commentItem.user.full_name}}</h2>
+                <p>{{commentItem.text}}</p>
+                <i class="icon time-right">{{commentItem.time}}</i>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="">
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="First Name">
+            </label>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

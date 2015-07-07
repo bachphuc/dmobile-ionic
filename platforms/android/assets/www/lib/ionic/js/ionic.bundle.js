@@ -54287,9 +54287,6 @@ function($timeout, $ionicGesture, $window) {
         };
 
         sideMenuCtrl.setContent(content);
-        
-        // Disable drag content to open menu
-        return;
 
         // add gesture handlers
         var gestureOpts = { stop_browser_behavior: false };

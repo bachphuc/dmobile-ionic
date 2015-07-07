@@ -1,5 +1,5 @@
 define([
-	
+
 ], function() {
-	console.log('Load controllers core...');
+    console.log('Load controllers core...');
 });

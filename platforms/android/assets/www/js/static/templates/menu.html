@@ -1,22 +1,22 @@
-<ion-side-menus enable-menu-with-back-views="true">
-    <ion-side-menu-content drag-content="false">
-        <!-- <ion-nav-bar class="bar-stable">
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-{{theme.mainClass}}">
             <ion-nav-back-button>
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
             </ion-nav-buttons>
-        </ion-nav-bar> -->
+        </ion-nav-bar>
         <div id="main-content" ng-html-compile="getNavViewContent()"></div>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-content>
-            <div class="list user-image-menu" ng-if="viewer">
-                <div class="item item-avatar">
+        <ion-content class="dleft-menu">
+            <ion-list class="user-image-menu" ng-if="viewer">
+                <ion-item class="item-avatar">
                     <img class="full-image" ng-src="{{viewer.images.full.url}}" /><span>{{viewer.full_name}}</span>
-                </div>
-            </div>
+                </ion-item>
+            </ion-list>
             <ion-list>
                 <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
                     {{menu.title}}
@@ -27,32 +27,3 @@
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>
-<!-- /*<style type="text/css">
-.dside-bar {
-    position: absolute;
-    width: 200px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999999;
-    border-right: 10px solid transparent;
-}
-
-.dside-bar * {
-    background-color: initial !important;
-    border: none !important;
-}
-
-.dside-bar a {
-    color: #EEE;
-}
-</style>
-<div class="dside-bar">
-    <ion-list>
-        <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
-            {{menu.title}}
-        </ion-item>
-    </ion-list>
-</div>
-<div ng-html-compile="getNavViewContent()" id="page-content">
-</div>
-*/ -->

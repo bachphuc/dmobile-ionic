@@ -1,16 +1,18 @@
 define([
         'ionic',
-        'modules',
+        'moduleObjs',
         'settings',
+        'theme',
         'extendScope',
         'ngcordova',
         'corePath/controllers/menu'
     ],
-    function(ionic, modules, settings, $extendScope, ngcordova, $menuCtrl) {
+    function(ionic, modules, settings, theme, $extendScope, ngcordova, $menuCtrl) {
 
         var Application = function(settings) {
             this.appName = settings.appName;
             this.settings = settings;
+            this.theme = theme;
 
             this.modules = new Array();
             this.modulePaths = new Array();
@@ -135,7 +137,7 @@ define([
             var dis = this;
             var sArgs = $controller.getArgs().join();
             console.log('Add controller ' + sController + '...');
-            var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + 'dis.currentController = $module; return $controller(' + sArgs + ');}'
+            var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + '$scope.theme = MyApp.theme;' + 'dis.currentController = $module; return $controller(' + sArgs + ');}';
             eval(sFunc);
             angular.module(this.appName)
                 .controller(sController, func);
@@ -190,7 +192,8 @@ define([
                 templateUrl: (typeof params !== 'undefined' && typeof params.templateUrl !== 'undefined' ? params.templateUrl : './js/modules/' + $module.sModule + '/templates/' + $module.sDirective + '.html'),
                 replace: true,
                 scope: {
-                    obj: '=obj'
+                    obj: '=obj',
+                    parentObj : '=parent'
                 }
             };
 

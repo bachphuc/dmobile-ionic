@@ -5,7 +5,9 @@
     position: relative;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
 }
 
 .dcard {
@@ -39,3 +41,51 @@
 }
 
 .dcontent-scroll {}
+
+.dleft-menu {
+    background-color: #333;
+}
+
+.dleft-menu .list {
+    background-color: #333;
+}
+
+.dleft-menu .list .item {
+    border: none;
+    background: transparent;
+    color: #FFF;
+    text-transform: uppercase;
+    border-bottom: 1px solid #444;
+}
+
+.dleft-menu .list .item .item-content {
+    background: transparent;
+}
+
+.user-image-menu {
+    line-height: 40px;
+}
+
+.user-image-menu .item {
+    background-color: #222 !important;
+}
+
+.time-right {
+    font-size: 12px !important;
+}
+
+.feed-action-bar {}
+
+.feed-action-bar a i {}
+
+.no-border {
+    border: none !important;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.no-margin {
+    margin: 0px !important;
+}

@@ -8,6 +8,6 @@ define([
 	.addMenu('POST', 'feed/add')
 	.addDirective('feed.actionBar', {controller : true})
 	.addController('feed/nojs', 'feed.nojs')
-	.addMenu('Feed with no JS', 'feed/nojs')
+	.addController('', 'feed.commentModalCtrl', true)
 	;
 });

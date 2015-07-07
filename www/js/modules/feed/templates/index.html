@@ -1,5 +1,5 @@
 <ion-view>
-    <div class="bar bar-header bar-royal">
+    <div class="bar bar-header bar-{{theme.mainClass}}">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
         <h1 class="title">Home</h1>
     </div>
@@ -13,10 +13,10 @@
                     <p>{{item.time}}</p>
                 </div>
                 <div class="dcard-body">
-                	<p class="dcard-content">{{item.content}}</p>
+                	<p class="dcard-content padding-10 no-margin">{{item.content}}</p>
                 	<div ng-html-compile="item.getItemContent()"></div>
                 </div>
-                <feed-action-bar-dir obj="item.item"></feed-action-bar-dir>
+                <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
             </div>
         </div>
         <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>

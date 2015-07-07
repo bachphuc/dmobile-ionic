@@ -91,7 +91,21 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\main.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\require.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\text.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\ionic.app.css \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\ionic.app.min.css \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\style.css \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2 \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\codepoints \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\icon.css \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\iconjar-map.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.eot \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.ijmap \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.ttf \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.woff \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.woff2 \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\README.md \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\img\ionic.png \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\application.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\bootstrap.js \
@@ -132,11 +146,13 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\fe
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\actionBarDir.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\add.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\commentModalCtrl.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\index.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\nojs.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\models\feed.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\actionBar.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\add.html \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\comment-modal.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\index.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\nojs.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\link\controllers \
@@ -174,6 +190,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\vi
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\video\templates\feedItem.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\settings\modules.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\settings\settings.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\settings\theme.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\cores \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\templates \
@@ -236,6 +253,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scs
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_grid.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_items.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_list.scss \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_loaders.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_loading.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_menu.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_mixins.scss \
@@ -252,6 +270,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scs
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_select.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_slide-box.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_spinner.scss \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_split-pane.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_tabs.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_toggle.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_transitions.scss \
@@ -259,6 +278,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scs
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_util.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\_variables.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\ionicons\ionicons.scss \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\ionicons\_ionicons-animation.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\ionicons\_ionicons-font.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\ionicons\_ionicons-icons.scss \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\lib\ionic\scss\ionicons\_ionicons-variables.scss \

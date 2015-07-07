@@ -6,64 +6,62 @@
 // 'starter.controllers' is found in controllers.js
 
 requirejs.config({
-    urlArgs: "bust=" + (new Date()).getTime(),
-    //By default load any module IDs from js/lib
-    baseUrl: './',
-    //except, if the module ID starts with "app",
-    //load it from the js/app directory. paths
-    //config is relative to the baseUrl, and
-    //never includes a ".js" extension since
-    //the paths config could be for a directory.
-    paths: {
-        bootstrap: './js/bootstrap',
-        // ionic: './lib/ionic/js/ionic.bundle.min',
-        ionic: './lib/ionic/js/ionic.bundle',
-        ngcordova : './js/static/libs/ngcordova/ng-cordova.min',
-        
-        app: './app',
-        application: './js/application',
-        
-        modules: './js/settings/modules',
-        settings: './js/settings/settings',
-        // controllers : '../app/static/cores/controllers',
-        // services : '../app/static/cores/services',
-        exobject : './js/static/libs/extensions/object',
-        // gdraw : '../lib/gsap/DrawSVGPlugin',
-        // gmax : '../lib/gsap/TweenMax.min',
-        // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
-        // gdrag : '../lib/gsap/utils/Draggable.min',
-        jquery : './js/static/libs/jquery/jquery-2.1.3.min',
-        extendScope : './js/static/cores/extendScope',
-        directives : './js/static/cores/directives',
+        urlArgs: "bust=" + (new Date()).getTime(),
+        //By default load any module IDs from js/lib
+        baseUrl: './',
+        //except, if the module ID starts with "app",
+        //load it from the js/app directory. paths
+        //config is relative to the baseUrl, and
+        //never includes a ".js" extension since
+        //the paths config could be for a directory.
 
-        corePath : './js/static/cores',
-        modulePath : './js/modules'
-    },
-    shim: {
-        ionic: {
-            exports: 'ionic'
+        paths: {
+            bootstrap: './js/bootstrap',
+            // ionic: './lib/ionic/js/ionic.bundle.min',
+            ionic: './lib/ionic/js/ionic.bundle.min',
+            ngcordova: './js/static/libs/ngcordova/ng-cordova.min',
+
+            app: './app',
+            application: './js/application',
+
+            moduleObjs: './js/settings/modules',
+            settings: './js/settings/settings',
+            theme: './js/settings/theme',
+            exobject: './js/static/libs/extensions/object',
+            // gdraw : '../lib/gsap/DrawSVGPlugin',
+            // gmax : '../lib/gsap/TweenMax.min',
+            // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
+            // gdrag : '../lib/gsap/utils/Draggable.min',
+            jquery: './js/static/libs/jquery/jquery-2.1.3.min',
+            extendScope: './js/static/cores/extendScope',
+            directives: './js/static/cores/directives',
+
+            corePath: './js/static/cores',
+            // modulePath: './js/modules',
         },
-        application: {
-            deps: ['settings', 'exobject', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'extendScope']
+        shim: {
+            ionic: {
+                exports: 'ionic'
+            },
+            application: {
+                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'extendScope']
+            },
+            bootstrap: {
+                deps: ['application']
+            }
         },
-        bootstrap: {
-            deps: ['application']
-        }
-    },
-    priority: [
-        'ionic',
-    ],
-	deps: [
+        priority: [
+            'ionic',
+        ],
+        deps: [
 
-    ]
-}),
+        ]
+    }),
 
-requirejs([
-        'ionic',
-        'application',
-        // 'testapp',
-        // 'testcontroller'
-    ],
-    function() {
+    requirejs([
+            'ionic',
+            'application',
+        ],
+        function() {
 
-    })
+        })

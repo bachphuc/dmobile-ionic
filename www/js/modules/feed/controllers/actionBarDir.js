@@ -1,5 +1,8 @@
-define([], function() {
-    return function($scope, $dhttp) {
+define([
+    'text!js/modules/feed/templates/comment-modal.html'
+], function() {
+    return function($scope, $dhttp, $ionicModal) {
+        $scope.theme = MyApp.theme;
         $scope.likeToggle = function() {
             if ($scope.isLikeProcessing) {
                 return;
@@ -34,5 +37,29 @@ define([], function() {
             $scope.isLikeProcessing = false;
             alert('Can not get data from server.');
         }
+
+        $scope.openCommentModal = function() {
+            if($scope.parentObj.isFeedDetail){
+                return;
+            }
+            if ($scope.commentModal) {
+                $scope.commentModal.remove();
+            }
+            $scope.parentObj.isFeedDetail = true;
+            $ionicModal.fromTemplateUrl('js/modules/feed/templates/comment-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.commentModal = modal;
+                $scope.commentModal.show();
+            });
+        };
+
+        $scope.closeCommentModal = function() {
+            $scope.parentObj.isFeedDetail = false;
+            $scope.commentModal.hide();
+        };
+
+        $$actionScope = $scope;
     }
 });

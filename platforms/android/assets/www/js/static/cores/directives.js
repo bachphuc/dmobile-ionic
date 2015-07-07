@@ -89,5 +89,16 @@ define([], function() {
                     });
                 }
             }
-        });
+        })
+        .directive('backDir', ['$ionicHistory', function($ionicHistory) {
+            return {
+                restrict: 'A',
+                link: function($scope, element, attr) {
+                    element[0].setAttribute('ng-click', 'goback()');
+                    $scope.goback = function(){
+                        $ionicHistory.goBack();
+                    }
+                }
+            }
+        }]);
 });

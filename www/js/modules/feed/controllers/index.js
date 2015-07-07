@@ -1,7 +1,7 @@
 define([
-    'modulePath/feed/models/feed'
+    'js/modules/feed/models/feed',
 ], function($feedModel) {
-    return function($scope, $dhttp, $rootScope) {
+    return function($scope, $dhttp, $rootScope, $ionicModal) {
         $scope.items = [];
         $scope.iPage = 0;
         $scope.iMaxFeedId = 0;
@@ -70,5 +70,7 @@ define([
                 alert('Can not get data from server.');
             });
         };
+
+        $$scope = $scope;
     }
 });

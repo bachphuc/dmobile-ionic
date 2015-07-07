@@ -6,6 +6,7 @@ define([
             $.extend($scope, $extendScope);
 
             $scope.menus = MyApp.menus;
+            $scope.theme = MyApp.theme;
             $scope.controllers = MyApp.controllers;
             console.log('Get viewer...');
             $scope.viewer = $viewer.get();

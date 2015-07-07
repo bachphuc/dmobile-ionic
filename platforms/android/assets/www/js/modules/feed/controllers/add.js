@@ -1,5 +1,5 @@
 define([], function() {
-    return function($scope, $dhttp, $location, $rootScope, $ionicActionSheet, $ionicPopup, $timeout, $cordovaToast) {
+    return function($scope, $dhttp, $location, $rootScope, $ionicActionSheet, $ionicPopup, $timeout, $cordovaToast, $stateParams) {
         $scope.data = {
             module: 'user'
         };
@@ -74,11 +74,11 @@ define([], function() {
         $scope.addPhoto = function() {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [{
-                    text: 'Choose from device',
+                    text: ' <i class="material-icons">&#xE2C3;</i> Choose from device',
                     action: $scope.choosePhoto,
                     type: false
                 }, {
-                    text: 'Take a photo',
+                    text: ' <i class="material-icons">camera</i> Take a photo',
                     action: $scope.choosePhoto,
                     type: true
                 }],

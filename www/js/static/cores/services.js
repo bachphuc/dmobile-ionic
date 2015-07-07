@@ -1,6 +1,6 @@
 define([
     'corePath/services/viewer'
-    ], function() {
+], function() {
     console.log('Load services core...');
 
     angular.module(MyApp.appName)
@@ -8,14 +8,12 @@ define([
             return {
                 post: function(api, data) {
                     var token = MyApp.token;
-                    $.extend(data, {
-                        api: api,
-                    });
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
 
                     if (token) {
                         data.token = token;
                     }
-                    return $http.post(MyApp.settings.serviceUrl, data, {
+                    return $http.post(url, data, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
@@ -52,10 +50,7 @@ define([
                 upload: function(api, fileUrl, type, data, successCallBack, errorCallBack) {
                     var ft = new FileTransfer();
                     var options = new FileUploadOptions();
-
-                    $.extend(data, {
-                        api: api,
-                    });
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
 
                     var token = MyApp.token;
 
@@ -108,7 +103,7 @@ define([
                     $ionicLoading.show({
                         template: 'Uploading 0%, please wait ...'
                     });
-                    ft.upload(fileUrl, MyApp.settings.serviceUrl, success, error, options);
+                    ft.upload(fileUrl, url, success, error, options);
                 }
             }
         });
