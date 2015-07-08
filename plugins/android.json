@@ -29,10 +29,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ProgressIndicator\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.ProgressIndicator\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
                             "count": 1
                         }
@@ -77,9 +73,6 @@
             "PACKAGE_NAME": "com.ionicframework.test1522502"
         },
         "nl.x-services.plugins.toast": {
-            "PACKAGE_NAME": "com.ionicframework.test1522502"
-        },
-        "org.pbernasconi.progressindicator": {
             "PACKAGE_NAME": "com.ionicframework.test1522502"
         },
         "com.synconset.imagepicker": {

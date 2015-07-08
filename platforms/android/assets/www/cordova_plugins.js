@@ -207,13 +207,6 @@ module.exports = [
         "id": "nl.x-services.plugins.toast.tests"
     },
     {
-        "file": "plugins/org.pbernasconi.progressindicator/www/progressIndicator.js",
-        "id": "org.pbernasconi.progressindicator.ProgressIndicator",
-        "clobbers": [
-            "ProgressIndicator"
-        ]
-    },
-    {
         "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
         "id": "com.synconset.imagepicker.ImagePicker",
         "clobbers": [
@@ -229,7 +222,6 @@ module.exports.metadata =
     "cordova-plugin-file": "2.1.1-dev",
     "cordova-plugin-file-transfer": "1.2.1-dev",
     "nl.x-services.plugins.toast": "2.1.1",
-    "org.pbernasconi.progressindicator": "1.1.0",
     "com.synconset.imagepicker": "1.0.6"
 }
 // BOTTOM OF METADATA

@@ -54,9 +54,6 @@
 		4D5C0662B49E4EF39B961E28 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D669A692BF7243A899B7DF9A /* Toast+UIView.m */; };
 		05E6CEDF7F3C429D8462BD2C /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62CCBA32D444A8AC6E7657 /* Toast.m */; };
 		F4B31E3DB6CE4F33AA4B84BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29050B81A8A421DB0FF6578 /* QuartzCore.framework */; };
-		3614A511AC8D4347A666FBDC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 62B15D09FB494A43935956DD /* MBProgressHUD.m */; };
-		80F01A992F9C47858F23F946 /* ProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = D108D447826C4DA6B37F6E4E /* ProgressIndicator.m */; };
-		6E324C1C1C88459EB897DA9A /* ProgressIndicator.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 73D4FE28FD7C41A0B182DE26 /* ProgressIndicator.bundle */; };
 		EC3DFF0751664345866AA35D /* SOSPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B2AC4B2C6F4FF1B0D92423 /* SOSPicker.m */; };
 		A4D1E6B557064255AE8A62F3 /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0911DA21A13B4C2FBDF89CA8 /* ELCAlbumPickerController.m */; };
 		9A29686504154A9383D26922 /* ELCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C671F996BD4E948F392C62 /* ELCAsset.m */; };
@@ -160,11 +157,6 @@
 		8707F81989BA42608156EEBF /* Toast+UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "nl.x-services.plugins.toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		917E39A574FB470F9F911741 /* Toast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast.h"; path = "nl.x-services.plugins.toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		E29050B81A8A421DB0FF6578 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		62B15D09FB494A43935956DD /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD.m"; path = "org.pbernasconi.progressindicator/MBProgressHUD.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		D108D447826C4DA6B37F6E4E /* ProgressIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ProgressIndicator.m"; path = "org.pbernasconi.progressindicator/ProgressIndicator.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		89FFD1B5CDE1434EA001982F /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD.h"; path = "org.pbernasconi.progressindicator/MBProgressHUD.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		415D5862B606414995BD9F49 /* ProgressIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ProgressIndicator.h"; path = "org.pbernasconi.progressindicator/ProgressIndicator.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		73D4FE28FD7C41A0B182DE26 /* ProgressIndicator.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "ProgressIndicator.bundle"; path = "Resources\ProgressIndicator.bundle"; sourceTree = "<group>"; };
 		77B2AC4B2C6F4FF1B0D92423 /* SOSPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SOSPicker.m"; path = "com.synconset.imagepicker/SOSPicker.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		0911DA21A13B4C2FBDF89CA8 /* ELCAlbumPickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ELCAlbumPickerController.m"; path = "com.synconset.imagepicker/ELCAlbumPickerController.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		19C671F996BD4E948F392C62 /* ELCAsset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "ELCAsset.m"; path = "com.synconset.imagepicker/ELCAsset.m"; sourceTree = "<group>"; fileEncoding = 4; };
@@ -260,7 +252,6 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* test1-Info.plist */,
-				73D4FE28FD7C41A0B182DE26 /* ProgressIndicator.bundle */,
 				3AE51F8C0BB649278563183F /* ELCAlbumPickerController.xib */,
 				9145C8AA860A47859EEA07E8 /* ELCAssetPicker.xib */,
 				0DD0A611067D416582074FE8 /* ELCAssetTablePicker.xib */,
@@ -319,10 +310,6 @@
 				CD62CCBA32D444A8AC6E7657 /* Toast.m */,
 				8707F81989BA42608156EEBF /* Toast+UIView.h */,
 				917E39A574FB470F9F911741 /* Toast.h */,
-				62B15D09FB494A43935956DD /* MBProgressHUD.m */,
-				D108D447826C4DA6B37F6E4E /* ProgressIndicator.m */,
-				89FFD1B5CDE1434EA001982F /* MBProgressHUD.h */,
-				415D5862B606414995BD9F49 /* ProgressIndicator.h */,
 				77B2AC4B2C6F4FF1B0D92423 /* SOSPicker.m */,
 				0911DA21A13B4C2FBDF89CA8 /* ELCAlbumPickerController.m */,
 				19C671F996BD4E948F392C62 /* ELCAsset.m */,
@@ -490,7 +477,6 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
-				6E324C1C1C88459EB897DA9A /* ProgressIndicator.bundle in Resources */,
 				35F90FA0F7FD4CEEABA7AADB /* ELCAlbumPickerController.xib in Resources */,
 				353291249AB14938B8B8564B /* ELCAssetPicker.xib in Resources */,
 				25FF43B6E416461D9D67AFF7 /* ELCAssetTablePicker.xib in Resources */,
@@ -538,8 +524,6 @@
 				5C7E852DF26242BD8965E412 /* CDVFileTransfer.m in Sources */,
 				4D5C0662B49E4EF39B961E28 /* Toast+UIView.m in Sources */,
 				05E6CEDF7F3C429D8462BD2C /* Toast.m in Sources */,
-				3614A511AC8D4347A666FBDC /* MBProgressHUD.m in Sources */,
-				80F01A992F9C47858F23F946 /* ProgressIndicator.m in Sources */,
 				EC3DFF0751664345866AA35D /* SOSPicker.m in Sources */,
 				A4D1E6B557064255AE8A62F3 /* ELCAlbumPickerController.m in Sources */,
 				9A29686504154A9383D26922 /* ELCAsset.m in Sources */,

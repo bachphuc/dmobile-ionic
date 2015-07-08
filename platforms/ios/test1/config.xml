@@ -73,9 +73,6 @@
     <feature name="Toast">
         <param name="ios-package" value="Toast" />
     </feature>
-    <feature name="ProgressIndicator">
-        <param name="ios-package" value="ProgressIndicator" />
-    </feature>
     <feature name="ImagePicker">
         <param name="ios-package" value="SOSPicker" />
     </feature>

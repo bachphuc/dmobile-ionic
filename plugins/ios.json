@@ -33,10 +33,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ProgressIndicator\"><param name=\"ios-package\" value=\"ProgressIndicator\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"ImagePicker\"><param name=\"ios-package\" value=\"SOSPicker\" /></feature>",
                             "count": 1
                         }
@@ -115,9 +111,6 @@
             "PACKAGE_NAME": "com.ionicframework.test1522502"
         },
         "nl.x-services.plugins.toast": {
-            "PACKAGE_NAME": "com.ionicframework.test1522502"
-        },
-        "org.pbernasconi.progressindicator": {
             "PACKAGE_NAME": "com.ionicframework.test1522502"
         },
         "com.synconset.imagepicker": {
