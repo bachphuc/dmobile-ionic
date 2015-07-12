@@ -73,12 +73,8 @@
 .time-right {
     font-size: 12px !important;
     right: 11px !important;
-    align-items: flex-start !important;
     top: 16px !important;
-    -webkit-box-align: flex-start !important;
-    -ms-flex-align: flex-start !important;
-    -webkit-align-items: flex-start !important;
-    -moz-align-items: flex-start !important;
+    position: absolute;
 }
 
 .feed-action-bar {}
@@ -165,4 +161,36 @@
 .site-login-logo i {
     font-size: 128px;
     color: #999;
+}
+
+.no-cut-text {
+    text-overflow: initial !important;
+    white-space: initial !important;
+}
+
+.float-right {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+.action-icon {
+    border-radius: 100%;
+    background-color: #EEE;
+    font-size: 16px !important;
+    padding: 6px;
+    transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+}
+
+.action-icon.active {
+    color: #FFF;
+    background-color: #B33333;
 }

@@ -4,7 +4,6 @@
         <h1 class="title">Comments</h1>
     </ion-header-bar>
     <ion-content>
-        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
         <div class="list">
             <div class="list dcard">
                 <div class="item item-avatar">
@@ -20,11 +19,14 @@
             </div>
         </div>
         <div class="list">
-            <div class="item item-avatar item-icon-right" ng-repeat="commentItem in commentItems">
+            <div class="item item-avatar" ng-repeat="commentItem in commentItems">
                 <img ng-src="{{commentItem.user.images.avatar.url}}" />
                 <h2>{{commentItem.user.full_name}}</h2>
-                <p>{{commentItem.text}}</p>
-                <i class="icon time-right">{{commentItem.time}}</i>
+                <p class="no-cut-text">{{commentItem.text}}</p>
+                <span class="time-right">{{commentItem.time}}</span>
+                <div class="text-right">
+                    <i class="material-icons action-icon" ng-class="{'active' : commentItem.is_like}" ng-click="commentItem.toggleCommentLike()">&#xE800;</i> <span class="small-text">{{commentItem.total_like}} Like{{commentItem.total_like > 1 ? 's' : ''}}</span>
+                </div>
             </div>
         </div>
         <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
@@ -32,7 +34,7 @@
     <ion-footer-bar align-title="left" class="">
         <div class="comment-footer-bar">
             <div>
-                <input id="comment-text" ng-model="commentData.text" type="text" placeholder="Add comment here...">
+                <input id="comment-text" ng-blur="hideKeyBoard()" ng-model="commentData.text" type="text" placeholder="Add comment here...">
             </div>
             <i class="material-icons comment-button" ng-click="onAddComment()">&#xE163;</i>
         </div>

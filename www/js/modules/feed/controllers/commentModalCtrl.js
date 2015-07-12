@@ -1,6 +1,6 @@
 define([
-    'js/modules/feed/models/feed',
-], function($feedModel) {
+    'js/modules/feed/models/comment',
+], function($commentModel) {
     return function($scope, $dhttp, $rootScope, $ionicModal, $cordovaToast) {
         $scope.commentItems = [];
         $scope.commentItemPage = 1;
@@ -15,10 +15,7 @@ define([
             item_type: $scope.obj.item_type,
             item_id: $scope.obj.item_id,
         }
-        $scope.doRefresh = function() {
-
-        };
-
+        $commentModel.$dhttp = $dhttp;
         $scope.loadMore = function() {
             if ($scope.isProcessing) {
                 return;
@@ -35,7 +32,7 @@ define([
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 $scope.isProcessing = false;
                 if (data.status) {
-                    var items = $scope.setModel(data.data, $feedModel);
+                    var items = $scope.setModel(data.data, $commentModel);
                     $scope.commentItems = $scope.commentItems.concat(items);
                     $scope.commentItemPage++;
                     if (data.data.length == 0) {
@@ -69,7 +66,13 @@ define([
                         $scope.commentItems.splice(0, 0, data.data);
                     }
                     $scope.resetComment();
-                    $cordovaToast.show('Comment successfully.', 'short', 'bottom');
+                    if (typeof cordova !== 'undefined') {
+                        if (cordova.plugins.Keyboard.isVisible) {
+                            cordova.plugins.Keyboard.close();
+                        }
+                        $cordovaToast.show('Comment successfully.', 'short', 'bottom');
+                    }
+
                 } else {
                     // restore total comment if comment fail
                     $scope.obj.total_comment--;
@@ -87,6 +90,13 @@ define([
             $scope.commentData.text = '';
         }
 
+        $scope.hideKeyBoard = function() {
+            if (typeof cordova !== 'undefined') {
+                if (cordova.plugins.Keyboard.isVisible) {
+                    cordova.plugins.Keyboard.close();
+                }
+            }
+        }
         $$scope = $scope;
     }
 });
