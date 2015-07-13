@@ -60,6 +60,7 @@ define([
             $dhttp.post('comment.add', $scope.commentData).success(function(data) {
                 $scope.isAddCommentProcessing = false;
                 if (data.status) {
+                    $.extend(data.data, $commentModel);
                     if ($scope.commentItems.length == 0) {
                         $scope.commentItems.push(data.data);
                     } else {
