@@ -106,5 +106,105 @@ define([
                     ft.upload(fileUrl, url, success, error, options);
                 }
             }
+        })
+        .factory('$dListService', function($dhttp) {
+            return {
+                init: function($scope, $model) {
+                    $scope.items = [];
+                    $scope.iMaxId = 0;
+                    $scope.iMinId = 0;
+
+                    $scope.canLoadMore = true;
+
+                    $scope.updateListInfo = function() {
+                        $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                        $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                    }
+
+                    $scope.doRefresh = function() {
+                        if ($scope.isLoadNewProcessing) {
+                            return;
+                        }
+                        $scope.isLoadNewProcessing = true;
+
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                            action: 'loadnew'
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.isLoadNewProcessing = false;
+                            if ($scope.refreshSuccess) {
+                                $scope.refreshSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = items.concat($scope.items);
+                                    $scope.updateListInfo();
+                                }
+
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isLoadNewProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
+
+                    $scope.doLoadMore = function() {
+
+                        if ($scope.isProcessing) {
+                            return;
+                        }
+                        $scope.isProcessing = true;
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $scope.isProcessing = false;
+                            if ($scope.loadMoreSuccess) {
+                                $scope.loadMoreSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = $scope.items.concat(items);
+                                    $scope.updateListInfo();
+                                }
+
+                                if (!data.data || data.data.length == 0) {
+                                    $scope.canLoadMore = false;
+                                }
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
+                }
+            }
         });
 });

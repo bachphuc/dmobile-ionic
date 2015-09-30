@@ -95,9 +95,26 @@ define([], function() {
                 restrict: 'A',
                 link: function($scope, element, attr) {
                     element[0].setAttribute('ng-click', 'goback()');
-                    $scope.goback = function(){
+                    element.bind('click', function(e) {
                         $ionicHistory.goBack();
-                    }
+                    });
+                }
+            }
+        }])
+        .directive('goTo', ['$location', function($location) {
+            return {
+                restrict: 'A',
+                scope: {
+                    url: '@'
+                },
+                link: function(scope, element, attrs) {
+                    element.bind('click', function(e) {
+                        if ((!scope.url) || $(e.currentTarget).has($(e.target).closest('a')).length || $(e.currentTarget).has($(e.target).closest('[go-to]')).length || $(e.currentTarget).has($(e.target).closest('[ng-click]')).length) {
+                            return;
+                        }
+
+                        window.location.href = '#app/' + scope.url;
+                    });
                 }
             }
         }]);

@@ -1,7 +1,12 @@
-<ion-view>
+<ion-view title="{{user.full_name}}">
     <div class="bar bar-header bar-positive">
-        <h1 class="title">Profile</h1>
+        <h1 class="title"></h1>
     </div>
     <ion-content class="has-header">
+        <div class="profile-header" style="{{user.cover_photo ? 'background-image:url('+user.cover_photo.full.url+');' : ''}}">
+            <span class="profile_avatar" style="background-image:url({{user.images.full.url}});"></span>
+            <h2 class="profile_title">{{user.full_name}}</h2>
+        </div>
+        <feed-display-dir obj="feedConfig"></feed-display-dir>
     </ion-content>
 </ion-view>

@@ -1,0 +1,16 @@
+<ion-view title="Members">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title"></h1>
+    </div>
+    <ion-content class="has-header">
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item item-avatar" ng-repeat="item in items">
+                <img go-to url="user/profile/{{item.user_id}}" ng-src="{{item.images.avatar.url}}">
+                <h2 go-to url="user/profile/{{item.user_id}}">{{item.full_name}}</h2>
+                <p>{{item.time}}</p>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

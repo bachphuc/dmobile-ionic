@@ -33,6 +33,7 @@ requirejs.config({
             // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
             // gdrag : '../lib/gsap/utils/Draggable.min',
             jquery: './js/static/libs/jquery/jquery-2.1.3.min',
+            dmobi : '././js/static/libs/extensions/dmobi',
             extendScope: './js/static/cores/extendScope',
             directives: './js/static/cores/directives',
 
@@ -44,7 +45,7 @@ requirejs.config({
                 exports: 'ionic'
             },
             application: {
-                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'extendScope']
+                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi' , 'extendScope']
             },
             bootstrap: {
                 deps: ['application']

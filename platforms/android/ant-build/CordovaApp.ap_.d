@@ -106,6 +106,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.woff \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\MaterialIcons-Regular.woff2 \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\css\material\README.md \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\img\background_red.jpg \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\img\ionic.png \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\application.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\bootstrap.js \
@@ -147,12 +148,15 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\fe
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\actionBarDir.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\add.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\commentModalCtrl.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\displayDir.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\index.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\controllers\nojs.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\models\comment.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\models\feed.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\actionBar.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\add.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\comment-modal.html \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\display.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\index.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\feed\templates\nojs.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\link\controllers \
@@ -179,8 +183,11 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\us
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\run.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\templates \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\controllers\login.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\controllers\members.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\controllers\profile.js \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\models\user.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\templates\login.html \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\templates\members.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\user\templates\profile.html \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\video\controllers \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\modules\video\directives \
@@ -205,6 +212,7 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\cor
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\extensions \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\jquery \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\ngcordova \
+F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\extensions\dmobi.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\extensions\object.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\jquery\jquery-2.1.3.min.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\js\static\libs\ngcordova\ng-cordova.min.js \
@@ -288,7 +296,6 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\cordo
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\cordova-plugin-file \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\cordova-plugin-file-transfer \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\nl.x-services.plugins.toast \
-F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\org.pbernasconi.progressindicator \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\com.ionic.keyboard\www \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\com.ionic.keyboard\www\keyboard.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\com.synconset.imagepicker\www \
@@ -328,6 +335,4 @@ F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\nl.x-
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\nl.x-services.plugins.toast\www \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\nl.x-services.plugins.toast\test\tests.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\nl.x-services.plugins.toast\www\Toast.js \
-F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\org.pbernasconi.progressindicator\www \
-F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\assets\www\plugins\org.pbernasconi.progressindicator\www\progressIndicator.js \
 F:\htdocs\cordova\ionic\dmobile-ionic\platforms\android\ant-build\AndroidManifest.xml \

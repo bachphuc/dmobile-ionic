@@ -42,20 +42,48 @@
 
 .dcontent-scroll {}
 
-.dleft-menu {
-    background-color: #333;
-}
+.dleft-menu {}
 
-.dleft-menu .list {
-    background-color: #333;
-}
+.dleft-menu .list {}
 
 .dleft-menu .list .item {
     border: none;
     background: transparent;
-    color: #FFF;
-    text-transform: uppercase;
-    border-bottom: 1px solid #444;
+    color: #333;
+    font-size: 13px;
+}
+
+.dleft-menu .list .item-avatar {
+    background-image: url(../img/background_red.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 160px;
+    position: relative;
+}
+
+.dleft-menu .list .item-avatar img {
+    position: absolute;
+    bottom: 60px !important;
+    left: 16px;
+    top: initial !important;
+}
+
+.dleft-menu .list .item-avatar span {
+    position: absolute;
+    left: 16px;
+    color: #fff;
+}
+
+.dleft-menu .list .item-avatar .menu-full-name {
+    bottom: 24px;
+}
+
+.dleft-menu .list .item-avatar .menu-email {
+    bottom: 0;
+}
+
+.dleft-menu ion-content {
+    background-color: #fff;
 }
 
 .dleft-menu .list .item .item-content {
@@ -66,9 +94,7 @@
     line-height: 40px;
 }
 
-.user-image-menu .item {
-    background-color: #222 !important;
-}
+.user-image-menu .item {}
 
 .time-right {
     font-size: 12px !important;
@@ -193,4 +219,83 @@
 .action-icon.active {
     color: #FFF;
     background-color: #B33333;
+}
+
+.bt_remove_feed {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
+}
+
+.dmobi_toast {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    z-index: 999999;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: none;
+}
+
+.dmobi_toast span {
+    z-index: 999999;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 10px;
+    display: inline-block;
+}
+
+.profile-header {
+    text-align: center;
+    background-image: url(../img/background_red.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 180px;
+}
+
+.profile_title {
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+}
+
+.profile_avatar {
+    width: 100px;
+    margin-top: 30px;
+    border-radius: 100%;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+}
+
+.user-image-menu>.list>.item-avatar>a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.link-feed-item-right {
+    padding: 10px;
+}
+
+.link-feed-item-right a {
+    text-decoration: none;
+    color: #444;
+}
+
+.link-feed-item-right h2 {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 14px;
 }

@@ -13,8 +13,10 @@
     <ion-side-menu side="left">
         <ion-content class="dleft-menu">
             <ion-list class="user-image-menu" ng-if="viewer">
-                <ion-item class="item-avatar">
-                    <img class="full-image" ng-src="{{viewer.images.full.url}}" /><span>{{viewer.full_name}}</span>
+                <ion-item class="item-avatar" menu-close nav-clear href="#/app/user/profile/{{viewer.user_id}}">
+                    <img class="image-menu-avatar full-image" ng-src="{{viewer.images.full.url}}" />
+                    <span class="menu-full-name">{{viewer.full_name}}</span>
+                    <span class="menu-email">{{viewer.email}}</span>
                 </ion-item>
             </ion-list>
             <ion-list>
@@ -22,7 +24,7 @@
                     {{menu.title}}
                 </ion-item>
                 <ion-item nav-clear menu-close ng-click="switchLiveMode()" ng-class="{'balanced' : bLiveSite, 'assertive' : !bLiveSite}">Switch Mode</ion-item>
-                <ion-item nav-clear menu-close ng-click="logout()">LOGOUT</ion-item>
+                <ion-item nav-clear menu-close ng-click="logout()">Logout</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

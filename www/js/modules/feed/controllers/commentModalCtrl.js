@@ -32,10 +32,13 @@ define([
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 $scope.isProcessing = false;
                 if (data.status) {
-                    var items = $scope.setModel(data.data, $commentModel);
-                    $scope.commentItems = $scope.commentItems.concat(items);
-                    $scope.commentItemPage++;
-                    if (data.data.length == 0) {
+                    if (data.data) {
+                        var items = $scope.setModel(data.data, $commentModel);
+                        $scope.commentItems = $scope.commentItems.concat(items);
+                        $scope.commentItemPage++;
+                    }
+
+                    if (!data.data || data.data.length == 0) {
                         $scope.canLoadMore = false;
                     }
                 } else {

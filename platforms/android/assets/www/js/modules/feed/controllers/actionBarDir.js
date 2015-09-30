@@ -39,9 +39,12 @@ define([
         }
 
         $scope.openCommentModal = function() {
-            if($scope.parentObj.isFeedDetail){
-                $timeout(function(){
+            if ($scope.parentObj.isFeedDetail) {
+                $timeout(function() {
                     $('#comment-text').focus();
+                    if (typeof cordova !== 'undefined') {
+                        cordova.plugins.Keyboard.show();
+                    }
                 }, 100);
                 return;
             }
@@ -56,10 +59,27 @@ define([
                 $scope.commentModal = modal;
                 $scope.commentModal.show();
             });
+
+            $scope.$on('$destroy', function() {
+                $scope.parentObj.isFeedDetail = false;
+            });
+
+            $scope.$on('modal.hidden', function() {
+                $scope.parentObj.isFeedDetail = false;
+            });
+
+            $scope.$on('modal.removed', function() {
+                $scope.parentObj.isFeedDetail = false;
+            });
         };
 
         $scope.closeCommentModal = function() {
             $scope.parentObj.isFeedDetail = false;
+            if (typeof cordova !== 'undefined') {
+                if (cordova.plugins.Keyboard.isVisible) {
+                    cordova.plugins.Keyboard.close();
+                }
+            }
             $scope.commentModal.hide();
         };
 

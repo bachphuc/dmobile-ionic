@@ -136,6 +136,7 @@ define([
             var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sController;
             var dis = this;
             var sArgs = $controller.getArgs().join();
+            // extend controller and pass some default service
             console.log('Add controller ' + sController + '...');
             var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + '$scope.theme = MyApp.theme;' + 'dis.currentController = $module; return $controller(' + sArgs + ');}';
             eval(sFunc);
@@ -210,10 +211,15 @@ define([
                         return option;
                     });
             } else {
+                var dis = this;
                 var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sDirective + 'Dir';
                 console.log(sControllerPath);
                 require([sControllerPath], function($controller) {
-                    option.controller = $controller;
+                    var sArgs = $controller.getArgs().join();
+                    // extend controller and pass some default service
+                    var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + '$scope.theme = MyApp.theme;' + 'dis.currentController = $module; return $controller(' + sArgs + ');}';
+                    eval(sFunc);
+                    option.controller = func;
                     angular.module(MyApp.appName)
                         .directive(sDirectiveName, function() {
                             return option;
