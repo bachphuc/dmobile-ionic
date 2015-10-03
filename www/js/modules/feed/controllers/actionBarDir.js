@@ -9,25 +9,26 @@ define([
             }
             $scope.isLikeProcessing = true;
 
-            if ($scope.obj.like.is_like) {
-                $scope.obj.like.total_like -= 1;
+            if ($scope.obj.is_like) {
+                $scope.obj.total_like -= 1;
             } else {
-                $scope.obj.like.total_like += 1;
+                $scope.obj.total_like += 1;
             }
-            $scope.obj.like.is_like = !$scope.obj.like.is_like;
+            $scope.obj.is_like = !$scope.obj.is_like;
             var postData = {
                 type_id: $scope.obj.item_type,
                 item_id: $scope.obj.item_id
             };
 
-            var sApi = ($scope.obj.like.is_like ? 'like.like' : 'like.removeLike');
+            var sApi = ($scope.obj.is_like ? 'like.like' : 'like.removeLike');
             $dhttp.post(sApi, postData).success($scope.likeSuccess).error($scope.likeFail);
         }
 
         $scope.likeSuccess = function(data) {
             $scope.isLikeProcessing = false;
             if (data.status) {
-                $scope.obj.like = data.data;
+                $scope.obj.is_like = data.data.is_like;
+                $scope.obj.total_like = data.data.total_like;
             } else {
                 alert(data.errors.join('.'));
             }
