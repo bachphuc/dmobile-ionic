@@ -3,7 +3,7 @@ define([
 ], function($commentModel) {
     return function($scope, $dhttp, $rootScope, $ionicModal, $cordovaToast) {
         $scope.commentItems = [];
-        $scope.commentItemPage = 1;
+        $scope.commentItemPage = 0;
 
         $scope.canLoadMore = true;
 
