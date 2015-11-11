@@ -347,3 +347,15 @@
 .padding-top-20 {
     padding-top: 20px;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.color-333{
+    color:#333;
+}
+
+.color-666{
+    color:#666;
+}

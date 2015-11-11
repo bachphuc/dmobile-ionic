@@ -27,7 +27,10 @@ define([
             this.currentController = null;
             this.controllerObjects = [];
 
+            // array include controller paths
             this.controllerPaths = [];
+            // array include template paths
+            this.templatePaths = [];
 
             this.viewer = null;
 
@@ -114,7 +117,7 @@ define([
         Application.prototype._createRouter = function(sRouter, sController, $module) {
             var state = 'app.' + sController.replace('.', '_');
             var sTemplate = './js/modules/' + $module.sModule + '/templates/' + $module.sController + '.html';
-
+            this.templatePaths.push(sTemplate);
             angular.module(this.appName).config(function($stateProvider, $urlRouterProvider) {
 
                 var config = {
@@ -275,11 +278,12 @@ define([
             modulePaths.push('./js/static/cores/controllers');
             modulePaths.push('./js/static/cores/services');
             modulePaths.push('./js/static/cores/directives');
-
+            console.log(modulePaths);
             var dis = this;
             require(modulePaths, function() {
                 console.log('Load all modules complete...');
-
+                console.log(dis.controllerPaths);
+                
                 require(dis.controllerPaths, function() {
                     // Begin register controllers...
                     for (var i = 0; i < arguments.length; i++) {
@@ -292,7 +296,7 @@ define([
                         }
                         dis._createController(ctrObj.sName, ctrObj, $controller);
                     }
-
+                    console.log(dis.templatePaths);
                     require([
                             'bootstrap'
                         ],

@@ -16,6 +16,7 @@ define([], function() {
     }
 
     Dmobi = new DmobiObject();
-
+    console.log('Declara Dmobi Object');
+    console.log(Dmobi);
     return Dmobi;
 });

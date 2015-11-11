@@ -4,7 +4,7 @@
         <div class="padding-top-20">
         </div>
         <div class="list dcard no-border-child" ng-repeat="item in items">
-            <span class="bt_remove_feed" ng-click="onItemSetting(item)">Option</span>
+            <span class="bt_remove_feed" ng-click="onItemSetting(item)"><i class="color-666 material-icons cursor-pointer">&#xE5C5;</i></span>
             <div class="item item-avatar">
                 <img go-to url="user/profile/{{item.user.user_id}}" ng-src="{{item.user.images.avatar.url}}">
                 <h2 go-to url="user/profile/{{item.user.user_id}}">{{item.user.full_name}}</h2>
