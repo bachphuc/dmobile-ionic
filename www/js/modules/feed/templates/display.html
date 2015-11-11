@@ -1,7 +1,9 @@
 <div>
     <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>
     <div class="list">
-        <div class="list dcard" ng-repeat="item in items">
+        <div class="padding-top-20">
+        </div>
+        <div class="list dcard no-border-child" ng-repeat="item in items">
             <span class="bt_remove_feed" ng-click="onItemSetting(item)">Option</span>
             <div class="item item-avatar">
                 <img go-to url="user/profile/{{item.user.user_id}}" ng-src="{{item.user.images.avatar.url}}">

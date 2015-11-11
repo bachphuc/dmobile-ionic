@@ -1,9 +1,13 @@
-<ion-view>
+<ion-view cache-view="false">
     <div class="bar bar-header bar-{{theme.mainClass}}">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
         <h1 class="title">Home</h1>
     </div>
-    <ion-content class="has-header">
+    <left-content class="background-color-red media">
+    </left-content>
+    <ion-content class="has-header media overflow-initial  has-left-content has-right-content">
         <feed-display-dir></feed-display-dir>
     </ion-content>
+    <right-content class="background-color-green media">
+    </right-content>
 </ion-view>

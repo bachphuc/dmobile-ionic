@@ -104,6 +104,39 @@ define([
                         template: 'Uploading 0%, please wait ...'
                     });
                     ft.upload(fileUrl, url, success, error, options);
+                },
+                ajaxForm: function(api, form, successCallBack, errorCallBack, finallyCallBack) {
+                    if (!$(form).length) {
+                        console.log('No form data to post.');
+                        return;
+                    }
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    var token = MyApp.token;
+
+                    if (token) {
+                        url += '&token=' + token;
+                    }
+                    var fd = new FormData($(form)[0]);
+                    var request = $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                    }).done(function(data) {
+                        if (typeof successCallBack !== 'undefined') {
+                            successCallBack(data);
+                        }
+                    }).fail(function(data) {
+                        if (typeof errorCallBack !== 'undefined') {
+                            errorCallBack(data);
+                        }
+                    }).always(function(data) {
+                        if (typeof finallyCallBack !== 'undefined') {
+                            finallyCallBack(data);
+                        }
+                    });
                 }
             }
         })
@@ -207,4 +240,15 @@ define([
                 }
             }
         });
+
+    if (typeof cordova === 'undefined') {
+        angular.module(MyApp.appName)
+            .factory('$cordovaToast', function() {
+                return {
+                    show: function(text) {
+                        Dmobi.showToast(text);
+                    }
+                }
+            });
+    }
 });

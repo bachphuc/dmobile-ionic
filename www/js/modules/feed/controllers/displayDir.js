@@ -11,6 +11,8 @@ define([
             $scope.canLoadMore = true;
             $scope.feedData = {};
 
+            $scope.isCache = false;
+
             if ($scope.obj) {
                 if ($scope.obj.user_id) {
                     $scope.feedData.user_id = $scope.obj.user_id;
@@ -34,7 +36,9 @@ define([
                 }
                 sendData = $.extend({}, $scope.feedData, sendData);
                 $dhttp.post('feed.gets', sendData).success(function(data) {
-                    $scope.$broadcast('scroll.refreshComplete');
+                    $timeout(function(){
+                        $scope.$broadcast('scroll.refreshComplete');
+                    }, 300);
                     $scope.isLoadNewProcessing = false;
                     if (data.status) {
                         if (data.data) {
@@ -53,6 +57,9 @@ define([
             };
 
             $rootScope.$on('feed.refresh', function() {
+                if(!$scope.isCache){
+                    return;
+                }
                 console.log('Feed Refresh...');
                 $scope.doRefresh();
             });

@@ -145,7 +145,6 @@
     position: absolute;
     right: 5px;
     top: 0px;
-    color: #999;
     height: 32px;
     width: 32px;
     display: block;
@@ -298,4 +297,53 @@
     padding: 0;
     font-weight: bold;
     font-size: 14px;
+}
+
+.disabled-text {
+    color: #999;
+}
+
+.disabled-background {
+    color: #999;
+}
+
+.disapear {
+    width: 0px !important;
+    height: 0px !important;
+    opacity: 0;
+}
+
+@media(min-width: 680px) {
+    ion-content.media {
+        width: 680px;
+        right: initial !important;
+        left: 50%;
+        margin-left: -340px;
+    }
+}
+
+.overflow-initial {
+    overflow: initial !important;
+}
+
+.no-border {
+    border: none !important;
+    border-width: 0px !important;
+}
+
+.no-border-child * {
+    border: none !important;
+    border-width: 0px !important;
+}
+
+.background-color-red {
+    background-color: red;
+}
+
+.background-color-green {
+    background-color: green;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
 }

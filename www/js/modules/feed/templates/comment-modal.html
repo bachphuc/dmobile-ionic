@@ -31,12 +31,14 @@
         </div>
         <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
     </ion-content>
-    <ion-footer-bar align-title="left" class="">
-        <div class="comment-footer-bar">
-            <div>
-                <input id="comment-text" ng-blur="hideKeyBoard()" ng-model="commentData.text" type="text" placeholder="Add comment here...">
+    <form ng-submit="onAddComment()">
+        <ion-footer-bar align-title="left" class="">
+            <div class="comment-footer-bar">
+                <div>
+                    <input id="comment-text" ng-blur="hideKeyBoard()" ng-model="commentData.text" type="text" placeholder="Add comment here...">
+                </div>
+                <i class="material-icons {{theme.mainClass}} comment-button" ng-class="{'disabled-text' : !commentData.text}">&#xE163;</i>
             </div>
-            <i class="material-icons comment-button" ng-click="onAddComment()">&#xE163;</i>
-        </div>
-    </ion-footer-bar>
+        </ion-footer-bar>
+    </form>
 </ion-modal-view>

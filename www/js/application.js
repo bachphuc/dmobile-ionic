@@ -51,7 +51,9 @@ define([
                     // }
 
                     // Turn off animate transition to increase performan
-                    // $ionicConfigProvider.views.transition('none');
+                    if(typeof cordova === 'undefined'){
+                        $ionicConfigProvider.views.transition('none');
+                    }
 
                     // Add white list src to prevent block link or url
                     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
