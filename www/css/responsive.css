@@ -1,0 +1,35 @@
+/** @responsive style */
+
+
+/** s small, m medium, l large, xl xlarge, w wide */
+
+.s-col-2 {
+    width: 50%;
+    float: left;
+}
+
+@media(min-width: 680px) {
+    ion-content.media {
+        width: 680px;
+        right: initial !important;
+        left: 50%;
+        margin-left: -340px;
+    }
+    .media.center-content {
+        text-align: center;
+    }
+    .media.center-content>div {
+        width: 680px;
+        margin: auto;
+    }
+    .profile-header {
+        height: 320px;
+    }
+    .m-col-4 {
+        width: 25%;
+        float: left;
+    }
+}
+
+
+/** @end responsive style */

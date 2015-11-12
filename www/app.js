@@ -49,6 +49,9 @@ requirejs.config({
             },
             bootstrap: {
                 deps: ['application']
+            },
+            ngcordova : {
+                deps : ['ionic']
             }
         },
         priority: [

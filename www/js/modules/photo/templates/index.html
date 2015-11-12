@@ -1,0 +1,20 @@
+<ion-view title="Photos">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title"></h1>
+    </div>
+    <ion-content class="has-header">
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="media center-content">
+            <div>
+                <div class="list">
+                    <div class="item position-relative padding-5 no-border s-col-2 m-col-4 " ng-repeat="item in items">
+                        <div class="img-square position-relative" style="background-image:url({{item.getThumnailImage()}});">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>
