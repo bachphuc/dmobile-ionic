@@ -59,7 +59,7 @@ define([
                     }
 
                     // Add white list src to prevent block link or url
-                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
+                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file|blob):/);
 
                     $stateProvider.state('app', {
                         url: "/app",

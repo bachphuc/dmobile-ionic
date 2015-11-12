@@ -152,15 +152,39 @@ define([], function() {
             return false;
         }
 
-        $timeout(function(){
-            $('#image').unbind('change').change(function(e){
+        $timeout(function() {
+            $('#image').unbind('change').change(function(e) {
                 console.log('image change');
                 $scope.uploadType = 'photo';
                 $scope.bUpload = true;
                 $scope.bHasItem = true;
                 $scope.data.module = 'photo';
+                $scope.previewImage(this.files);
                 $scope.$$phase || $scope.$apply();
             });
         }, 300);
+
+        $scope.previewImage = function(files) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /^image\//;
+
+                if (!imageType.test(file.type)) {
+                    continue;
+                }
+                $scope.data.dataUrl = window.URL.createObjectURL(file);
+                $scope.$$phase || $scope.$apply();
+                
+                // var reader = new FileReader();
+                // reader.onload = function(e) {
+                //     console.log('Preview image..');xx = e.target.result;
+                //     $scope.data.dataUrl = e.target.result;
+                //     $scope.$$phase || $scope.$apply();
+                // };
+                // reader.readAsDataURL(file);
+                // reader.readAsBinaryString(file);
+            }
+
+        }
     }
 });

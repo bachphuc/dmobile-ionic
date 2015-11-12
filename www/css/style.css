@@ -315,6 +315,7 @@
     width: 0px !important;
     height: 0px !important;
     opacity: 0;
+    display: block;
 }
 
 .overflow-initial {
@@ -367,6 +368,10 @@
 
 .text-align-center {
     text-align: center;
+}
+
+.align-left {
+    text-align: left;
 }
 
 .clear {
