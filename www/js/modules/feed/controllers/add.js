@@ -174,15 +174,6 @@ define([], function() {
                 }
                 $scope.data.dataUrl = window.URL.createObjectURL(file);
                 $scope.$$phase || $scope.$apply();
-                
-                // var reader = new FileReader();
-                // reader.onload = function(e) {
-                //     console.log('Preview image..');xx = e.target.result;
-                //     $scope.data.dataUrl = e.target.result;
-                //     $scope.$$phase || $scope.$apply();
-                // };
-                // reader.readAsDataURL(file);
-                // reader.readAsBinaryString(file);
             }
 
         }

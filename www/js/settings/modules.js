@@ -9,5 +9,6 @@ define([], function() {
 		'video',
 		'music',
 		'blog',
+		'project',
 	]
 });

@@ -8,8 +8,13 @@ define([
             $scope.menus = MyApp.menus;
             $scope.theme = MyApp.theme;
             $scope.controllers = MyApp.controllers;
+
+            // Show or hide novigation bar
+            $scope.showNavigationBar = false;
+
             console.log('Get viewer...');
             $scope.viewer = $viewer.get();
+
             $rootScope.$on('viewer:update', function(e, data) {
             	console.log('Update viewer info...');
                 $scope.viewer = $viewer.get();

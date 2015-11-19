@@ -1,0 +1,22 @@
+<ion-view hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon button-clear " back-dir></button>
+        </div>
+        <h1 class="title">Create a new Project</h1>
+        <div class="buttons">
+            <button class="button button-clear ion-plus"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="padding">
+            <form class="list">
+                <label class="item item-input"><span class="input-label">Project Name</span>
+                    <input type="text" placeholder="">
+                </label>
+                <image-preview-upload-dir name="image-upload" default-image="https://docs.angularjs.org/img/angularjs-for-header-only.svg"></image-preview-upload-dir>
+                <button class="button button-positive button-block  icon ion-android-add-circle"> Create a new Project</button>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

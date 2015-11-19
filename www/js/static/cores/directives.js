@@ -90,13 +90,27 @@ define([], function() {
                 }
             }
         })
-        .directive('backDir', ['$ionicHistory', function($ionicHistory) {
+        .directive('backDir', ['$ionicHistory', '$ionicSideMenuDelegate', function($ionicHistory, $ionicSideMenuDelegate) {
             return {
                 restrict: 'A',
                 link: function($scope, element, attr) {
-                    element[0].setAttribute('ng-click', 'goback()');
+                    var menuIcon = attr.menuIcon ? attr.menuIcon : 'ion-navicon';
+                    var backIcon = attr.backIcon ? attr.backIcon : 'ion-ios-arrow-back';
+                    if ($ionicHistory.backView()) {
+                        if (!element.hasClass(backIcon)) {
+                            element.addClass(backIcon);
+                        }
+                    } else {
+                        if (!element.hasClass(menuIcon)) {
+                            element.addClass(menuIcon);
+                        }
+                    }
                     element.bind('click', function(e) {
-                        $ionicHistory.goBack();
+                        if ($ionicHistory.backView()) {
+                            $ionicHistory.goBack();
+                        } else {
+                            $ionicSideMenuDelegate.toggleLeft();
+                        }
                     });
                 }
             }
@@ -117,5 +131,34 @@ define([], function() {
                     });
                 }
             }
-        }]);
+        }])
+        .directive('imagePreviewUploadDir', function() {
+            return {
+                restrict: 'E',
+                link: function($scope, element, attr) {
+                    var inner = $('<div/>').addClass('image-preview-dir');
+                    var file = $('<input type="file">');
+                    var fileName = attr.name ? attr.name : 'image';
+                    file.attr('name', fileName);
+                    var imgPreview = $('<img>');
+                    if(attr.defaultImage){
+                        imgPreview.attr('src', attr.defaultImage);
+                    }
+                    inner.append(imgPreview).append(file);
+                    file.bind('change', function(e) {
+                        var files = this.files;
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                            var imageType = /^image\//;
+
+                            if (!imageType.test(file.type)) {
+                                continue;
+                            }
+                            imgPreview.attr('src', window.URL.createObjectURL(file));
+                        }
+                    });
+                    element.append(inner);
+                }
+            }
+        });
 });
