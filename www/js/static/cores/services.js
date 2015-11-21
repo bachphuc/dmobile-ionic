@@ -1,5 +1,6 @@
 define([
-    'corePath/services/viewer'
+    'corePath/services/viewer',
+    'corePath/services/history',
 ], function() {
     console.log('Load services core...');
 
@@ -14,6 +15,19 @@ define([
                         data.token = token;
                     }
                     return $http.post(url, data, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                },
+                get: function(api, data) {
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    if (token) {
+                        data.token = token;
+                    }
+                    return $http.get(url, data, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
@@ -166,7 +180,7 @@ define([
                             action: 'loadnew'
                         }
                         if ($scope.listConfig.listData) {
-                            sendData = $.extend({}, $scope.listData, sendData);
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
@@ -206,7 +220,7 @@ define([
                             min_id: $scope.iMinId,
                         }
                         if ($scope.listConfig.listData) {
-                            sendData = $.extend({}, $scope.listData, sendData);
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {

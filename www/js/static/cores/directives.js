@@ -1,4 +1,6 @@
-define([], function() {
+define([
+
+], function() {
     console.log('Load directives core...');
 
     // Directive compile html
@@ -90,13 +92,13 @@ define([], function() {
                 }
             }
         })
-        .directive('backDir', ['$ionicHistory', '$ionicSideMenuDelegate', function($ionicHistory, $ionicSideMenuDelegate) {
+        .directive('backDir', ['$history', '$ionicSideMenuDelegate', function($history, $ionicSideMenuDelegate) {
             return {
                 restrict: 'A',
                 link: function($scope, element, attr) {
                     var menuIcon = attr.menuIcon ? attr.menuIcon : 'ion-navicon';
                     var backIcon = attr.backIcon ? attr.backIcon : 'ion-ios-arrow-back';
-                    if ($ionicHistory.backView()) {
+                    if ($history.canPrev()) {
                         if (!element.hasClass(backIcon)) {
                             element.addClass(backIcon);
                         }
@@ -106,8 +108,8 @@ define([], function() {
                         }
                     }
                     element.bind('click', function(e) {
-                        if ($ionicHistory.backView()) {
-                            $ionicHistory.goBack();
+                        if ($history.canPrev()) {
+                            $history.back();
                         } else {
                             $ionicSideMenuDelegate.toggleLeft();
                         }
@@ -141,7 +143,7 @@ define([], function() {
                     var fileName = attr.name ? attr.name : 'image';
                     file.attr('name', fileName);
                     var imgPreview = $('<img>');
-                    if(attr.defaultImage){
+                    if (attr.defaultImage) {
                         imgPreview.attr('src', attr.defaultImage);
                     }
                     inner.append(imgPreview).append(file);
