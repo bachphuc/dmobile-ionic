@@ -1,4 +1,4 @@
-<ion-view hide-back-button="true" hide-nav-bar="true">
+<ion-view hide-back-button="true" hide-nav-bar="true" cache-view="false">
     <ion-header-bar class="bar-positive">
         <div class="buttons">
             <button class="button button-icon button-clear " back-dir></button>
@@ -10,6 +10,9 @@
             <form class="list" ng-submit="onCreateTask()">
                 <label class="item item-input"><span class="input-label">Task Name</span>
                     <input ng-model="formData.task_name" type="text" placeholder="">
+                </label>
+                <label class="item item-input"><span class="input-label">Estimate Time</span>
+                    <input ng-model="formData.estimate_time" type="text" placeholder="">
                 </label>
                 <button ng-if="!isProcessing" type="submit" class="button button-positive button-block  icon ion-android-add-circle"> Create a new Task</button>
                 <div class="padding text-center" ng-if="isProcessing">
