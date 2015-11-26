@@ -1,6 +1,6 @@
 define([], function() {
     angular.module(MyApp.appName)
-        .factory('$viewer', function($rootScope) {
+        .factory('$viewer', function($rootScope, $timeout, $location) {
             return {
                 get: function() {
                     if (MyApp.viewer) {
@@ -18,20 +18,20 @@ define([], function() {
                     return viewer;
                 },
                 set: function(data) {
-                	var sJsonViewer = JSON.stringify(data);
-                	localStorage.setItem(MyApp.settings.securityKey + '_viewer', sJsonViewer);
-                	MyApp.viewer = data;
+                    var sJsonViewer = JSON.stringify(data);
+                    localStorage.setItem(MyApp.settings.securityKey + '_viewer', sJsonViewer);
+                    MyApp.viewer = data;
                 },
                 update: function(data) {
-                	if(MyApp.viewer){
-                		return this.set(data);
-                	}
-                	$.extend(MyApp.viewer, data);
-                	return this.set(MyApp.viewer);
+                    if (MyApp.viewer) {
+                        return this.set(data);
+                    }
+                    $.extend(MyApp.viewer, data);
+                    return this.set(MyApp.viewer);
                 },
                 remove: function() {
-                	localStorage.removeItem(MyApp.settings.securityKey + '_viewer');
-                	MyApp.viewer = null;
+                    localStorage.removeItem(MyApp.settings.securityKey + '_viewer');
+                    MyApp.viewer = null;
                 },
                 getToken: function() {
                     if (MyApp.token) {
@@ -47,17 +47,29 @@ define([], function() {
                     return sToken;
                 },
                 setToken: function(token) {
-                	localStorage.setItem(MyApp.settings.securityKey + '_token', token);
-                	MyApp.token = token;
+                    localStorage.setItem(MyApp.settings.securityKey + '_token', token);
+                    MyApp.token = token;
                 },
                 removeToken: function() {
-                	localStorage.removeItem(MyApp.settings.securityKey + '_token');
-                	MyApp.token = null;
+                    localStorage.removeItem(MyApp.settings.securityKey + '_token');
+                    MyApp.token = null;
                 },
-                logout : function(){
-                	this.removeToken();
-                	this.remove();
-                	$rootScope.$broadcast('viewer:update', {});
+                logout: function() {
+                    this.removeToken();
+                    this.remove();
+                    $rootScope.$broadcast('viewer:update', {});
+                },
+                isUser: function() {
+                    var token = this.getToken();
+                    return token ? true : false;
+                },
+                loginSuccess: function(data) {
+                    this.setToken(data.data.token);
+                    this.set(data.data.user);
+                    $rootScope.$broadcast('viewer:update', {});
+                    $timeout(function() {
+                        $location.path('/app/feed/index');
+                    }, 2000);
                 }
             }
         });

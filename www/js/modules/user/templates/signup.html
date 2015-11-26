@@ -1,0 +1,41 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" cache-view="false">
+    <ion-header-bar class="bar-positive">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Signup</h1>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doSignup()">
+            <div class="list padding">
+                <label class="item item-input">
+                    <span class="input-label">Fullname</span>
+                    <input ng-model="formData.full_name" type="text" placeholder="fullname">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input ng-model="formData.email" type="text" placeholder="email">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input ng-model="formData.password" type="password" placeholder="password">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Birthday</span>
+                    <input ng-model="tempData.birthday" type="date" placeholder="birthday">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Gender
+                    </div>
+                    <select ng-model="formData.gender" ng-options="opt.value as opt.label for opt in genders">
+                    </select>
+                </label>
+                <button ng-if="!isProcessing" type="submit" class="button button-positive button-block  icon ion-android-add-circle"> Signup</button>
+                <div class="padding text-center" ng-if="isProcessing">
+                    <ion-spinner class="spinner-positive" icon="lines"></ion-spinner>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

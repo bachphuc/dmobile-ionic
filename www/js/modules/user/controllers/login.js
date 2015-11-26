@@ -6,6 +6,16 @@ define([], function() {
             password: ''
         };
 
+        $scope.loginSuccess = function($event, $args) {
+            var data = $args.data;
+            $viewer.setToken(data.data.token);
+            $viewer.set(data.data.user);
+            $timeout(function() {
+                $location.path('/app/feed/index');
+            }, 2000);
+            $rootScope.$broadcast('viewer:update', {});
+        }
+
         $scope.doLogin = function() {
             if ($scope.isLogin) {
                 return;
@@ -15,13 +25,7 @@ define([], function() {
             $dhttp.post('user.login', $scope.loginData).success(function(data) {
                 $scope.isLogin = false;
                 if (data.status) {
-                    $viewer.setToken(data.data.token);
-                    $viewer.set(data.data.user);
-                    $rootScope.$broadcast('viewer:update', {});
-
-                    $timeout(function() {
-                        $location.path('/app/feed/index');
-                    }, 2000);
+                    $scope.loginSuccess(data);
 
                     $cordovaToast.show('Login successfully.', 'short', 'bottom');
                 } else {

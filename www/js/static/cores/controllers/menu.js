@@ -25,7 +25,7 @@ define([
 
             $scope.logout = function(){
             	$viewer.logout();
-                $location.path('/app/' + MyApp.settings.homeUrl)
+                $location.path('/app/user/login');
             }
 
             $scope.bLiveSite = MyApp.isLiveSite();
