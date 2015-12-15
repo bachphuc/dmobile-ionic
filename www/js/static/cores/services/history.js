@@ -1,7 +1,6 @@
 define([
     'settings',
 ], function($setting) {
-    console.log('init history service...');
     angular.module(MyApp.appName)
         .factory('$history', function($rootScope, $location) {
 

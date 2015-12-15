@@ -1,9 +1,9 @@
 define([
     'corePath/services/viewer',
     'corePath/services/history',
+    'corePath/services/global-data',
 ], function() {
     console.log('Load services core...');
-
     angular.module(MyApp.appName)
         .factory('$dhttp', function($http, $ionicLoading) {
             return {
