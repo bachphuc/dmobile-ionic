@@ -1,4 +1,6 @@
-define([], function() {
+define([
+    'settings',
+], function($settings) {
     angular.module(MyApp.appName)
         .factory('$viewer', function($rootScope, $timeout, $location) {
             return {
@@ -59,9 +61,17 @@ define([], function() {
                     this.remove();
                     $rootScope.$broadcast('viewer:update', {});
                 },
-                isUser: function() {
+                isUser: function(direct) {
                     var token = this.getToken();
-                    return token ? true : false;
+                    var bUser = token ? true : false;
+                    if (typeof direct !== 'undefined') {
+                        if (direct) {
+                            $location.path($settings.getHomePage());
+                        } else {
+                            $location.path('/app/user/login');
+                        }
+                    }
+                    return bUser;
                 },
                 loginSuccess: function(data) {
                     this.setToken(data.data.token);
@@ -70,7 +80,7 @@ define([], function() {
                     $timeout(function() {
                         $location.path('/app/feed/index');
                     }, 2000);
-                }
+                },
             }
         });
 });

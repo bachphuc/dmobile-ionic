@@ -54,7 +54,7 @@ define([
                     // }
 
                     // Turn off animate transition to increase performan
-                    if(typeof cordova === 'undefined'){
+                    if (typeof cordova === 'undefined') {
                         $ionicConfigProvider.views.transition('none');
                     }
 
@@ -199,7 +199,7 @@ define([
                 replace: true,
                 scope: {
                     obj: '=obj',
-                    parentObj : '=parent'
+                    parentObj: '=parent'
                 }
             };
 
@@ -283,7 +283,7 @@ define([
             require(modulePaths, function() {
                 console.log('Load all modules complete...');
                 console.log(dis.controllerPaths);
-                
+
                 require(dis.controllerPaths, function() {
                     // Begin register controllers...
                     for (var i = 0; i < arguments.length; i++) {
@@ -307,11 +307,15 @@ define([
             });
         }
 
-        Application.prototype.addMenu = function(title, link) {
-            this.menus.push({
+        Application.prototype.addMenu = function(title, link, params) {
+            var menu = {
                 title: title,
                 link: link
-            });
+            };
+            if (typeof params !== 'undefined') {
+                menu.params = params;
+            }
+            this.menus.push(menu);
             return this;
         }
         console.log(modules);

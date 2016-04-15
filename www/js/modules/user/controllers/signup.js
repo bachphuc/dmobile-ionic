@@ -1,5 +1,6 @@
 define([], function() {
     return function($scope, $http, $dhttp, $location, $timeout, $rootScope, $viewer, $cordovaToast, $history) {
+        $viewer.isUser(true);
         $history.push();
 
         $scope.formData = {};

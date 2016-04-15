@@ -6,6 +6,5 @@ define([
     function() {
         MyApp.registerModule('core')
             .addFactory('core.userService')
-            .addController('core/welcome', 'core.welcome')
-            .addMenu('Welcome', 'core/welcome');
+            ;
     });

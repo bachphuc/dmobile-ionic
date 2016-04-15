@@ -1,7 +1,10 @@
-<ion-view title="Photos">
-    <div class="bar bar-header bar-positive">
-        <h1 class="title"></h1>
-    </div>
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Photos</h1>
+    </ion-header-bar>
     <ion-content class="has-header">
         <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
         <div class="media center-content">

@@ -1,8 +1,10 @@
-<ion-view cache-view="false">
-    <div class="bar bar-header bar-{{theme.mainClass}}">
-        <button class="button button-icon button-clear" back-dir></button>
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
         <h1 class="title">Home</h1>
-    </div>
+    </ion-header-bar>
     <left-content class="background-color-red media">
     </left-content>
     <ion-content class="has-header media overflow-initial  has-left-content has-right-content">
@@ -10,4 +12,5 @@
     </ion-content>
     <right-content class="background-color-green media">
     </right-content>
+    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>
 </ion-view>

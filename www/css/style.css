@@ -395,3 +395,25 @@
     padding-bottom: 100%;
     background-size: cover;
 }
+
+.bt-post-feed {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #B33333;
+    border-radius: 100%;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 3px 3px 10px #999;
+    -moz-box-shadow: 3px 3px 10px #999;
+    -webkit-box-shadow: 3px 3px 10px #999;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.bt-post-feed i {
+    font-size: 32px;
+}

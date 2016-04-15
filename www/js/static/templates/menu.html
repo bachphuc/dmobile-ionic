@@ -12,7 +12,7 @@
     </ion-side-menu-content>
     <ion-side-menu side="left">
         <ion-content class="dleft-menu">
-            <ion-list class="user-image-menu" ng-if="viewer">
+            <ion-list class="user-image-menu" ng-if="$viewer.isUser()">
                 <ion-item class="item-avatar" menu-close nav-clear href="#/app/user/profile/{{viewer.user_id}}">
                     <img class="image-menu-avatar full-image" ng-src="{{viewer.images.full.url}}" />
                     <span class="menu-full-name">{{viewer.full_name}}</span>
@@ -20,11 +20,10 @@
                 </ion-item>
             </ion-list>
             <ion-list>
-                <ion-item ng-repeat="menu in menus" nav-clear menu-close href="#/app/{{menu.link}}">
+                <ion-item ng-repeat="menu in menus" ng-if="canShowMenu(menu)" nav-clear menu-close href="#/app/{{menu.link}}">
                     {{menu.title}}
                 </ion-item>
-                <ion-item nav-clear menu-close ng-click="switchLiveMode()" ng-class="{'balanced' : bLiveSite, 'assertive' : !bLiveSite}">Switch Mode</ion-item>
-                <ion-item nav-clear menu-close ng-click="logout()">Logout</ion-item>
+                <ion-item nav-clear menu-close ng-click="logout()" ng-if="$viewer.isUser()">Logout</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>
