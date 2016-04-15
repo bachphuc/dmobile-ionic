@@ -1,1 +1,419 @@
 /* Empty. Add your own CSS if you like */
+
+.ratio-image {
+    position: relative;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+}
+
+.dcard {
+    box-shadow: 0 0px 20px 4px #CCC;
+    -moz-box-shadow: 0 0px 20px 4px #CCC;
+    -webkit-box-shadow: 0 0px 20px 4px #CCC;
+}
+
+.dcard .item-avatar {
+    border-bottom: none;
+}
+
+.dcard-content:empty {
+    display: none;
+}
+
+.dcontent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: -1px;
+    padding-top: 1px;
+    margin-bottom: -1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dcontent:not(.has-header):not(.has-subheader) {
+    top: 0;
+}
+
+.dcontent-scroll {}
+
+.dleft-menu {}
+
+.dleft-menu .list {}
+
+.dleft-menu .list .item {
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 13px;
+}
+
+.dleft-menu .list .item-avatar {
+    background-image: url(../img/background_red.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 160px;
+    position: relative;
+}
+
+.dleft-menu .list .item-avatar img {
+    position: absolute;
+    bottom: 60px !important;
+    left: 16px;
+    top: initial !important;
+}
+
+.dleft-menu .list .item-avatar span {
+    position: absolute;
+    left: 16px;
+    color: #fff;
+}
+
+.dleft-menu .list .item-avatar .menu-full-name {
+    bottom: 24px;
+}
+
+.dleft-menu .list .item-avatar .menu-email {
+    bottom: 0;
+}
+
+.dleft-menu ion-content {
+    background-color: #fff;
+}
+
+.dleft-menu .list .item .item-content {
+    background: transparent;
+}
+
+.user-image-menu {
+    line-height: 40px;
+}
+
+.user-image-menu .item {}
+
+.time-right {
+    font-size: 12px !important;
+    right: 11px !important;
+    top: 16px !important;
+    position: absolute;
+}
+
+.feed-action-bar {}
+
+.feed-action-bar a i {}
+
+.no-border {
+    border: none !important;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.padding-5 {
+    padding: 5px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.comment-footer-bar {
+    width: 100%;
+    position: relative;
+}
+
+.comment-footer-bar div {
+    margin-right: 50px;
+    padding-left: 10px;
+}
+
+.comment-footer-bar div input {
+    width: 100%;
+}
+
+.comment-button {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    height: 32px;
+    width: 32px;
+    display: block;
+    text-align: center;
+    line-height: 32px;
+}
+
+.login-page .scroll {
+    height: 100%;
+}
+
+.login-page-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+}
+
+.login-page-content form {
+    width: 100%;
+    margin-top: -50px;
+}
+
+.site-login-logo {
+    text-align: center;
+    line-height: 128px;
+    margin-bottom: 10px;
+}
+
+.site-login-logo i {
+    font-size: 128px;
+    color: #999;
+}
+
+.no-cut-text {
+    text-overflow: initial !important;
+    white-space: initial !important;
+}
+
+.float-right {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+.action-icon {
+    border-radius: 100%;
+    background-color: #EEE;
+    font-size: 16px !important;
+    padding: 6px;
+    transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+}
+
+.action-icon.active {
+    color: #FFF;
+    background-color: #B33333;
+}
+
+.bt_remove_feed {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
+}
+
+.dmobi_toast {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    z-index: 999999;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: none;
+}
+
+.dmobi_toast span {
+    z-index: 999999;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 10px;
+    display: inline-block;
+}
+
+.profile-header {
+    text-align: center;
+    background-image: url(../img/background_red.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 180px;
+}
+
+.profile_title {
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+}
+
+.profile_avatar {
+    width: 100px;
+    margin-top: 30px;
+    border-radius: 100%;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+}
+
+.user-image-menu>.list>.item-avatar>a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.link-feed-item-right {
+    padding: 10px;
+}
+
+.link-feed-item-right a {
+    text-decoration: none;
+    color: #444;
+}
+
+.link-feed-item-right h2 {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.disabled-text {
+    color: #999;
+}
+
+.disabled-background {
+    color: #999;
+}
+
+.disapear {
+    width: 0px !important;
+    height: 0px !important;
+    opacity: 0;
+    display: block;
+}
+
+.overflow-initial {
+    overflow: initial !important;
+}
+
+.no-border {
+    border: none !important;
+    border-width: 0px !important;
+}
+
+.no-border-child * {
+    border: none !important;
+    border-width: 0px !important;
+}
+
+.background-color-red {
+    background-color: red;
+}
+
+.background-color-green {
+    background-color: green;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color-333 {
+    color: #333;
+}
+
+.color-666 {
+    color: #666;
+}
+
+.vertical-middle {
+    display: table;
+    width: 100%;
+}
+
+.vertical-middle>div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+    ;
+}
+
+.img-square {
+    padding-bottom: 100%;
+    background-size: cover;
+}
+
+.bt-post-feed {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #B33333;
+    border-radius: 100%;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 3px 3px 10px #999;
+    -moz-box-shadow: 3px 3px 10px #999;
+    -webkit-box-shadow: 3px 3px 10px #999;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.bt-post-feed i {
+    font-size: 32px;
+}

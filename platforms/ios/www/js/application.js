@@ -1,14 +1,18 @@
 define([
         'ionic',
-        'modules',
+        'moduleObjs',
         'settings',
-        //'extendScope'
+        'theme',
+        'extendScope',
+        'ngcordova',
+        'corePath/controllers/menu'
     ],
-    function(ionic, modules, settings /*, $extendScope*/ ) {
+    function(ionic, modules, settings, theme, $extendScope, ngcordova, $menuCtrl) {
 
         var Application = function(settings) {
             this.appName = settings.appName;
             this.settings = settings;
+            this.theme = theme;
 
             this.modules = new Array();
             this.modulePaths = new Array();
@@ -21,163 +25,89 @@ define([
             this.controllers = new Array();
 
             this.currentController = null;
+            this.controllerObjects = [];
+
+            // array include controller paths
+            this.controllerPaths = [];
+            // array include template paths
+            this.templatePaths = [];
+
+            this.viewer = null;
+
+            this.token = null;
+
+            this.bLiveSite = false;
 
             var dis = this;
 
             angular.module(this.appName, [
                     'ionic',
                     'ui.router',
+                    'ngCordova'
 
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
+                    $$config = $ionicConfigProvider;
+                    // Turn off js scroll if current platform different ios or ipad
+                    // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                    //     console.log('Turn off ionic scroll on android');
+                    //     $ionicConfigProvider.scrolling.jsScrolling(false);
+                    // }
 
-                    // Turn off js scroll
-                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
-                        $ionicConfigProvider.scrolling.jsScrolling(false);
+                    // Turn off animate transition to increase performan
+                    if (typeof cordova === 'undefined') {
+                        $ionicConfigProvider.views.transition('none');
                     }
 
-                    // Turn off animate transition
-                    $ionicConfigProvider.views.transition('none');
+                    // Add white list src to prevent block link or url
+                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file|blob):/);
 
-                    // Add white list src
-                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
-
-                    $stateProvider
-                    // .state('app', {
-                    //     url: "/app",
-                    //     abstract: true,
-                    //     // templateUrl: "js/app/static/templates/menu.html",
-                    //     templateUrl: "js/static/templates/menu.html",
-                    //     controller: 'DefaultCtr'
-                    // })
-
-                        .state('app', {
+                    $stateProvider.state('app', {
                         url: "/app",
                         abstract: true,
-                        templateUrl: "templates/menu.html",
-                        controller: 'AppCtrl'
-                    })
+                        templateUrl: "./js/static/templates/menu.html",
+                        controller: 'DefaultCtr'
+                    });
 
-                    .state('app.search', {
-                        url: "/search",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/search.html"
-                            }
-                        }
-                    })
-
-                    .state('app.browse', {
-                            url: "/browse",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/browse.html"
-                                }
-                            }
-                        })
-                        .state('app.playlists', {
-                            url: "/playlists",
-                            views: {
-                                'menuContent': {
-                                    templateUrl: "templates/playlists.html",
-                                    controller: 'PlaylistsCtrl'
-                                }
-                            }
-                        })
-
-                    .state('app.single', {
-                        url: "/playlists/:playlistId",
-                        views: {
-                            'menuContent': {
-                                templateUrl: "templates/playlist.html",
-                                controller: 'PlaylistCtrl'
-                            }
-                        }
-                    });;
-
-                    // Default router...
+                    // Default router, it will return default url when enter a link not registed...
                     $urlRouterProvider.otherwise('/app/' + dis.settings.homeUrl);
-
-                }).controller('DefaultCtr', function($scope, $ionicModal, $timeout, $rootScope, $state) {
-                    // console.log($state);
-
-                    $.extend($scope, $extendScope);
-                    $scope.menus = MyApp.menus;
-                    $scope.controllers = MyApp.controllers;
-                    $scope.getUser();
-
-                    $rootScope.$on('user.change', function() {
-                        $scope.getUser();
-                    });
+                    // Default controller, leftmenu controller
                 })
-                .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+                .controller('DefaultCtr', $menuCtrl);
+        };
 
-                    // With the new view caching in Ionic, Controllers are only called
-                    // when they are recreated or on app start, instead of every page change.
-                    // To listen for when this page is active (for example, to refresh data),
-                    // listen for the $ionicView.enter event:
-                    //$scope.$on('$ionicView.enter', function(e) {
-                    //});
+        Application.prototype.isLiveSite = function() {
+            var sLiveSite = localStorage.getItem(this.settings.securityKey + '_runmode');
+            if (!sLiveSite || sLiveSite == 'local') {
+                this.bLiveSite = false;
+            } else if (sLiveSite == 'livesite') {
+                this.bLiveSite = true;
+            }
+            return this.bLiveSite;
+        };
 
-                    // Form data for the login modal
-                    $scope.loginData = {};
+        Application.prototype.setLiveSite = function(bLiveSite) {
+            this.bLiveSite = bLiveSite;
+            if (this.bLiveSite) {
+                this.settings.serviceUrl = this.settings.liveServiceUrl;
+                localStorage.setItem(this.settings.securityKey + '_runmode', 'livesite');
+            } else {
+                this.settings.serviceUrl = this.settings.localServiceUrl;
+                localStorage.setItem(this.settings.securityKey + '_runmode', 'local');
+            }
+        };
 
-                    // Create the login modal that we will use later
-                    $ionicModal.fromTemplateUrl('templates/login.html', {
-                        scope: $scope
-                    }).then(function(modal) {
-                        $scope.modal = modal;
-                    });
+        Application.prototype.switchLiveMode = function() {
+            var liveSite = !this.bLiveSite;
+            this.setLiveSite(liveSite);
+        };
 
-                    // Triggered in the login modal to close it
-                    $scope.closeLogin = function() {
-                        $scope.modal.hide();
-                    };
-
-                    // Open the login modal
-                    $scope.login = function() {
-                        $scope.modal.show();
-                    };
-
-                    // Perform the login action when the user submits the login form
-                    $scope.doLogin = function() {
-                        console.log('Doing login', $scope.loginData);
-
-                        // Simulate a login delay. Remove this and replace with your login
-                        // code if using a login system
-                        $timeout(function() {
-                            $scope.closeLogin();
-                        }, 1000);
-                    };
-                })
-
-            .controller('PlaylistsCtrl', function($scope) {
-                $scope.playlists = [{
-                    title: 'Reggae',
-                    id: 1
-                }, {
-                    title: 'Chill',
-                    id: 2
-                }, {
-                    title: 'Dubstep',
-                    id: 3
-                }, {
-                    title: 'Indie',
-                    id: 4
-                }, {
-                    title: 'Rap',
-                    id: 5
-                }, {
-                    title: 'Cowbell',
-                    id: 6
-                }];
-            })
-
-            .controller('PlaylistCtrl', function($scope, $stateParams) {});;
+        Application.prototype.initMode = function() {
+            this.setLiveSite(this.isLiveSite());
         };
 
         Application.prototype.registerModule = function(sModule) {
             if (this.modules.indexOf(sModule) != -1) {
-                console.log('Module has already exist.');
+                console.log('Module has already exist so can not add again.');
                 return;
             }
             this.modules.push(sModule);
@@ -186,12 +116,12 @@ define([
 
         Application.prototype._createRouter = function(sRouter, sController, $module) {
             var state = 'app.' + sController.replace('.', '_');
-            var sTemplate = 'js/app/module/' + $module.sModule + '/templates/' + $module.sController + '.html';
-
+            var sTemplate = './js/modules/' + $module.sModule + '/templates/' + $module.sController + '.html';
+            this.templatePaths.push(sTemplate);
             angular.module(this.appName).config(function($stateProvider, $urlRouterProvider) {
 
                 var config = {
-                    // cache template for view
+                    // Set cache template for view default is true
                     // cache : false,
                     url: "/" + sRouter,
                     views: {}
@@ -208,11 +138,12 @@ define([
         };
 
         Application.prototype._createController = function(sController, $module, $controller) {
-            var sControllerPath = 'app/module/' + $module.sModule + '/controllers/' + $module.sController;
+            var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sController;
             var dis = this;
             var sArgs = $controller.getArgs().join();
+            // extend controller and pass some default service
             console.log('Add controller ' + sController + '...');
-            var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.module = $module;' : '') + 'dis.currentController = $module; return $controller(' + sArgs + ');}'
+            var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + '$scope.theme = MyApp.theme;' + 'dis.currentController = $module; return $controller(' + sArgs + ');}';
             eval(sFunc);
             angular.module(this.appName)
                 .controller(sController, func);
@@ -223,28 +154,31 @@ define([
             if (this.modules.indexOf(aParts[0]) == -1) {
                 return false;
             }
+            if (typeof bNoTemplate === 'undefined' || (typeof bNoTemplate !== 'undefined' && !bNoTemplate)) {
+                bNoTemplate = false;
+            } else {
+                bNoTemplate = true;
+            }
+
             var sController = aParts[0].ucFrist() + aParts[1].ucFrist();
 
             var $module = {
+                sName: sController,
                 sModule: aParts[0],
-                sController: aParts[1]
+                sController: aParts[1],
+                bNoTemplate: bNoTemplate,
+                sRouter: sRouter
             };
 
             if (this.controllers.indexOf(sController) == -1) {
                 this.controllers.push(sController);
             }
-            var sControllerPath = 'app/module/' + $module.sModule + '/controllers/' + $module.sController;
+            var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sController;
+            $module.sPath = sControllerPath;
+            this.controllerPaths.push(sControllerPath);
+            this.controllerObjects.push($module);
+
             console.log(sControllerPath);
-            var dis = this;
-
-            require([sControllerPath], function($controller) {
-                if ((typeof bNoTemplate === 'undefined') || (typeof bNoTemplate !== 'undefined' && bNoTemplate == false)) {
-                    dis._createRouter(sRouter, sController, $module);
-                }
-
-                dis._createController(sController, $module, $controller);
-            });
-
             return this;
         }
 
@@ -261,10 +195,11 @@ define([
             }
             var option = {
                 restrict: (typeof params !== 'undefined' && typeof params.restrict !== 'undefined' ? params.restrict : 'E'),
-                templateUrl: (typeof params !== 'undefined' && typeof params.templateUrl !== 'undefined' ? params.templateUrl : 'js/app/module/' + $module.sModule + '/templates/' + $module.sDirective + '.html'),
+                templateUrl: (typeof params !== 'undefined' && typeof params.templateUrl !== 'undefined' ? params.templateUrl : './js/modules/' + $module.sModule + '/templates/' + $module.sDirective + '.html'),
                 replace: true,
                 scope: {
-                    obj: '=obj'
+                    obj: '=obj',
+                    parentObj: '=parent'
                 }
             };
 
@@ -281,16 +216,22 @@ define([
                         return option;
                     });
             } else {
-                var sControllerPath = 'app/module/' + $module.sModule + '/controllers/' + $module.sDirective + 'Dir';
+                var dis = this;
+                var sControllerPath = './js/modules/' + $module.sModule + '/controllers/' + $module.sDirective + 'Dir';
                 console.log(sControllerPath);
                 require([sControllerPath], function($controller) {
-                    option.controller = $controller;
+                    var sArgs = $controller.getArgs().join();
+                    // extend controller and pass some default service
+                    var sFunc = 'var func = function(' + sArgs + '){ ' + (sArgs.indexOf('$scope') != -1 ? '$.extend($scope, $extendScope);$scope.viewer = MyApp.viewer;$scope.module = $module;' : '') + '$scope.theme = MyApp.theme;' + 'dis.currentController = $module; return $controller(' + sArgs + ');}';
+                    eval(sFunc);
+                    option.controller = func;
                     angular.module(MyApp.appName)
                         .directive(sDirectiveName, function() {
                             return option;
                         });
                 });
             }
+            return this;
         }
 
         Application.prototype.addFactory = function(factoryName) {
@@ -300,7 +241,7 @@ define([
                 sFactory: aParts[1]
             };
 
-            var sFactoryPath = 'app/module/' + $module.sModule + '/factories/' + $module.sFactory;
+            var sFactoryPath = './js/modules/' + $module.sModule + '/factories/' + $module.sFactory;
             console.log(sFactoryPath);
             var dis = this;
             require([sFactoryPath], function($factory) {
@@ -316,8 +257,7 @@ define([
             angular.module(this.appName).run(function($ionicPlatform) {
                 console.log('Start application...');
                 $ionicPlatform.ready(function() {
-                    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-                    // for form inputs)
+                    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
                     if (window.cordova && window.cordova.plugins.Keyboard) {
                         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                     }
@@ -330,42 +270,57 @@ define([
         }
 
         Application.prototype.loadModules = function(modules) {
-            // var modulePaths = [];
-            // for (i = 0; i < modules.length; i++) {
-            //     modulePaths.push('../app/module/' + modules[i] + '/run');
-            // }
-            // this.modulePaths = modulePaths;
-            // modulePaths.push('controllers');
-            // modulePaths.push('services');
-            // modulePaths.push('directives');
+            var modulePaths = [];
+            for (i = 0; i < modules.length; i++) {
+                modulePaths.push('./js/modules/' + modules[i] + '/run');
+            }
+            this.modulePaths = modulePaths;
+            modulePaths.push('./js/static/cores/controllers');
+            modulePaths.push('./js/static/cores/services');
+            modulePaths.push('./js/static/cores/directives');
+            console.log(modulePaths);
+            var dis = this;
+            require(modulePaths, function() {
+                console.log('Load all modules complete...');
+                console.log(dis.controllerPaths);
 
-            // require(modulePaths, function() {
-            //     console.log('Load all modules complete...');
-            //     require([
-            //             'bootstrap'
-            //         ],
-            //         function() {
-            //             console.log('load bootstrap successfully...');
-            //         });
-            // });
+                require(dis.controllerPaths, function() {
+                    // Begin register controllers...
+                    for (var i = 0; i < arguments.length; i++) {
 
-            require([
-                    'bootstrap'
-                ],
-                function() {
-                    console.log('load bootstrap successfully...');
+                        var $controller = arguments[i];
+                        var ctrObj = dis.controllerObjects[i];
+
+                        if (!ctrObj.bNoTemplate) {
+                            dis._createRouter(ctrObj.sRouter, ctrObj.sName, ctrObj);
+                        }
+                        dis._createController(ctrObj.sName, ctrObj, $controller);
+                    }
+                    console.log(dis.templatePaths);
+                    require([
+                            'bootstrap'
+                        ],
+                        function() {
+                            console.log('load bootstrap successfully...');
+                        });
                 });
+            });
         }
 
-        Application.prototype.addMenu = function(title, link) {
-            this.menus.push({
+        Application.prototype.addMenu = function(title, link, params) {
+            var menu = {
                 title: title,
                 link: link
-            });
+            };
+            if (typeof params !== 'undefined') {
+                menu.params = params;
+            }
+            this.menus.push(menu);
             return this;
         }
-
+        console.log(modules);
         MyApp = new Application(settings);
+        MyApp.initMode();
         MyApp.loadModules(modules);
 
         return MyApp;

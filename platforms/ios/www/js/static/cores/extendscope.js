@@ -3,16 +3,6 @@ define([], function() {
 		this.data = [];
 	}
 
-	ExtendScope.prototype.test = function(){
-		alert('chan vat va');
-	}
-
-	ExtendScope.prototype.example = function(){
-		for(var i = 0 ; i < 100; i++){
-			this.data.push(i);
-		}
-	}
-
 	ExtendScope.prototype.getNavViewContent = function(){
 		if(typeof this.controllers === 'undefined'){
 			return '';
@@ -30,7 +20,9 @@ define([], function() {
 		if(localStorage.getItem('token')){
             this.isUser = true;
             this.user = JSON.parse(localStorage.getItem('user'));
+            return this.user;
         }
+        return false;
 	}
 
 	ExtendScope.prototype.setModel = function(data, model){

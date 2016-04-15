@@ -1,5 +1,5 @@
 define([
-	'../app/static/lib/spinnerController',
+
 ], function() {
-	console.log('Load controllers core...');
+    console.log('Load controllers core...');
 });

@@ -1,20 +1,33 @@
-define([], function() {
+define([
+    'corePath/services/viewer',
+    'corePath/services/history',
+    'corePath/services/global-data',
+], function() {
     console.log('Load services core...');
-
     angular.module(MyApp.appName)
         .factory('$dhttp', function($http, $ionicLoading) {
             return {
                 post: function(api, data) {
-                    var token = localStorage.getItem('token');
-                    var aPostData = {
-                        api: api,
-                        args: data
-                    };
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
 
                     if (token) {
-                        aPostData.token = token;
+                        data.token = token;
                     }
-                    return $http.post(MyApp.settings.serviceUrl, aPostData, {
+                    return $http.post(url, data, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                },
+                get: function(api, data) {
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    if (token) {
+                        data.token = token;
+                    }
+                    return $http.get(url, data, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
@@ -51,16 +64,12 @@ define([], function() {
                 upload: function(api, fileUrl, type, data, successCallBack, errorCallBack) {
                     var ft = new FileTransfer();
                     var options = new FileUploadOptions();
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
 
-                    var params = {
-                        api: api,
-                        args: data
-                    };
-
-                    var token = localStorage.getItem('token');
+                    var token = MyApp.token;
 
                     if (token) {
-                        params.token = token;
+                        data.token = token;
                     }
 
                     if (typeof type === 'undefined') {
@@ -72,7 +81,7 @@ define([], function() {
                         fileName: this.getFileName(fileUrl, type),
                         mimeType: this.getMimetype(type),
                         chunkedMode: false,
-                        params: params
+                        params: data
                     });
 
                     var percent = 0;
@@ -81,7 +90,7 @@ define([], function() {
                         console.log(result);
                         $ionicLoading.hide();
                         if (typeof successCallBack !== 'undefined' && successCallBack) {
-                            if(typeof result.response !== 'undefined'){
+                            if (typeof result.response !== 'undefined') {
                                 result = JSON.parse(result.response);
                             }
                             successCallBack(result);
@@ -108,8 +117,152 @@ define([], function() {
                     $ionicLoading.show({
                         template: 'Uploading 0%, please wait ...'
                     });
-                    ft.upload(fileUrl, MyApp.settings.serviceUrl, success, error, options);
+                    ft.upload(fileUrl, url, success, error, options);
+                },
+                ajaxForm: function(api, form, successCallBack, errorCallBack, finallyCallBack) {
+                    if (!$(form).length) {
+                        console.log('No form data to post.');
+                        return;
+                    }
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    var token = MyApp.token;
+
+                    if (token) {
+                        url += '&token=' + token;
+                    }
+                    var fd = new FormData($(form)[0]);
+                    var request = $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                    }).done(function(data) {
+                        if (typeof successCallBack !== 'undefined') {
+                            successCallBack(data);
+                        }
+                    }).fail(function(data) {
+                        if (typeof errorCallBack !== 'undefined') {
+                            errorCallBack(data);
+                        }
+                    }).always(function(data) {
+                        if (typeof finallyCallBack !== 'undefined') {
+                            finallyCallBack(data);
+                        }
+                    });
+                }
+            }
+        })
+        .factory('$dListService', function($dhttp) {
+            return {
+                init: function($scope, $model) {
+                    $scope.items = [];
+                    $scope.iMaxId = 0;
+                    $scope.iMinId = 0;
+
+                    $scope.canLoadMore = true;
+
+                    $scope.updateListInfo = function() {
+                        $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                        $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                    }
+
+                    $scope.doRefresh = function() {
+                        if ($scope.isLoadNewProcessing) {
+                            return;
+                        }
+                        $scope.isLoadNewProcessing = true;
+
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                            action: 'loadnew'
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.isLoadNewProcessing = false;
+                            if ($scope.refreshSuccess) {
+                                $scope.refreshSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = items.concat($scope.items);
+                                    $scope.updateListInfo();
+                                }
+
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isLoadNewProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
+
+                    $scope.doLoadMore = function() {
+
+                        if ($scope.isProcessing) {
+                            return;
+                        }
+                        $scope.isProcessing = true;
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $scope.isProcessing = false;
+                            if ($scope.loadMoreSuccess) {
+                                $scope.loadMoreSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = $scope.items.concat(items);
+                                    $scope.updateListInfo();
+                                }
+
+                                if (!data.data || data.data.length == 0) {
+                                    $scope.canLoadMore = false;
+                                }
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
                 }
             }
         });
+
+    if (typeof cordova === 'undefined') {
+        angular.module(MyApp.appName)
+            .factory('$cordovaToast', function() {
+                return {
+                    show: function(text) {
+                        Dmobi.showToast(text);
+                    }
+                }
+            });
+    }
 });

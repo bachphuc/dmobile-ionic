@@ -1,4 +1,6 @@
-define([], function() {
+define([
+
+], function() {
     console.log('Load directives core...');
 
     // Directive compile html
@@ -87,6 +89,77 @@ define([], function() {
                             shrink(header, $element[0], 0, headerHeight);
                         }
                     });
+                }
+            }
+        })
+        .directive('backDir', ['$history', '$ionicSideMenuDelegate', function($history, $ionicSideMenuDelegate) {
+            return {
+                restrict: 'A',
+                link: function($scope, element, attr) {
+                    var menuIcon = attr.menuIcon ? attr.menuIcon : 'ion-navicon';
+                    var backIcon = attr.backIcon ? attr.backIcon : 'ion-ios-arrow-back';
+                    if ($history.canPrev()) {
+                        if (!element.hasClass(backIcon)) {
+                            element.addClass(backIcon);
+                        }
+                    } else {
+                        if (!element.hasClass(menuIcon)) {
+                            element.addClass(menuIcon);
+                        }
+                    }
+                    element.bind('click', function(e) {
+                        if ($history.canPrev()) {
+                            $history.back();
+                        } else {
+                            $ionicSideMenuDelegate.toggleLeft();
+                        }
+                    });
+                }
+            }
+        }])
+        .directive('goTo', ['$location', function($location) {
+            return {
+                restrict: 'A',
+                scope: {
+                    url: '@'
+                },
+                link: function(scope, element, attrs) {
+                    element.bind('click', function(e) {
+                        if ((!scope.url) || $(e.currentTarget).has($(e.target).closest('a')).length || $(e.currentTarget).has($(e.target).closest('[go-to]')).length || $(e.currentTarget).has($(e.target).closest('[ng-click]')).length) {
+                            return;
+                        }
+
+                        window.location.href = '#app/' + scope.url;
+                    });
+                }
+            }
+        }])
+        .directive('imagePreviewUploadDir', function() {
+            return {
+                restrict: 'E',
+                link: function($scope, element, attr) {
+                    var inner = $('<div/>').addClass('image-preview-dir');
+                    var file = $('<input type="file">');
+                    var fileName = attr.name ? attr.name : 'image';
+                    file.attr('name', fileName);
+                    var imgPreview = $('<img>');
+                    if (attr.defaultImage) {
+                        imgPreview.attr('src', attr.defaultImage);
+                    }
+                    inner.append(imgPreview).append(file);
+                    file.bind('change', function(e) {
+                        var files = this.files;
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                            var imageType = /^image\//;
+
+                            if (!imageType.test(file.type)) {
+                                continue;
+                            }
+                            imgPreview.attr('src', window.URL.createObjectURL(file));
+                        }
+                    });
+                    element.append(inner);
                 }
             }
         });
