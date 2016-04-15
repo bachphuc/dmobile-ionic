@@ -1,0 +1,19 @@
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Members</h1>
+    </ion-header-bar>
+    <ion-content class="has-header">
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item item-avatar" ng-repeat="item in items">
+                <img go-to url="user/profile/{{item.user_id}}" ng-src="{{item.images.avatar.url}}">
+                <h2 go-to url="user/profile/{{item.user_id}}">{{item.full_name}}</h2>
+                <p>{{item.time}}</p>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

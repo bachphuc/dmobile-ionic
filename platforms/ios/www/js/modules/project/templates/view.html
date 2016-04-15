@@ -1,0 +1,23 @@
+<ion-view hide-back-button="true" hide-nav-bar="true" cache-view="false">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Project {{project.getTitle()}}</h1>
+        <div class="buttons">
+            <a class="button button-clear ion-plus" href="#/app/project/task/add/{{project.getId()}}"></a>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="padding text-center" ng-if="!isDataReady">
+            <ion-spinner class="spinner-positive" icon="lines"></ion-spinner>
+        </div>
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item" ng-repeat="item in items" go-to url="project/task/view/{{item.getId()}}">
+                <h2>{{item.getTitle()}}</h2>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

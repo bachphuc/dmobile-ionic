@@ -1,0 +1,14 @@
+<div class="item tabs tabs-secondary tabs-icon-left feed-action-bar">
+    <a class="tab-item" ng-click="likeToggle()">
+        <!-- <i class="icon ion-thumbsup"></i>{{obj.like.total_like}} Like{{obj.like.total_like > 1 ? 's' : ''}} -->
+        <i class="material-icons action-icon" ng-class="{'active' : obj.is_like}">&#xE800;</i> {{obj.total_like}} Like{{obj.total_like > 1 ? 's' : ''}}
+    </a>
+    <a class="tab-item" ng-click="openCommentModal()">
+        <i class="material-icons action-icon">comment</i> {{obj.total_comment}} Comment{{obj.total_comment > 1 ? 's' : ''}}
+        <!-- <i class="icon ion-chatbox"></i>{{obj.total_comment}} Comment{{obj.total_comment > 1 ? 's' : ''}} -->
+    </a>
+    <a class="tab-item">
+        <!-- <i class="icon ion-share"></i> Share -->
+        <i class="material-icons action-icon">share</i> Share
+    </a>
+</div>

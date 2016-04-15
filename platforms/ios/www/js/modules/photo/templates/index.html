@@ -1,0 +1,23 @@
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Photos</h1>
+    </ion-header-bar>
+    <ion-content class="has-header">
+        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>
+        <div class="media center-content">
+            <div>
+                <div class="list">
+                    <div class="item position-relative padding-5 no-border s-col-2 m-col-4 " ng-repeat="item in items">
+                        <div class="img-square position-relative" style="background-image:url({{item.getThumnailImage()}});">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

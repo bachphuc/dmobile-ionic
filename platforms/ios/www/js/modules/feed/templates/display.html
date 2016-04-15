@@ -1,0 +1,21 @@
+<div>
+    <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list align-left">
+        <div class="padding-top-20">
+        </div>
+        <div class="list dcard no-border-child" ng-repeat="item in items">
+            <span class="bt_remove_feed" ng-click="onItemSetting(item)"><i class="color-666 material-icons cursor-pointer">&#xE5C5;</i></span>
+            <div class="item item-avatar">
+                <img go-to url="user/profile/{{item.user.user_id}}" ng-src="{{item.user.images.avatar.url}}">
+                <h2 go-to url="user/profile/{{item.user.user_id}}">{{item.user.full_name}}</h2>
+                <p>{{item.time}}</p>
+            </div>
+            <div class="dcard-body">
+                <p class="dcard-content padding-10 no-margin">{{item.content}}</p>
+                <div ng-html-compile="item.getItemContent()"></div>
+            </div>
+            <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
+        </div>
+    </div>
+    <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
+</div>
