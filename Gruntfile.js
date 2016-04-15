@@ -26,6 +26,18 @@ module.exports = function(grunt) {
 					mainConfigFile: "./www/export.js",
 				}
 			},
+			moveios: {
+				options: {
+					baseUrl: "./www/",
+                    name: "app",
+                    out: "./platforms/ios/www/main.js",
+					paths: {
+						app: "./export",
+					},
+					optimize: "none",
+					mainConfigFile: "./www/export.js",
+				}
+			},
         },
 	});
 
@@ -33,4 +45,5 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('build', ['requirejs:build']);
 	grunt.registerTask('export', ['requirejs:export']);
+	grunt.registerTask('moveios', ['requirejs:moveios']);
 };

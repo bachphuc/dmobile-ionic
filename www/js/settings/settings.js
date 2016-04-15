@@ -14,7 +14,7 @@ define([], function() {
 
         liveServiceUrl: 'http://192.168.1.5/dmobile/module/dmobile/api.php',
         // localServiceUrl : 'http://phpfox/phpfox.3.7.7/module/dmobile/api.php',
-        localServiceUrl: 'hhttp://192.168.1.5/dmobile/dmobi/module/dmobile/api.php',
+        localServiceUrl: 'http://192.168.1.5/dmobile/module/dmobile/api.php',
         getHomePage: function() {
             return '/app/' + this.homeUrl;
         }

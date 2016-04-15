@@ -450,6 +450,29 @@ define("ionic", (function (global) {
     };
 }(this)));
 
+define('dmobi',[], function() {
+    var DmobiObject = function() {
+    	this.identityId = 0;
+    }
+
+    DmobiObject.prototype.getIdentityId = function(){
+    	this.identityId++;
+    	return this.identityId;
+    }
+
+    DmobiObject.prototype.showToast = function(str) {
+    	var ele = $('<div/>').addClass('dmobi_toast').html('<span>'+ str +'</span>');
+    	$('body').append(ele);
+    	ele.fadeIn();
+		setTimeout(function(){ele.fadeOut();}, 2000);
+    }
+
+    Dmobi = new DmobiObject();
+    console.log('Declara Dmobi Object');
+    console.log(Dmobi);
+    return Dmobi;
+});
+
 define('settings',[], function() {
     return {
         appName: 'myapp',
@@ -466,7 +489,7 @@ define('settings',[], function() {
 
         liveServiceUrl: 'http://192.168.1.5/dmobile/module/dmobile/api.php',
         // localServiceUrl : 'http://phpfox/phpfox.3.7.7/module/dmobile/api.php',
-        localServiceUrl: 'hhttp://192.168.1.5/dmobile/dmobi/module/dmobile/api.php',
+        localServiceUrl: 'http://192.168.1.5/dmobile/module/dmobile/api.php',
         getHomePage: function() {
             return '/app/' + this.homeUrl;
         }
@@ -510,29 +533,6 @@ define('moduleObjs',[], function() {
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l=a.document,m="2.1.3",n=function(a,b){return new n.fn.init(a,b)},o=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,p=/^-ms-/,q=/-([\da-z])/gi,r=function(a,b){return b.toUpperCase()};n.fn=n.prototype={jquery:m,constructor:n,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=n.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return n.each(this,a,b)},map:function(a){return this.pushStack(n.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},n.extend=n.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||n.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(a=arguments[h]))for(b in a)c=g[b],d=a[b],g!==d&&(j&&d&&(n.isPlainObject(d)||(e=n.isArray(d)))?(e?(e=!1,f=c&&n.isArray(c)?c:[]):f=c&&n.isPlainObject(c)?c:{},g[b]=n.extend(j,f,d)):void 0!==d&&(g[b]=d));return g},n.extend({expando:"jQuery"+(m+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===n.type(a)},isArray:Array.isArray,isWindow:function(a){return null!=a&&a===a.window},isNumeric:function(a){return!n.isArray(a)&&a-parseFloat(a)+1>=0},isPlainObject:function(a){return"object"!==n.type(a)||a.nodeType||n.isWindow(a)?!1:a.constructor&&!j.call(a.constructor.prototype,"isPrototypeOf")?!1:!0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(a){var b,c=eval;a=n.trim(a),a&&(1===a.indexOf("use strict")?(b=l.createElement("script"),b.text=a,l.head.appendChild(b).parentNode.removeChild(b)):c(a))},camelCase:function(a){return a.replace(p,"ms-").replace(q,r)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=s(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(o,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(s(Object(a))?n.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){return null==b?-1:g.call(b,a,c)},merge:function(a,b){for(var c=+b.length,d=0,e=a.length;c>d;d++)a[e++]=b[d];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=s(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(c=a[b],b=a,a=c),n.isFunction(a)?(e=d.call(arguments,2),f=function(){return a.apply(b||this,e.concat(d.call(arguments)))},f.guid=a.guid=a.guid||n.guid++,f):void 0},now:Date.now,support:k}),n.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function s(a){var b=a.length,c=n.type(a);return"function"===c||n.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var t=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=hb(),z=hb(),A=hb(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,ab=/[+~]/,bb=/'|\\/g,cb=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),db=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},eb=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fb){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function gb(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(bb,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+rb(o[l]);w=ab.test(a)&&pb(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function hb(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ib(a){return a[u]=!0,a}function jb(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function kb(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function lb(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function mb(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function nb(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function ob(a){return ib(function(b){return b=+b,ib(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pb(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=gb.support={},f=gb.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=gb.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",eb,!1):e.attachEvent&&e.attachEvent("onunload",eb)),p=!f(g),c.attributes=jb(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=jb(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=jb(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(cb,db);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(cb,db);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(jb(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),jb(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&jb(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return lb(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?lb(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},gb.matches=function(a,b){return gb(a,null,null,b)},gb.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return gb(b,n,null,[a]).length>0},gb.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},gb.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},gb.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},gb.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=gb.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=gb.selectors={cacheLength:50,createPseudo:ib,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(cb,db),a[3]=(a[3]||a[4]||a[5]||"").replace(cb,db),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||gb.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&gb.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(cb,db).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=gb.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||gb.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ib(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ib(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ib(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ib(function(a){return function(b){return gb(a,b).length>0}}),contains:ib(function(a){return a=a.replace(cb,db),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ib(function(a){return W.test(a||"")||gb.error("unsupported lang: "+a),a=a.replace(cb,db).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:ob(function(){return[0]}),last:ob(function(a,b){return[b-1]}),eq:ob(function(a,b,c){return[0>c?c+b:c]}),even:ob(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:ob(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:ob(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:ob(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=mb(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=nb(b);function qb(){}qb.prototype=d.filters=d.pseudos,d.setFilters=new qb,g=gb.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?gb.error(a):z(a,i).slice(0)};function rb(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sb(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function tb(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ub(a,b,c){for(var d=0,e=b.length;e>d;d++)gb(a,b[d],c);return c}function vb(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wb(a,b,c,d,e,f){return d&&!d[u]&&(d=wb(d)),e&&!e[u]&&(e=wb(e,f)),ib(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ub(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:vb(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=vb(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=vb(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xb(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sb(function(a){return a===b},h,!0),l=sb(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sb(tb(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wb(i>1&&tb(m),i>1&&rb(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xb(a.slice(i,e)),f>e&&xb(a=a.slice(e)),f>e&&rb(a))}m.push(c)}return tb(m)}function yb(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=vb(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&gb.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ib(f):f}return h=gb.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xb(b[c]),f[u]?d.push(f):e.push(f);f=A(a,yb(e,d)),f.selector=a}return f},i=gb.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(cb,db),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(cb,db),ab.test(j[0].type)&&pb(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&rb(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,ab.test(a)&&pb(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=jb(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),jb(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||kb("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&jb(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||kb("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),jb(function(a){return null==a.getAttribute("disabled")})||kb(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),gb}(a);n.find=t,n.expr=t.selectors,n.expr[":"]=n.expr.pseudos,n.unique=t.uniqueSort,n.text=t.getText,n.isXMLDoc=t.isXML,n.contains=t.contains;var u=n.expr.match.needsContext,v=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,w=/^.[^:#\[\.,]*$/;function x(a,b,c){if(n.isFunction(b))return n.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return n.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(w.test(b))return n.filter(b,a,c);b=n.filter(b,a)}return n.grep(a,function(a){return g.call(b,a)>=0!==c})}n.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?n.find.matchesSelector(d,a)?[d]:[]:n.find.matches(a,n.grep(b,function(a){return 1===a.nodeType}))},n.fn.extend({find:function(a){var b,c=this.length,d=[],e=this;if("string"!=typeof a)return this.pushStack(n(a).filter(function(){for(b=0;c>b;b++)if(n.contains(e[b],this))return!0}));for(b=0;c>b;b++)n.find(a,e[b],d);return d=this.pushStack(c>1?n.unique(d):d),d.selector=this.selector?this.selector+" "+a:a,d},filter:function(a){return this.pushStack(x(this,a||[],!1))},not:function(a){return this.pushStack(x(this,a||[],!0))},is:function(a){return!!x(this,"string"==typeof a&&u.test(a)?n(a):a||[],!1).length}});var y,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=n.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a[0]&&">"===a[a.length-1]&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||y).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof n?b[0]:b,n.merge(this,n.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:l,!0)),v.test(c[1])&&n.isPlainObject(b))for(c in b)n.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}return d=l.getElementById(c[2]),d&&d.parentNode&&(this.length=1,this[0]=d),this.context=l,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):n.isFunction(a)?"undefined"!=typeof y.ready?y.ready(a):a(n):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),n.makeArray(a,this))};A.prototype=n.fn,y=n(l);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};n.extend({dir:function(a,b,c){var d=[],e=void 0!==c;while((a=a[b])&&9!==a.nodeType)if(1===a.nodeType){if(e&&n(a).is(c))break;d.push(a)}return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),n.fn.extend({has:function(a){var b=n(a,this),c=b.length;return this.filter(function(){for(var a=0;c>a;a++)if(n.contains(this,b[a]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=u.test(a)||"string"!=typeof a?n(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&n.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?n.unique(f):f)},index:function(a){return a?"string"==typeof a?g.call(n(a),this[0]):g.call(this,a.jquery?a[0]:a):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(n.unique(n.merge(this.get(),n(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){while((a=a[b])&&1!==a.nodeType);return a}n.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return n.dir(a,"parentNode")},parentsUntil:function(a,b,c){return n.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return n.dir(a,"nextSibling")},prevAll:function(a){return n.dir(a,"previousSibling")},nextUntil:function(a,b,c){return n.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return n.dir(a,"previousSibling",c)},siblings:function(a){return n.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return n.sibling(a.firstChild)},contents:function(a){return a.contentDocument||n.merge([],a.childNodes)}},function(a,b){n.fn[a]=function(c,d){var e=n.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=n.filter(d,e)),this.length>1&&(C[a]||n.unique(e),B.test(a)&&e.reverse()),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return n.each(a.match(E)||[],function(a,c){b[c]=!0}),b}n.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):n.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(b=a.memory&&l,c=!0,g=e||0,e=0,f=h.length,d=!0;h&&f>g;g++)if(h[g].apply(l[0],l[1])===!1&&a.stopOnFalse){b=!1;break}d=!1,h&&(i?i.length&&j(i.shift()):b?h=[]:k.disable())},k={add:function(){if(h){var c=h.length;!function g(b){n.each(b,function(b,c){var d=n.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&g(c)})}(arguments),d?f=h.length:b&&(e=c,j(b))}return this},remove:function(){return h&&n.each(arguments,function(a,b){var c;while((c=n.inArray(b,h,c))>-1)h.splice(c,1),d&&(f>=c&&f--,g>=c&&g--)}),this},has:function(a){return a?n.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],f=0,this},disable:function(){return h=i=b=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,b||k.disable(),this},locked:function(){return!i},fireWith:function(a,b){return!h||c&&!i||(b=b||[],b=[a,b.slice?b.slice():b],d?i.push(b):j(b)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!c}};return k},n.extend({Deferred:function(a){var b=[["resolve","done",n.Callbacks("once memory"),"resolved"],["reject","fail",n.Callbacks("once memory"),"rejected"],["notify","progress",n.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return n.Deferred(function(c){n.each(b,function(b,f){var g=n.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&n.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?n.extend(a,d):d}},e={};return d.pipe=d.then,n.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&n.isFunction(a.promise)?e:0,g=1===f?a:n.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&n.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;n.fn.ready=function(a){return n.ready.promise().done(a),this},n.extend({isReady:!1,readyWait:1,holdReady:function(a){a?n.readyWait++:n.ready(!0)},ready:function(a){(a===!0?--n.readyWait:n.isReady)||(n.isReady=!0,a!==!0&&--n.readyWait>0||(H.resolveWith(l,[n]),n.fn.triggerHandler&&(n(l).triggerHandler("ready"),n(l).off("ready"))))}});function I(){l.removeEventListener("DOMContentLoaded",I,!1),a.removeEventListener("load",I,!1),n.ready()}n.ready.promise=function(b){return H||(H=n.Deferred(),"complete"===l.readyState?setTimeout(n.ready):(l.addEventListener("DOMContentLoaded",I,!1),a.addEventListener("load",I,!1))),H.promise(b)},n.ready.promise();var J=n.access=function(a,b,c,d,e,f,g){var h=0,i=a.length,j=null==c;if("object"===n.type(c)){e=!0;for(h in c)n.access(a,b,h,c[h],!0,f,g)}else if(void 0!==d&&(e=!0,n.isFunction(d)||(g=!0),j&&(g?(b.call(a,d),b=null):(j=b,b=function(a,b,c){return j.call(n(a),c)})),b))for(;i>h;h++)b(a[h],c,g?d:d.call(a[h],h,b(a[h],c)));return e?a:j?b.call(a):i?b(a[0],c):f};n.acceptData=function(a){return 1===a.nodeType||9===a.nodeType||!+a.nodeType};function K(){Object.defineProperty(this.cache={},0,{get:function(){return{}}}),this.expando=n.expando+K.uid++}K.uid=1,K.accepts=n.acceptData,K.prototype={key:function(a){if(!K.accepts(a))return 0;var b={},c=a[this.expando];if(!c){c=K.uid++;try{b[this.expando]={value:c},Object.defineProperties(a,b)}catch(d){b[this.expando]=c,n.extend(a,b)}}return this.cache[c]||(this.cache[c]={}),c},set:function(a,b,c){var d,e=this.key(a),f=this.cache[e];if("string"==typeof b)f[b]=c;else if(n.isEmptyObject(f))n.extend(this.cache[e],b);else for(d in b)f[d]=b[d];return f},get:function(a,b){var c=this.cache[this.key(a)];return void 0===b?c:c[b]},access:function(a,b,c){var d;return void 0===b||b&&"string"==typeof b&&void 0===c?(d=this.get(a,b),void 0!==d?d:this.get(a,n.camelCase(b))):(this.set(a,b,c),void 0!==c?c:b)},remove:function(a,b){var c,d,e,f=this.key(a),g=this.cache[f];if(void 0===b)this.cache[f]={};else{n.isArray(b)?d=b.concat(b.map(n.camelCase)):(e=n.camelCase(b),b in g?d=[b,e]:(d=e,d=d in g?[d]:d.match(E)||[])),c=d.length;while(c--)delete g[d[c]]}},hasData:function(a){return!n.isEmptyObject(this.cache[a[this.expando]]||{})},discard:function(a){a[this.expando]&&delete this.cache[a[this.expando]]}};var L=new K,M=new K,N=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,O=/([A-Z])/g;function P(a,b,c){var d;if(void 0===c&&1===a.nodeType)if(d="data-"+b.replace(O,"-$1").toLowerCase(),c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:N.test(c)?n.parseJSON(c):c}catch(e){}M.set(a,b,c)}else c=void 0;return c}n.extend({hasData:function(a){return M.hasData(a)||L.hasData(a)},data:function(a,b,c){return M.access(a,b,c)
 },removeData:function(a,b){M.remove(a,b)},_data:function(a,b,c){return L.access(a,b,c)},_removeData:function(a,b){L.remove(a,b)}}),n.fn.extend({data:function(a,b){var c,d,e,f=this[0],g=f&&f.attributes;if(void 0===a){if(this.length&&(e=M.get(f),1===f.nodeType&&!L.get(f,"hasDataAttrs"))){c=g.length;while(c--)g[c]&&(d=g[c].name,0===d.indexOf("data-")&&(d=n.camelCase(d.slice(5)),P(f,d,e[d])));L.set(f,"hasDataAttrs",!0)}return e}return"object"==typeof a?this.each(function(){M.set(this,a)}):J(this,function(b){var c,d=n.camelCase(a);if(f&&void 0===b){if(c=M.get(f,a),void 0!==c)return c;if(c=M.get(f,d),void 0!==c)return c;if(c=P(f,d,void 0),void 0!==c)return c}else this.each(function(){var c=M.get(this,d);M.set(this,d,b),-1!==a.indexOf("-")&&void 0!==c&&M.set(this,a,b)})},null,b,arguments.length>1,null,!0)},removeData:function(a){return this.each(function(){M.remove(this,a)})}}),n.extend({queue:function(a,b,c){var d;return a?(b=(b||"fx")+"queue",d=L.get(a,b),c&&(!d||n.isArray(c)?d=L.access(a,b,n.makeArray(c)):d.push(c)),d||[]):void 0},dequeue:function(a,b){b=b||"fx";var c=n.queue(a,b),d=c.length,e=c.shift(),f=n._queueHooks(a,b),g=function(){n.dequeue(a,b)};"inprogress"===e&&(e=c.shift(),d--),e&&("fx"===b&&c.unshift("inprogress"),delete f.stop,e.call(a,g,f)),!d&&f&&f.empty.fire()},_queueHooks:function(a,b){var c=b+"queueHooks";return L.get(a,c)||L.access(a,c,{empty:n.Callbacks("once memory").add(function(){L.remove(a,[b+"queue",c])})})}}),n.fn.extend({queue:function(a,b){var c=2;return"string"!=typeof a&&(b=a,a="fx",c--),arguments.length<c?n.queue(this[0],a):void 0===b?this:this.each(function(){var c=n.queue(this,a,b);n._queueHooks(this,a),"fx"===a&&"inprogress"!==c[0]&&n.dequeue(this,a)})},dequeue:function(a){return this.each(function(){n.dequeue(this,a)})},clearQueue:function(a){return this.queue(a||"fx",[])},promise:function(a,b){var c,d=1,e=n.Deferred(),f=this,g=this.length,h=function(){--d||e.resolveWith(f,[f])};"string"!=typeof a&&(b=a,a=void 0),a=a||"fx";while(g--)c=L.get(f[g],a+"queueHooks"),c&&c.empty&&(d++,c.empty.add(h));return h(),e.promise(b)}});var Q=/[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,R=["Top","Right","Bottom","Left"],S=function(a,b){return a=b||a,"none"===n.css(a,"display")||!n.contains(a.ownerDocument,a)},T=/^(?:checkbox|radio)$/i;!function(){var a=l.createDocumentFragment(),b=a.appendChild(l.createElement("div")),c=l.createElement("input");c.setAttribute("type","radio"),c.setAttribute("checked","checked"),c.setAttribute("name","t"),b.appendChild(c),k.checkClone=b.cloneNode(!0).cloneNode(!0).lastChild.checked,b.innerHTML="<textarea>x</textarea>",k.noCloneChecked=!!b.cloneNode(!0).lastChild.defaultValue}();var U="undefined";k.focusinBubbles="onfocusin"in a;var V=/^key/,W=/^(?:mouse|pointer|contextmenu)|click/,X=/^(?:focusinfocus|focusoutblur)$/,Y=/^([^.]*)(?:\.(.+)|)$/;function Z(){return!0}function $(){return!1}function _(){try{return l.activeElement}catch(a){}}n.event={global:{},add:function(a,b,c,d,e){var f,g,h,i,j,k,l,m,o,p,q,r=L.get(a);if(r){c.handler&&(f=c,c=f.handler,e=f.selector),c.guid||(c.guid=n.guid++),(i=r.events)||(i=r.events={}),(g=r.handle)||(g=r.handle=function(b){return typeof n!==U&&n.event.triggered!==b.type?n.event.dispatch.apply(a,arguments):void 0}),b=(b||"").match(E)||[""],j=b.length;while(j--)h=Y.exec(b[j])||[],o=q=h[1],p=(h[2]||"").split(".").sort(),o&&(l=n.event.special[o]||{},o=(e?l.delegateType:l.bindType)||o,l=n.event.special[o]||{},k=n.extend({type:o,origType:q,data:d,handler:c,guid:c.guid,selector:e,needsContext:e&&n.expr.match.needsContext.test(e),namespace:p.join(".")},f),(m=i[o])||(m=i[o]=[],m.delegateCount=0,l.setup&&l.setup.call(a,d,p,g)!==!1||a.addEventListener&&a.addEventListener(o,g,!1)),l.add&&(l.add.call(a,k),k.handler.guid||(k.handler.guid=c.guid)),e?m.splice(m.delegateCount++,0,k):m.push(k),n.event.global[o]=!0)}},remove:function(a,b,c,d,e){var f,g,h,i,j,k,l,m,o,p,q,r=L.hasData(a)&&L.get(a);if(r&&(i=r.events)){b=(b||"").match(E)||[""],j=b.length;while(j--)if(h=Y.exec(b[j])||[],o=q=h[1],p=(h[2]||"").split(".").sort(),o){l=n.event.special[o]||{},o=(d?l.delegateType:l.bindType)||o,m=i[o]||[],h=h[2]&&new RegExp("(^|\\.)"+p.join("\\.(?:.*\\.|)")+"(\\.|$)"),g=f=m.length;while(f--)k=m[f],!e&&q!==k.origType||c&&c.guid!==k.guid||h&&!h.test(k.namespace)||d&&d!==k.selector&&("**"!==d||!k.selector)||(m.splice(f,1),k.selector&&m.delegateCount--,l.remove&&l.remove.call(a,k));g&&!m.length&&(l.teardown&&l.teardown.call(a,p,r.handle)!==!1||n.removeEvent(a,o,r.handle),delete i[o])}else for(o in i)n.event.remove(a,o+b[j],c,d,!0);n.isEmptyObject(i)&&(delete r.handle,L.remove(a,"events"))}},trigger:function(b,c,d,e){var f,g,h,i,k,m,o,p=[d||l],q=j.call(b,"type")?b.type:b,r=j.call(b,"namespace")?b.namespace.split("."):[];if(g=h=d=d||l,3!==d.nodeType&&8!==d.nodeType&&!X.test(q+n.event.triggered)&&(q.indexOf(".")>=0&&(r=q.split("."),q=r.shift(),r.sort()),k=q.indexOf(":")<0&&"on"+q,b=b[n.expando]?b:new n.Event(q,"object"==typeof b&&b),b.isTrigger=e?2:3,b.namespace=r.join("."),b.namespace_re=b.namespace?new RegExp("(^|\\.)"+r.join("\\.(?:.*\\.|)")+"(\\.|$)"):null,b.result=void 0,b.target||(b.target=d),c=null==c?[b]:n.makeArray(c,[b]),o=n.event.special[q]||{},e||!o.trigger||o.trigger.apply(d,c)!==!1)){if(!e&&!o.noBubble&&!n.isWindow(d)){for(i=o.delegateType||q,X.test(i+q)||(g=g.parentNode);g;g=g.parentNode)p.push(g),h=g;h===(d.ownerDocument||l)&&p.push(h.defaultView||h.parentWindow||a)}f=0;while((g=p[f++])&&!b.isPropagationStopped())b.type=f>1?i:o.bindType||q,m=(L.get(g,"events")||{})[b.type]&&L.get(g,"handle"),m&&m.apply(g,c),m=k&&g[k],m&&m.apply&&n.acceptData(g)&&(b.result=m.apply(g,c),b.result===!1&&b.preventDefault());return b.type=q,e||b.isDefaultPrevented()||o._default&&o._default.apply(p.pop(),c)!==!1||!n.acceptData(d)||k&&n.isFunction(d[q])&&!n.isWindow(d)&&(h=d[k],h&&(d[k]=null),n.event.triggered=q,d[q](),n.event.triggered=void 0,h&&(d[k]=h)),b.result}},dispatch:function(a){a=n.event.fix(a);var b,c,e,f,g,h=[],i=d.call(arguments),j=(L.get(this,"events")||{})[a.type]||[],k=n.event.special[a.type]||{};if(i[0]=a,a.delegateTarget=this,!k.preDispatch||k.preDispatch.call(this,a)!==!1){h=n.event.handlers.call(this,a,j),b=0;while((f=h[b++])&&!a.isPropagationStopped()){a.currentTarget=f.elem,c=0;while((g=f.handlers[c++])&&!a.isImmediatePropagationStopped())(!a.namespace_re||a.namespace_re.test(g.namespace))&&(a.handleObj=g,a.data=g.data,e=((n.event.special[g.origType]||{}).handle||g.handler).apply(f.elem,i),void 0!==e&&(a.result=e)===!1&&(a.preventDefault(),a.stopPropagation()))}return k.postDispatch&&k.postDispatch.call(this,a),a.result}},handlers:function(a,b){var c,d,e,f,g=[],h=b.delegateCount,i=a.target;if(h&&i.nodeType&&(!a.button||"click"!==a.type))for(;i!==this;i=i.parentNode||this)if(i.disabled!==!0||"click"!==a.type){for(d=[],c=0;h>c;c++)f=b[c],e=f.selector+" ",void 0===d[e]&&(d[e]=f.needsContext?n(e,this).index(i)>=0:n.find(e,this,null,[i]).length),d[e]&&d.push(f);d.length&&g.push({elem:i,handlers:d})}return h<b.length&&g.push({elem:this,handlers:b.slice(h)}),g},props:"altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which".split(" "),fixHooks:{},keyHooks:{props:"char charCode key keyCode".split(" "),filter:function(a,b){return null==a.which&&(a.which=null!=b.charCode?b.charCode:b.keyCode),a}},mouseHooks:{props:"button buttons clientX clientY offsetX offsetY pageX pageY screenX screenY toElement".split(" "),filter:function(a,b){var c,d,e,f=b.button;return null==a.pageX&&null!=b.clientX&&(c=a.target.ownerDocument||l,d=c.documentElement,e=c.body,a.pageX=b.clientX+(d&&d.scrollLeft||e&&e.scrollLeft||0)-(d&&d.clientLeft||e&&e.clientLeft||0),a.pageY=b.clientY+(d&&d.scrollTop||e&&e.scrollTop||0)-(d&&d.clientTop||e&&e.clientTop||0)),a.which||void 0===f||(a.which=1&f?1:2&f?3:4&f?2:0),a}},fix:function(a){if(a[n.expando])return a;var b,c,d,e=a.type,f=a,g=this.fixHooks[e];g||(this.fixHooks[e]=g=W.test(e)?this.mouseHooks:V.test(e)?this.keyHooks:{}),d=g.props?this.props.concat(g.props):this.props,a=new n.Event(f),b=d.length;while(b--)c=d[b],a[c]=f[c];return a.target||(a.target=l),3===a.target.nodeType&&(a.target=a.target.parentNode),g.filter?g.filter(a,f):a},special:{load:{noBubble:!0},focus:{trigger:function(){return this!==_()&&this.focus?(this.focus(),!1):void 0},delegateType:"focusin"},blur:{trigger:function(){return this===_()&&this.blur?(this.blur(),!1):void 0},delegateType:"focusout"},click:{trigger:function(){return"checkbox"===this.type&&this.click&&n.nodeName(this,"input")?(this.click(),!1):void 0},_default:function(a){return n.nodeName(a.target,"a")}},beforeunload:{postDispatch:function(a){void 0!==a.result&&a.originalEvent&&(a.originalEvent.returnValue=a.result)}}},simulate:function(a,b,c,d){var e=n.extend(new n.Event,c,{type:a,isSimulated:!0,originalEvent:{}});d?n.event.trigger(e,null,b):n.event.dispatch.call(b,e),e.isDefaultPrevented()&&c.preventDefault()}},n.removeEvent=function(a,b,c){a.removeEventListener&&a.removeEventListener(b,c,!1)},n.Event=function(a,b){return this instanceof n.Event?(a&&a.type?(this.originalEvent=a,this.type=a.type,this.isDefaultPrevented=a.defaultPrevented||void 0===a.defaultPrevented&&a.returnValue===!1?Z:$):this.type=a,b&&n.extend(this,b),this.timeStamp=a&&a.timeStamp||n.now(),void(this[n.expando]=!0)):new n.Event(a,b)},n.Event.prototype={isDefaultPrevented:$,isPropagationStopped:$,isImmediatePropagationStopped:$,preventDefault:function(){var a=this.originalEvent;this.isDefaultPrevented=Z,a&&a.preventDefault&&a.preventDefault()},stopPropagation:function(){var a=this.originalEvent;this.isPropagationStopped=Z,a&&a.stopPropagation&&a.stopPropagation()},stopImmediatePropagation:function(){var a=this.originalEvent;this.isImmediatePropagationStopped=Z,a&&a.stopImmediatePropagation&&a.stopImmediatePropagation(),this.stopPropagation()}},n.each({mouseenter:"mouseover",mouseleave:"mouseout",pointerenter:"pointerover",pointerleave:"pointerout"},function(a,b){n.event.special[a]={delegateType:b,bindType:b,handle:function(a){var c,d=this,e=a.relatedTarget,f=a.handleObj;return(!e||e!==d&&!n.contains(d,e))&&(a.type=f.origType,c=f.handler.apply(this,arguments),a.type=b),c}}}),k.focusinBubbles||n.each({focus:"focusin",blur:"focusout"},function(a,b){var c=function(a){n.event.simulate(b,a.target,n.event.fix(a),!0)};n.event.special[b]={setup:function(){var d=this.ownerDocument||this,e=L.access(d,b);e||d.addEventListener(a,c,!0),L.access(d,b,(e||0)+1)},teardown:function(){var d=this.ownerDocument||this,e=L.access(d,b)-1;e?L.access(d,b,e):(d.removeEventListener(a,c,!0),L.remove(d,b))}}}),n.fn.extend({on:function(a,b,c,d,e){var f,g;if("object"==typeof a){"string"!=typeof b&&(c=c||b,b=void 0);for(g in a)this.on(g,b,c,a[g],e);return this}if(null==c&&null==d?(d=b,c=b=void 0):null==d&&("string"==typeof b?(d=c,c=void 0):(d=c,c=b,b=void 0)),d===!1)d=$;else if(!d)return this;return 1===e&&(f=d,d=function(a){return n().off(a),f.apply(this,arguments)},d.guid=f.guid||(f.guid=n.guid++)),this.each(function(){n.event.add(this,a,d,c,b)})},one:function(a,b,c,d){return this.on(a,b,c,d,1)},off:function(a,b,c){var d,e;if(a&&a.preventDefault&&a.handleObj)return d=a.handleObj,n(a.delegateTarget).off(d.namespace?d.origType+"."+d.namespace:d.origType,d.selector,d.handler),this;if("object"==typeof a){for(e in a)this.off(e,b,a[e]);return this}return(b===!1||"function"==typeof b)&&(c=b,b=void 0),c===!1&&(c=$),this.each(function(){n.event.remove(this,a,c,b)})},trigger:function(a,b){return this.each(function(){n.event.trigger(a,b,this)})},triggerHandler:function(a,b){var c=this[0];return c?n.event.trigger(a,b,c,!0):void 0}});var ab=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,bb=/<([\w:]+)/,cb=/<|&#?\w+;/,db=/<(?:script|style|link)/i,eb=/checked\s*(?:[^=]|=\s*.checked.)/i,fb=/^$|\/(?:java|ecma)script/i,gb=/^true\/(.*)/,hb=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,ib={option:[1,"<select multiple='multiple'>","</select>"],thead:[1,"<table>","</table>"],col:[2,"<table><colgroup>","</colgroup></table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],_default:[0,"",""]};ib.optgroup=ib.option,ib.tbody=ib.tfoot=ib.colgroup=ib.caption=ib.thead,ib.th=ib.td;function jb(a,b){return n.nodeName(a,"table")&&n.nodeName(11!==b.nodeType?b:b.firstChild,"tr")?a.getElementsByTagName("tbody")[0]||a.appendChild(a.ownerDocument.createElement("tbody")):a}function kb(a){return a.type=(null!==a.getAttribute("type"))+"/"+a.type,a}function lb(a){var b=gb.exec(a.type);return b?a.type=b[1]:a.removeAttribute("type"),a}function mb(a,b){for(var c=0,d=a.length;d>c;c++)L.set(a[c],"globalEval",!b||L.get(b[c],"globalEval"))}function nb(a,b){var c,d,e,f,g,h,i,j;if(1===b.nodeType){if(L.hasData(a)&&(f=L.access(a),g=L.set(b,f),j=f.events)){delete g.handle,g.events={};for(e in j)for(c=0,d=j[e].length;d>c;c++)n.event.add(b,e,j[e][c])}M.hasData(a)&&(h=M.access(a),i=n.extend({},h),M.set(b,i))}}function ob(a,b){var c=a.getElementsByTagName?a.getElementsByTagName(b||"*"):a.querySelectorAll?a.querySelectorAll(b||"*"):[];return void 0===b||b&&n.nodeName(a,b)?n.merge([a],c):c}function pb(a,b){var c=b.nodeName.toLowerCase();"input"===c&&T.test(a.type)?b.checked=a.checked:("input"===c||"textarea"===c)&&(b.defaultValue=a.defaultValue)}n.extend({clone:function(a,b,c){var d,e,f,g,h=a.cloneNode(!0),i=n.contains(a.ownerDocument,a);if(!(k.noCloneChecked||1!==a.nodeType&&11!==a.nodeType||n.isXMLDoc(a)))for(g=ob(h),f=ob(a),d=0,e=f.length;e>d;d++)pb(f[d],g[d]);if(b)if(c)for(f=f||ob(a),g=g||ob(h),d=0,e=f.length;e>d;d++)nb(f[d],g[d]);else nb(a,h);return g=ob(h,"script"),g.length>0&&mb(g,!i&&ob(a,"script")),h},buildFragment:function(a,b,c,d){for(var e,f,g,h,i,j,k=b.createDocumentFragment(),l=[],m=0,o=a.length;o>m;m++)if(e=a[m],e||0===e)if("object"===n.type(e))n.merge(l,e.nodeType?[e]:e);else if(cb.test(e)){f=f||k.appendChild(b.createElement("div")),g=(bb.exec(e)||["",""])[1].toLowerCase(),h=ib[g]||ib._default,f.innerHTML=h[1]+e.replace(ab,"<$1></$2>")+h[2],j=h[0];while(j--)f=f.lastChild;n.merge(l,f.childNodes),f=k.firstChild,f.textContent=""}else l.push(b.createTextNode(e));k.textContent="",m=0;while(e=l[m++])if((!d||-1===n.inArray(e,d))&&(i=n.contains(e.ownerDocument,e),f=ob(k.appendChild(e),"script"),i&&mb(f),c)){j=0;while(e=f[j++])fb.test(e.type||"")&&c.push(e)}return k},cleanData:function(a){for(var b,c,d,e,f=n.event.special,g=0;void 0!==(c=a[g]);g++){if(n.acceptData(c)&&(e=c[L.expando],e&&(b=L.cache[e]))){if(b.events)for(d in b.events)f[d]?n.event.remove(c,d):n.removeEvent(c,d,b.handle);L.cache[e]&&delete L.cache[e]}delete M.cache[c[M.expando]]}}}),n.fn.extend({text:function(a){return J(this,function(a){return void 0===a?n.text(this):this.empty().each(function(){(1===this.nodeType||11===this.nodeType||9===this.nodeType)&&(this.textContent=a)})},null,a,arguments.length)},append:function(){return this.domManip(arguments,function(a){if(1===this.nodeType||11===this.nodeType||9===this.nodeType){var b=jb(this,a);b.appendChild(a)}})},prepend:function(){return this.domManip(arguments,function(a){if(1===this.nodeType||11===this.nodeType||9===this.nodeType){var b=jb(this,a);b.insertBefore(a,b.firstChild)}})},before:function(){return this.domManip(arguments,function(a){this.parentNode&&this.parentNode.insertBefore(a,this)})},after:function(){return this.domManip(arguments,function(a){this.parentNode&&this.parentNode.insertBefore(a,this.nextSibling)})},remove:function(a,b){for(var c,d=a?n.filter(a,this):this,e=0;null!=(c=d[e]);e++)b||1!==c.nodeType||n.cleanData(ob(c)),c.parentNode&&(b&&n.contains(c.ownerDocument,c)&&mb(ob(c,"script")),c.parentNode.removeChild(c));return this},empty:function(){for(var a,b=0;null!=(a=this[b]);b++)1===a.nodeType&&(n.cleanData(ob(a,!1)),a.textContent="");return this},clone:function(a,b){return a=null==a?!1:a,b=null==b?a:b,this.map(function(){return n.clone(this,a,b)})},html:function(a){return J(this,function(a){var b=this[0]||{},c=0,d=this.length;if(void 0===a&&1===b.nodeType)return b.innerHTML;if("string"==typeof a&&!db.test(a)&&!ib[(bb.exec(a)||["",""])[1].toLowerCase()]){a=a.replace(ab,"<$1></$2>");try{for(;d>c;c++)b=this[c]||{},1===b.nodeType&&(n.cleanData(ob(b,!1)),b.innerHTML=a);b=0}catch(e){}}b&&this.empty().append(a)},null,a,arguments.length)},replaceWith:function(){var a=arguments[0];return this.domManip(arguments,function(b){a=this.parentNode,n.cleanData(ob(this)),a&&a.replaceChild(b,this)}),a&&(a.length||a.nodeType)?this:this.remove()},detach:function(a){return this.remove(a,!0)},domManip:function(a,b){a=e.apply([],a);var c,d,f,g,h,i,j=0,l=this.length,m=this,o=l-1,p=a[0],q=n.isFunction(p);if(q||l>1&&"string"==typeof p&&!k.checkClone&&eb.test(p))return this.each(function(c){var d=m.eq(c);q&&(a[0]=p.call(this,c,d.html())),d.domManip(a,b)});if(l&&(c=n.buildFragment(a,this[0].ownerDocument,!1,this),d=c.firstChild,1===c.childNodes.length&&(c=d),d)){for(f=n.map(ob(c,"script"),kb),g=f.length;l>j;j++)h=c,j!==o&&(h=n.clone(h,!0,!0),g&&n.merge(f,ob(h,"script"))),b.call(this[j],h,j);if(g)for(i=f[f.length-1].ownerDocument,n.map(f,lb),j=0;g>j;j++)h=f[j],fb.test(h.type||"")&&!L.access(h,"globalEval")&&n.contains(i,h)&&(h.src?n._evalUrl&&n._evalUrl(h.src):n.globalEval(h.textContent.replace(hb,"")))}return this}}),n.each({appendTo:"append",prependTo:"prepend",insertBefore:"before",insertAfter:"after",replaceAll:"replaceWith"},function(a,b){n.fn[a]=function(a){for(var c,d=[],e=n(a),g=e.length-1,h=0;g>=h;h++)c=h===g?this:this.clone(!0),n(e[h])[b](c),f.apply(d,c.get());return this.pushStack(d)}});var qb,rb={};function sb(b,c){var d,e=n(c.createElement(b)).appendTo(c.body),f=a.getDefaultComputedStyle&&(d=a.getDefaultComputedStyle(e[0]))?d.display:n.css(e[0],"display");return e.detach(),f}function tb(a){var b=l,c=rb[a];return c||(c=sb(a,b),"none"!==c&&c||(qb=(qb||n("<iframe frameborder='0' width='0' height='0'/>")).appendTo(b.documentElement),b=qb[0].contentDocument,b.write(),b.close(),c=sb(a,b),qb.detach()),rb[a]=c),c}var ub=/^margin/,vb=new RegExp("^("+Q+")(?!px)[a-z%]+$","i"),wb=function(b){return b.ownerDocument.defaultView.opener?b.ownerDocument.defaultView.getComputedStyle(b,null):a.getComputedStyle(b,null)};function xb(a,b,c){var d,e,f,g,h=a.style;return c=c||wb(a),c&&(g=c.getPropertyValue(b)||c[b]),c&&(""!==g||n.contains(a.ownerDocument,a)||(g=n.style(a,b)),vb.test(g)&&ub.test(b)&&(d=h.width,e=h.minWidth,f=h.maxWidth,h.minWidth=h.maxWidth=h.width=g,g=c.width,h.width=d,h.minWidth=e,h.maxWidth=f)),void 0!==g?g+"":g}function yb(a,b){return{get:function(){return a()?void delete this.get:(this.get=b).apply(this,arguments)}}}!function(){var b,c,d=l.documentElement,e=l.createElement("div"),f=l.createElement("div");if(f.style){f.style.backgroundClip="content-box",f.cloneNode(!0).style.backgroundClip="",k.clearCloneStyle="content-box"===f.style.backgroundClip,e.style.cssText="border:0;width:0;height:0;top:0;left:-9999px;margin-top:1px;position:absolute",e.appendChild(f);function g(){f.style.cssText="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;margin-top:1%;top:1%;border:1px;padding:1px;width:4px;position:absolute",f.innerHTML="",d.appendChild(e);var g=a.getComputedStyle(f,null);b="1%"!==g.top,c="4px"===g.width,d.removeChild(e)}a.getComputedStyle&&n.extend(k,{pixelPosition:function(){return g(),b},boxSizingReliable:function(){return null==c&&g(),c},reliableMarginRight:function(){var b,c=f.appendChild(l.createElement("div"));return c.style.cssText=f.style.cssText="-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;display:block;margin:0;border:0;padding:0",c.style.marginRight=c.style.width="0",f.style.width="1px",d.appendChild(e),b=!parseFloat(a.getComputedStyle(c,null).marginRight),d.removeChild(e),f.removeChild(c),b}})}}(),n.swap=function(a,b,c,d){var e,f,g={};for(f in b)g[f]=a.style[f],a.style[f]=b[f];e=c.apply(a,d||[]);for(f in b)a.style[f]=g[f];return e};var zb=/^(none|table(?!-c[ea]).+)/,Ab=new RegExp("^("+Q+")(.*)$","i"),Bb=new RegExp("^([+-])=("+Q+")","i"),Cb={position:"absolute",visibility:"hidden",display:"block"},Db={letterSpacing:"0",fontWeight:"400"},Eb=["Webkit","O","Moz","ms"];function Fb(a,b){if(b in a)return b;var c=b[0].toUpperCase()+b.slice(1),d=b,e=Eb.length;while(e--)if(b=Eb[e]+c,b in a)return b;return d}function Gb(a,b,c){var d=Ab.exec(b);return d?Math.max(0,d[1]-(c||0))+(d[2]||"px"):b}function Hb(a,b,c,d,e){for(var f=c===(d?"border":"content")?4:"width"===b?1:0,g=0;4>f;f+=2)"margin"===c&&(g+=n.css(a,c+R[f],!0,e)),d?("content"===c&&(g-=n.css(a,"padding"+R[f],!0,e)),"margin"!==c&&(g-=n.css(a,"border"+R[f]+"Width",!0,e))):(g+=n.css(a,"padding"+R[f],!0,e),"padding"!==c&&(g+=n.css(a,"border"+R[f]+"Width",!0,e)));return g}function Ib(a,b,c){var d=!0,e="width"===b?a.offsetWidth:a.offsetHeight,f=wb(a),g="border-box"===n.css(a,"boxSizing",!1,f);if(0>=e||null==e){if(e=xb(a,b,f),(0>e||null==e)&&(e=a.style[b]),vb.test(e))return e;d=g&&(k.boxSizingReliable()||e===a.style[b]),e=parseFloat(e)||0}return e+Hb(a,b,c||(g?"border":"content"),d,f)+"px"}function Jb(a,b){for(var c,d,e,f=[],g=0,h=a.length;h>g;g++)d=a[g],d.style&&(f[g]=L.get(d,"olddisplay"),c=d.style.display,b?(f[g]||"none"!==c||(d.style.display=""),""===d.style.display&&S(d)&&(f[g]=L.access(d,"olddisplay",tb(d.nodeName)))):(e=S(d),"none"===c&&e||L.set(d,"olddisplay",e?c:n.css(d,"display"))));for(g=0;h>g;g++)d=a[g],d.style&&(b&&"none"!==d.style.display&&""!==d.style.display||(d.style.display=b?f[g]||"":"none"));return a}n.extend({cssHooks:{opacity:{get:function(a,b){if(b){var c=xb(a,"opacity");return""===c?"1":c}}}},cssNumber:{columnCount:!0,fillOpacity:!0,flexGrow:!0,flexShrink:!0,fontWeight:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,widows:!0,zIndex:!0,zoom:!0},cssProps:{"float":"cssFloat"},style:function(a,b,c,d){if(a&&3!==a.nodeType&&8!==a.nodeType&&a.style){var e,f,g,h=n.camelCase(b),i=a.style;return b=n.cssProps[h]||(n.cssProps[h]=Fb(i,h)),g=n.cssHooks[b]||n.cssHooks[h],void 0===c?g&&"get"in g&&void 0!==(e=g.get(a,!1,d))?e:i[b]:(f=typeof c,"string"===f&&(e=Bb.exec(c))&&(c=(e[1]+1)*e[2]+parseFloat(n.css(a,b)),f="number"),null!=c&&c===c&&("number"!==f||n.cssNumber[h]||(c+="px"),k.clearCloneStyle||""!==c||0!==b.indexOf("background")||(i[b]="inherit"),g&&"set"in g&&void 0===(c=g.set(a,c,d))||(i[b]=c)),void 0)}},css:function(a,b,c,d){var e,f,g,h=n.camelCase(b);return b=n.cssProps[h]||(n.cssProps[h]=Fb(a.style,h)),g=n.cssHooks[b]||n.cssHooks[h],g&&"get"in g&&(e=g.get(a,!0,c)),void 0===e&&(e=xb(a,b,d)),"normal"===e&&b in Db&&(e=Db[b]),""===c||c?(f=parseFloat(e),c===!0||n.isNumeric(f)?f||0:e):e}}),n.each(["height","width"],function(a,b){n.cssHooks[b]={get:function(a,c,d){return c?zb.test(n.css(a,"display"))&&0===a.offsetWidth?n.swap(a,Cb,function(){return Ib(a,b,d)}):Ib(a,b,d):void 0},set:function(a,c,d){var e=d&&wb(a);return Gb(a,c,d?Hb(a,b,d,"border-box"===n.css(a,"boxSizing",!1,e),e):0)}}}),n.cssHooks.marginRight=yb(k.reliableMarginRight,function(a,b){return b?n.swap(a,{display:"inline-block"},xb,[a,"marginRight"]):void 0}),n.each({margin:"",padding:"",border:"Width"},function(a,b){n.cssHooks[a+b]={expand:function(c){for(var d=0,e={},f="string"==typeof c?c.split(" "):[c];4>d;d++)e[a+R[d]+b]=f[d]||f[d-2]||f[0];return e}},ub.test(a)||(n.cssHooks[a+b].set=Gb)}),n.fn.extend({css:function(a,b){return J(this,function(a,b,c){var d,e,f={},g=0;if(n.isArray(b)){for(d=wb(a),e=b.length;e>g;g++)f[b[g]]=n.css(a,b[g],!1,d);return f}return void 0!==c?n.style(a,b,c):n.css(a,b)},a,b,arguments.length>1)},show:function(){return Jb(this,!0)},hide:function(){return Jb(this)},toggle:function(a){return"boolean"==typeof a?a?this.show():this.hide():this.each(function(){S(this)?n(this).show():n(this).hide()})}});function Kb(a,b,c,d,e){return new Kb.prototype.init(a,b,c,d,e)}n.Tween=Kb,Kb.prototype={constructor:Kb,init:function(a,b,c,d,e,f){this.elem=a,this.prop=c,this.easing=e||"swing",this.options=b,this.start=this.now=this.cur(),this.end=d,this.unit=f||(n.cssNumber[c]?"":"px")},cur:function(){var a=Kb.propHooks[this.prop];return a&&a.get?a.get(this):Kb.propHooks._default.get(this)},run:function(a){var b,c=Kb.propHooks[this.prop];return this.pos=b=this.options.duration?n.easing[this.easing](a,this.options.duration*a,0,1,this.options.duration):a,this.now=(this.end-this.start)*b+this.start,this.options.step&&this.options.step.call(this.elem,this.now,this),c&&c.set?c.set(this):Kb.propHooks._default.set(this),this}},Kb.prototype.init.prototype=Kb.prototype,Kb.propHooks={_default:{get:function(a){var b;return null==a.elem[a.prop]||a.elem.style&&null!=a.elem.style[a.prop]?(b=n.css(a.elem,a.prop,""),b&&"auto"!==b?b:0):a.elem[a.prop]},set:function(a){n.fx.step[a.prop]?n.fx.step[a.prop](a):a.elem.style&&(null!=a.elem.style[n.cssProps[a.prop]]||n.cssHooks[a.prop])?n.style(a.elem,a.prop,a.now+a.unit):a.elem[a.prop]=a.now}}},Kb.propHooks.scrollTop=Kb.propHooks.scrollLeft={set:function(a){a.elem.nodeType&&a.elem.parentNode&&(a.elem[a.prop]=a.now)}},n.easing={linear:function(a){return a},swing:function(a){return.5-Math.cos(a*Math.PI)/2}},n.fx=Kb.prototype.init,n.fx.step={};var Lb,Mb,Nb=/^(?:toggle|show|hide)$/,Ob=new RegExp("^(?:([+-])=|)("+Q+")([a-z%]*)$","i"),Pb=/queueHooks$/,Qb=[Vb],Rb={"*":[function(a,b){var c=this.createTween(a,b),d=c.cur(),e=Ob.exec(b),f=e&&e[3]||(n.cssNumber[a]?"":"px"),g=(n.cssNumber[a]||"px"!==f&&+d)&&Ob.exec(n.css(c.elem,a)),h=1,i=20;if(g&&g[3]!==f){f=f||g[3],e=e||[],g=+d||1;do h=h||".5",g/=h,n.style(c.elem,a,g+f);while(h!==(h=c.cur()/d)&&1!==h&&--i)}return e&&(g=c.start=+g||+d||0,c.unit=f,c.end=e[1]?g+(e[1]+1)*e[2]:+e[2]),c}]};function Sb(){return setTimeout(function(){Lb=void 0}),Lb=n.now()}function Tb(a,b){var c,d=0,e={height:a};for(b=b?1:0;4>d;d+=2-b)c=R[d],e["margin"+c]=e["padding"+c]=a;return b&&(e.opacity=e.width=a),e}function Ub(a,b,c){for(var d,e=(Rb[b]||[]).concat(Rb["*"]),f=0,g=e.length;g>f;f++)if(d=e[f].call(c,b,a))return d}function Vb(a,b,c){var d,e,f,g,h,i,j,k,l=this,m={},o=a.style,p=a.nodeType&&S(a),q=L.get(a,"fxshow");c.queue||(h=n._queueHooks(a,"fx"),null==h.unqueued&&(h.unqueued=0,i=h.empty.fire,h.empty.fire=function(){h.unqueued||i()}),h.unqueued++,l.always(function(){l.always(function(){h.unqueued--,n.queue(a,"fx").length||h.empty.fire()})})),1===a.nodeType&&("height"in b||"width"in b)&&(c.overflow=[o.overflow,o.overflowX,o.overflowY],j=n.css(a,"display"),k="none"===j?L.get(a,"olddisplay")||tb(a.nodeName):j,"inline"===k&&"none"===n.css(a,"float")&&(o.display="inline-block")),c.overflow&&(o.overflow="hidden",l.always(function(){o.overflow=c.overflow[0],o.overflowX=c.overflow[1],o.overflowY=c.overflow[2]}));for(d in b)if(e=b[d],Nb.exec(e)){if(delete b[d],f=f||"toggle"===e,e===(p?"hide":"show")){if("show"!==e||!q||void 0===q[d])continue;p=!0}m[d]=q&&q[d]||n.style(a,d)}else j=void 0;if(n.isEmptyObject(m))"inline"===("none"===j?tb(a.nodeName):j)&&(o.display=j);else{q?"hidden"in q&&(p=q.hidden):q=L.access(a,"fxshow",{}),f&&(q.hidden=!p),p?n(a).show():l.done(function(){n(a).hide()}),l.done(function(){var b;L.remove(a,"fxshow");for(b in m)n.style(a,b,m[b])});for(d in m)g=Ub(p?q[d]:0,d,l),d in q||(q[d]=g.start,p&&(g.end=g.start,g.start="width"===d||"height"===d?1:0))}}function Wb(a,b){var c,d,e,f,g;for(c in a)if(d=n.camelCase(c),e=b[d],f=a[c],n.isArray(f)&&(e=f[1],f=a[c]=f[0]),c!==d&&(a[d]=f,delete a[c]),g=n.cssHooks[d],g&&"expand"in g){f=g.expand(f),delete a[d];for(c in f)c in a||(a[c]=f[c],b[c]=e)}else b[d]=e}function Xb(a,b,c){var d,e,f=0,g=Qb.length,h=n.Deferred().always(function(){delete i.elem}),i=function(){if(e)return!1;for(var b=Lb||Sb(),c=Math.max(0,j.startTime+j.duration-b),d=c/j.duration||0,f=1-d,g=0,i=j.tweens.length;i>g;g++)j.tweens[g].run(f);return h.notifyWith(a,[j,f,c]),1>f&&i?c:(h.resolveWith(a,[j]),!1)},j=h.promise({elem:a,props:n.extend({},b),opts:n.extend(!0,{specialEasing:{}},c),originalProperties:b,originalOptions:c,startTime:Lb||Sb(),duration:c.duration,tweens:[],createTween:function(b,c){var d=n.Tween(a,j.opts,b,c,j.opts.specialEasing[b]||j.opts.easing);return j.tweens.push(d),d},stop:function(b){var c=0,d=b?j.tweens.length:0;if(e)return this;for(e=!0;d>c;c++)j.tweens[c].run(1);return b?h.resolveWith(a,[j,b]):h.rejectWith(a,[j,b]),this}}),k=j.props;for(Wb(k,j.opts.specialEasing);g>f;f++)if(d=Qb[f].call(j,a,k,j.opts))return d;return n.map(k,Ub,j),n.isFunction(j.opts.start)&&j.opts.start.call(a,j),n.fx.timer(n.extend(i,{elem:a,anim:j,queue:j.opts.queue})),j.progress(j.opts.progress).done(j.opts.done,j.opts.complete).fail(j.opts.fail).always(j.opts.always)}n.Animation=n.extend(Xb,{tweener:function(a,b){n.isFunction(a)?(b=a,a=["*"]):a=a.split(" ");for(var c,d=0,e=a.length;e>d;d++)c=a[d],Rb[c]=Rb[c]||[],Rb[c].unshift(b)},prefilter:function(a,b){b?Qb.unshift(a):Qb.push(a)}}),n.speed=function(a,b,c){var d=a&&"object"==typeof a?n.extend({},a):{complete:c||!c&&b||n.isFunction(a)&&a,duration:a,easing:c&&b||b&&!n.isFunction(b)&&b};return d.duration=n.fx.off?0:"number"==typeof d.duration?d.duration:d.duration in n.fx.speeds?n.fx.speeds[d.duration]:n.fx.speeds._default,(null==d.queue||d.queue===!0)&&(d.queue="fx"),d.old=d.complete,d.complete=function(){n.isFunction(d.old)&&d.old.call(this),d.queue&&n.dequeue(this,d.queue)},d},n.fn.extend({fadeTo:function(a,b,c,d){return this.filter(S).css("opacity",0).show().end().animate({opacity:b},a,c,d)},animate:function(a,b,c,d){var e=n.isEmptyObject(a),f=n.speed(b,c,d),g=function(){var b=Xb(this,n.extend({},a),f);(e||L.get(this,"finish"))&&b.stop(!0)};return g.finish=g,e||f.queue===!1?this.each(g):this.queue(f.queue,g)},stop:function(a,b,c){var d=function(a){var b=a.stop;delete a.stop,b(c)};return"string"!=typeof a&&(c=b,b=a,a=void 0),b&&a!==!1&&this.queue(a||"fx",[]),this.each(function(){var b=!0,e=null!=a&&a+"queueHooks",f=n.timers,g=L.get(this);if(e)g[e]&&g[e].stop&&d(g[e]);else for(e in g)g[e]&&g[e].stop&&Pb.test(e)&&d(g[e]);for(e=f.length;e--;)f[e].elem!==this||null!=a&&f[e].queue!==a||(f[e].anim.stop(c),b=!1,f.splice(e,1));(b||!c)&&n.dequeue(this,a)})},finish:function(a){return a!==!1&&(a=a||"fx"),this.each(function(){var b,c=L.get(this),d=c[a+"queue"],e=c[a+"queueHooks"],f=n.timers,g=d?d.length:0;for(c.finish=!0,n.queue(this,a,[]),e&&e.stop&&e.stop.call(this,!0),b=f.length;b--;)f[b].elem===this&&f[b].queue===a&&(f[b].anim.stop(!0),f.splice(b,1));for(b=0;g>b;b++)d[b]&&d[b].finish&&d[b].finish.call(this);delete c.finish})}}),n.each(["toggle","show","hide"],function(a,b){var c=n.fn[b];n.fn[b]=function(a,d,e){return null==a||"boolean"==typeof a?c.apply(this,arguments):this.animate(Tb(b,!0),a,d,e)}}),n.each({slideDown:Tb("show"),slideUp:Tb("hide"),slideToggle:Tb("toggle"),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(a,b){n.fn[a]=function(a,c,d){return this.animate(b,a,c,d)}}),n.timers=[],n.fx.tick=function(){var a,b=0,c=n.timers;for(Lb=n.now();b<c.length;b++)a=c[b],a()||c[b]!==a||c.splice(b--,1);c.length||n.fx.stop(),Lb=void 0},n.fx.timer=function(a){n.timers.push(a),a()?n.fx.start():n.timers.pop()},n.fx.interval=13,n.fx.start=function(){Mb||(Mb=setInterval(n.fx.tick,n.fx.interval))},n.fx.stop=function(){clearInterval(Mb),Mb=null},n.fx.speeds={slow:600,fast:200,_default:400},n.fn.delay=function(a,b){return a=n.fx?n.fx.speeds[a]||a:a,b=b||"fx",this.queue(b,function(b,c){var d=setTimeout(b,a);c.stop=function(){clearTimeout(d)}})},function(){var a=l.createElement("input"),b=l.createElement("select"),c=b.appendChild(l.createElement("option"));a.type="checkbox",k.checkOn=""!==a.value,k.optSelected=c.selected,b.disabled=!0,k.optDisabled=!c.disabled,a=l.createElement("input"),a.value="t",a.type="radio",k.radioValue="t"===a.value}();var Yb,Zb,$b=n.expr.attrHandle;n.fn.extend({attr:function(a,b){return J(this,n.attr,a,b,arguments.length>1)},removeAttr:function(a){return this.each(function(){n.removeAttr(this,a)})}}),n.extend({attr:function(a,b,c){var d,e,f=a.nodeType;if(a&&3!==f&&8!==f&&2!==f)return typeof a.getAttribute===U?n.prop(a,b,c):(1===f&&n.isXMLDoc(a)||(b=b.toLowerCase(),d=n.attrHooks[b]||(n.expr.match.bool.test(b)?Zb:Yb)),void 0===c?d&&"get"in d&&null!==(e=d.get(a,b))?e:(e=n.find.attr(a,b),null==e?void 0:e):null!==c?d&&"set"in d&&void 0!==(e=d.set(a,c,b))?e:(a.setAttribute(b,c+""),c):void n.removeAttr(a,b))
 },removeAttr:function(a,b){var c,d,e=0,f=b&&b.match(E);if(f&&1===a.nodeType)while(c=f[e++])d=n.propFix[c]||c,n.expr.match.bool.test(c)&&(a[d]=!1),a.removeAttribute(c)},attrHooks:{type:{set:function(a,b){if(!k.radioValue&&"radio"===b&&n.nodeName(a,"input")){var c=a.value;return a.setAttribute("type",b),c&&(a.value=c),b}}}}}),Zb={set:function(a,b,c){return b===!1?n.removeAttr(a,c):a.setAttribute(c,c),c}},n.each(n.expr.match.bool.source.match(/\w+/g),function(a,b){var c=$b[b]||n.find.attr;$b[b]=function(a,b,d){var e,f;return d||(f=$b[b],$b[b]=e,e=null!=c(a,b,d)?b.toLowerCase():null,$b[b]=f),e}});var _b=/^(?:input|select|textarea|button)$/i;n.fn.extend({prop:function(a,b){return J(this,n.prop,a,b,arguments.length>1)},removeProp:function(a){return this.each(function(){delete this[n.propFix[a]||a]})}}),n.extend({propFix:{"for":"htmlFor","class":"className"},prop:function(a,b,c){var d,e,f,g=a.nodeType;if(a&&3!==g&&8!==g&&2!==g)return f=1!==g||!n.isXMLDoc(a),f&&(b=n.propFix[b]||b,e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!==(d=e.get(a,b))?d:a[b]},propHooks:{tabIndex:{get:function(a){return a.hasAttribute("tabindex")||_b.test(a.nodeName)||a.href?a.tabIndex:-1}}}}),k.optSelected||(n.propHooks.selected={get:function(a){var b=a.parentNode;return b&&b.parentNode&&b.parentNode.selectedIndex,null}}),n.each(["tabIndex","readOnly","maxLength","cellSpacing","cellPadding","rowSpan","colSpan","useMap","frameBorder","contentEditable"],function(){n.propFix[this.toLowerCase()]=this});var ac=/[\t\r\n\f]/g;n.fn.extend({addClass:function(a){var b,c,d,e,f,g,h="string"==typeof a&&a,i=0,j=this.length;if(n.isFunction(a))return this.each(function(b){n(this).addClass(a.call(this,b,this.className))});if(h)for(b=(a||"").match(E)||[];j>i;i++)if(c=this[i],d=1===c.nodeType&&(c.className?(" "+c.className+" ").replace(ac," "):" ")){f=0;while(e=b[f++])d.indexOf(" "+e+" ")<0&&(d+=e+" ");g=n.trim(d),c.className!==g&&(c.className=g)}return this},removeClass:function(a){var b,c,d,e,f,g,h=0===arguments.length||"string"==typeof a&&a,i=0,j=this.length;if(n.isFunction(a))return this.each(function(b){n(this).removeClass(a.call(this,b,this.className))});if(h)for(b=(a||"").match(E)||[];j>i;i++)if(c=this[i],d=1===c.nodeType&&(c.className?(" "+c.className+" ").replace(ac," "):"")){f=0;while(e=b[f++])while(d.indexOf(" "+e+" ")>=0)d=d.replace(" "+e+" "," ");g=a?n.trim(d):"",c.className!==g&&(c.className=g)}return this},toggleClass:function(a,b){var c=typeof a;return"boolean"==typeof b&&"string"===c?b?this.addClass(a):this.removeClass(a):this.each(n.isFunction(a)?function(c){n(this).toggleClass(a.call(this,c,this.className,b),b)}:function(){if("string"===c){var b,d=0,e=n(this),f=a.match(E)||[];while(b=f[d++])e.hasClass(b)?e.removeClass(b):e.addClass(b)}else(c===U||"boolean"===c)&&(this.className&&L.set(this,"__className__",this.className),this.className=this.className||a===!1?"":L.get(this,"__className__")||"")})},hasClass:function(a){for(var b=" "+a+" ",c=0,d=this.length;d>c;c++)if(1===this[c].nodeType&&(" "+this[c].className+" ").replace(ac," ").indexOf(b)>=0)return!0;return!1}});var bc=/\r/g;n.fn.extend({val:function(a){var b,c,d,e=this[0];{if(arguments.length)return d=n.isFunction(a),this.each(function(c){var e;1===this.nodeType&&(e=d?a.call(this,c,n(this).val()):a,null==e?e="":"number"==typeof e?e+="":n.isArray(e)&&(e=n.map(e,function(a){return null==a?"":a+""})),b=n.valHooks[this.type]||n.valHooks[this.nodeName.toLowerCase()],b&&"set"in b&&void 0!==b.set(this,e,"value")||(this.value=e))});if(e)return b=n.valHooks[e.type]||n.valHooks[e.nodeName.toLowerCase()],b&&"get"in b&&void 0!==(c=b.get(e,"value"))?c:(c=e.value,"string"==typeof c?c.replace(bc,""):null==c?"":c)}}}),n.extend({valHooks:{option:{get:function(a){var b=n.find.attr(a,"value");return null!=b?b:n.trim(n.text(a))}},select:{get:function(a){for(var b,c,d=a.options,e=a.selectedIndex,f="select-one"===a.type||0>e,g=f?null:[],h=f?e+1:d.length,i=0>e?h:f?e:0;h>i;i++)if(c=d[i],!(!c.selected&&i!==e||(k.optDisabled?c.disabled:null!==c.getAttribute("disabled"))||c.parentNode.disabled&&n.nodeName(c.parentNode,"optgroup"))){if(b=n(c).val(),f)return b;g.push(b)}return g},set:function(a,b){var c,d,e=a.options,f=n.makeArray(b),g=e.length;while(g--)d=e[g],(d.selected=n.inArray(d.value,f)>=0)&&(c=!0);return c||(a.selectedIndex=-1),f}}}}),n.each(["radio","checkbox"],function(){n.valHooks[this]={set:function(a,b){return n.isArray(b)?a.checked=n.inArray(n(a).val(),b)>=0:void 0}},k.checkOn||(n.valHooks[this].get=function(a){return null===a.getAttribute("value")?"on":a.value})}),n.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "),function(a,b){n.fn[b]=function(a,c){return arguments.length>0?this.on(b,null,a,c):this.trigger(b)}}),n.fn.extend({hover:function(a,b){return this.mouseenter(a).mouseleave(b||a)},bind:function(a,b,c){return this.on(a,null,b,c)},unbind:function(a,b){return this.off(a,null,b)},delegate:function(a,b,c,d){return this.on(b,a,c,d)},undelegate:function(a,b,c){return 1===arguments.length?this.off(a,"**"):this.off(b,a||"**",c)}});var cc=n.now(),dc=/\?/;n.parseJSON=function(a){return JSON.parse(a+"")},n.parseXML=function(a){var b,c;if(!a||"string"!=typeof a)return null;try{c=new DOMParser,b=c.parseFromString(a,"text/xml")}catch(d){b=void 0}return(!b||b.getElementsByTagName("parsererror").length)&&n.error("Invalid XML: "+a),b};var ec=/#.*$/,fc=/([?&])_=[^&]*/,gc=/^(.*?):[ \t]*([^\r\n]*)$/gm,hc=/^(?:about|app|app-storage|.+-extension|file|res|widget):$/,ic=/^(?:GET|HEAD)$/,jc=/^\/\//,kc=/^([\w.+-]+:)(?:\/\/(?:[^\/?#]*@|)([^\/?#:]*)(?::(\d+)|)|)/,lc={},mc={},nc="*/".concat("*"),oc=a.location.href,pc=kc.exec(oc.toLowerCase())||[];function qc(a){return function(b,c){"string"!=typeof b&&(c=b,b="*");var d,e=0,f=b.toLowerCase().match(E)||[];if(n.isFunction(c))while(d=f[e++])"+"===d[0]?(d=d.slice(1)||"*",(a[d]=a[d]||[]).unshift(c)):(a[d]=a[d]||[]).push(c)}}function rc(a,b,c,d){var e={},f=a===mc;function g(h){var i;return e[h]=!0,n.each(a[h]||[],function(a,h){var j=h(b,c,d);return"string"!=typeof j||f||e[j]?f?!(i=j):void 0:(b.dataTypes.unshift(j),g(j),!1)}),i}return g(b.dataTypes[0])||!e["*"]&&g("*")}function sc(a,b){var c,d,e=n.ajaxSettings.flatOptions||{};for(c in b)void 0!==b[c]&&((e[c]?a:d||(d={}))[c]=b[c]);return d&&n.extend(!0,a,d),a}function tc(a,b,c){var d,e,f,g,h=a.contents,i=a.dataTypes;while("*"===i[0])i.shift(),void 0===d&&(d=a.mimeType||b.getResponseHeader("Content-Type"));if(d)for(e in h)if(h[e]&&h[e].test(d)){i.unshift(e);break}if(i[0]in c)f=i[0];else{for(e in c){if(!i[0]||a.converters[e+" "+i[0]]){f=e;break}g||(g=e)}f=f||g}return f?(f!==i[0]&&i.unshift(f),c[f]):void 0}function uc(a,b,c,d){var e,f,g,h,i,j={},k=a.dataTypes.slice();if(k[1])for(g in a.converters)j[g.toLowerCase()]=a.converters[g];f=k.shift();while(f)if(a.responseFields[f]&&(c[a.responseFields[f]]=b),!i&&d&&a.dataFilter&&(b=a.dataFilter(b,a.dataType)),i=f,f=k.shift())if("*"===f)f=i;else if("*"!==i&&i!==f){if(g=j[i+" "+f]||j["* "+f],!g)for(e in j)if(h=e.split(" "),h[1]===f&&(g=j[i+" "+h[0]]||j["* "+h[0]])){g===!0?g=j[e]:j[e]!==!0&&(f=h[0],k.unshift(h[1]));break}if(g!==!0)if(g&&a["throws"])b=g(b);else try{b=g(b)}catch(l){return{state:"parsererror",error:g?l:"No conversion from "+i+" to "+f}}}return{state:"success",data:b}}n.extend({active:0,lastModified:{},etag:{},ajaxSettings:{url:oc,type:"GET",isLocal:hc.test(pc[1]),global:!0,processData:!0,async:!0,contentType:"application/x-www-form-urlencoded; charset=UTF-8",accepts:{"*":nc,text:"text/plain",html:"text/html",xml:"application/xml, text/xml",json:"application/json, text/javascript"},contents:{xml:/xml/,html:/html/,json:/json/},responseFields:{xml:"responseXML",text:"responseText",json:"responseJSON"},converters:{"* text":String,"text html":!0,"text json":n.parseJSON,"text xml":n.parseXML},flatOptions:{url:!0,context:!0}},ajaxSetup:function(a,b){return b?sc(sc(a,n.ajaxSettings),b):sc(n.ajaxSettings,a)},ajaxPrefilter:qc(lc),ajaxTransport:qc(mc),ajax:function(a,b){"object"==typeof a&&(b=a,a=void 0),b=b||{};var c,d,e,f,g,h,i,j,k=n.ajaxSetup({},b),l=k.context||k,m=k.context&&(l.nodeType||l.jquery)?n(l):n.event,o=n.Deferred(),p=n.Callbacks("once memory"),q=k.statusCode||{},r={},s={},t=0,u="canceled",v={readyState:0,getResponseHeader:function(a){var b;if(2===t){if(!f){f={};while(b=gc.exec(e))f[b[1].toLowerCase()]=b[2]}b=f[a.toLowerCase()]}return null==b?null:b},getAllResponseHeaders:function(){return 2===t?e:null},setRequestHeader:function(a,b){var c=a.toLowerCase();return t||(a=s[c]=s[c]||a,r[a]=b),this},overrideMimeType:function(a){return t||(k.mimeType=a),this},statusCode:function(a){var b;if(a)if(2>t)for(b in a)q[b]=[q[b],a[b]];else v.always(a[v.status]);return this},abort:function(a){var b=a||u;return c&&c.abort(b),x(0,b),this}};if(o.promise(v).complete=p.add,v.success=v.done,v.error=v.fail,k.url=((a||k.url||oc)+"").replace(ec,"").replace(jc,pc[1]+"//"),k.type=b.method||b.type||k.method||k.type,k.dataTypes=n.trim(k.dataType||"*").toLowerCase().match(E)||[""],null==k.crossDomain&&(h=kc.exec(k.url.toLowerCase()),k.crossDomain=!(!h||h[1]===pc[1]&&h[2]===pc[2]&&(h[3]||("http:"===h[1]?"80":"443"))===(pc[3]||("http:"===pc[1]?"80":"443")))),k.data&&k.processData&&"string"!=typeof k.data&&(k.data=n.param(k.data,k.traditional)),rc(lc,k,b,v),2===t)return v;i=n.event&&k.global,i&&0===n.active++&&n.event.trigger("ajaxStart"),k.type=k.type.toUpperCase(),k.hasContent=!ic.test(k.type),d=k.url,k.hasContent||(k.data&&(d=k.url+=(dc.test(d)?"&":"?")+k.data,delete k.data),k.cache===!1&&(k.url=fc.test(d)?d.replace(fc,"$1_="+cc++):d+(dc.test(d)?"&":"?")+"_="+cc++)),k.ifModified&&(n.lastModified[d]&&v.setRequestHeader("If-Modified-Since",n.lastModified[d]),n.etag[d]&&v.setRequestHeader("If-None-Match",n.etag[d])),(k.data&&k.hasContent&&k.contentType!==!1||b.contentType)&&v.setRequestHeader("Content-Type",k.contentType),v.setRequestHeader("Accept",k.dataTypes[0]&&k.accepts[k.dataTypes[0]]?k.accepts[k.dataTypes[0]]+("*"!==k.dataTypes[0]?", "+nc+"; q=0.01":""):k.accepts["*"]);for(j in k.headers)v.setRequestHeader(j,k.headers[j]);if(k.beforeSend&&(k.beforeSend.call(l,v,k)===!1||2===t))return v.abort();u="abort";for(j in{success:1,error:1,complete:1})v[j](k[j]);if(c=rc(mc,k,b,v)){v.readyState=1,i&&m.trigger("ajaxSend",[v,k]),k.async&&k.timeout>0&&(g=setTimeout(function(){v.abort("timeout")},k.timeout));try{t=1,c.send(r,x)}catch(w){if(!(2>t))throw w;x(-1,w)}}else x(-1,"No Transport");function x(a,b,f,h){var j,r,s,u,w,x=b;2!==t&&(t=2,g&&clearTimeout(g),c=void 0,e=h||"",v.readyState=a>0?4:0,j=a>=200&&300>a||304===a,f&&(u=tc(k,v,f)),u=uc(k,u,v,j),j?(k.ifModified&&(w=v.getResponseHeader("Last-Modified"),w&&(n.lastModified[d]=w),w=v.getResponseHeader("etag"),w&&(n.etag[d]=w)),204===a||"HEAD"===k.type?x="nocontent":304===a?x="notmodified":(x=u.state,r=u.data,s=u.error,j=!s)):(s=x,(a||!x)&&(x="error",0>a&&(a=0))),v.status=a,v.statusText=(b||x)+"",j?o.resolveWith(l,[r,x,v]):o.rejectWith(l,[v,x,s]),v.statusCode(q),q=void 0,i&&m.trigger(j?"ajaxSuccess":"ajaxError",[v,k,j?r:s]),p.fireWith(l,[v,x]),i&&(m.trigger("ajaxComplete",[v,k]),--n.active||n.event.trigger("ajaxStop")))}return v},getJSON:function(a,b,c){return n.get(a,b,c,"json")},getScript:function(a,b){return n.get(a,void 0,b,"script")}}),n.each(["get","post"],function(a,b){n[b]=function(a,c,d,e){return n.isFunction(c)&&(e=e||d,d=c,c=void 0),n.ajax({url:a,type:b,dataType:e,data:c,success:d})}}),n._evalUrl=function(a){return n.ajax({url:a,type:"GET",dataType:"script",async:!1,global:!1,"throws":!0})},n.fn.extend({wrapAll:function(a){var b;return n.isFunction(a)?this.each(function(b){n(this).wrapAll(a.call(this,b))}):(this[0]&&(b=n(a,this[0].ownerDocument).eq(0).clone(!0),this[0].parentNode&&b.insertBefore(this[0]),b.map(function(){var a=this;while(a.firstElementChild)a=a.firstElementChild;return a}).append(this)),this)},wrapInner:function(a){return this.each(n.isFunction(a)?function(b){n(this).wrapInner(a.call(this,b))}:function(){var b=n(this),c=b.contents();c.length?c.wrapAll(a):b.append(a)})},wrap:function(a){var b=n.isFunction(a);return this.each(function(c){n(this).wrapAll(b?a.call(this,c):a)})},unwrap:function(){return this.parent().each(function(){n.nodeName(this,"body")||n(this).replaceWith(this.childNodes)}).end()}}),n.expr.filters.hidden=function(a){return a.offsetWidth<=0&&a.offsetHeight<=0},n.expr.filters.visible=function(a){return!n.expr.filters.hidden(a)};var vc=/%20/g,wc=/\[\]$/,xc=/\r?\n/g,yc=/^(?:submit|button|image|reset|file)$/i,zc=/^(?:input|select|textarea|keygen)/i;function Ac(a,b,c,d){var e;if(n.isArray(b))n.each(b,function(b,e){c||wc.test(a)?d(a,e):Ac(a+"["+("object"==typeof e?b:"")+"]",e,c,d)});else if(c||"object"!==n.type(b))d(a,b);else for(e in b)Ac(a+"["+e+"]",b[e],c,d)}n.param=function(a,b){var c,d=[],e=function(a,b){b=n.isFunction(b)?b():null==b?"":b,d[d.length]=encodeURIComponent(a)+"="+encodeURIComponent(b)};if(void 0===b&&(b=n.ajaxSettings&&n.ajaxSettings.traditional),n.isArray(a)||a.jquery&&!n.isPlainObject(a))n.each(a,function(){e(this.name,this.value)});else for(c in a)Ac(c,a[c],b,e);return d.join("&").replace(vc,"+")},n.fn.extend({serialize:function(){return n.param(this.serializeArray())},serializeArray:function(){return this.map(function(){var a=n.prop(this,"elements");return a?n.makeArray(a):this}).filter(function(){var a=this.type;return this.name&&!n(this).is(":disabled")&&zc.test(this.nodeName)&&!yc.test(a)&&(this.checked||!T.test(a))}).map(function(a,b){var c=n(this).val();return null==c?null:n.isArray(c)?n.map(c,function(a){return{name:b.name,value:a.replace(xc,"\r\n")}}):{name:b.name,value:c.replace(xc,"\r\n")}}).get()}}),n.ajaxSettings.xhr=function(){try{return new XMLHttpRequest}catch(a){}};var Bc=0,Cc={},Dc={0:200,1223:204},Ec=n.ajaxSettings.xhr();a.attachEvent&&a.attachEvent("onunload",function(){for(var a in Cc)Cc[a]()}),k.cors=!!Ec&&"withCredentials"in Ec,k.ajax=Ec=!!Ec,n.ajaxTransport(function(a){var b;return k.cors||Ec&&!a.crossDomain?{send:function(c,d){var e,f=a.xhr(),g=++Bc;if(f.open(a.type,a.url,a.async,a.username,a.password),a.xhrFields)for(e in a.xhrFields)f[e]=a.xhrFields[e];a.mimeType&&f.overrideMimeType&&f.overrideMimeType(a.mimeType),a.crossDomain||c["X-Requested-With"]||(c["X-Requested-With"]="XMLHttpRequest");for(e in c)f.setRequestHeader(e,c[e]);b=function(a){return function(){b&&(delete Cc[g],b=f.onload=f.onerror=null,"abort"===a?f.abort():"error"===a?d(f.status,f.statusText):d(Dc[f.status]||f.status,f.statusText,"string"==typeof f.responseText?{text:f.responseText}:void 0,f.getAllResponseHeaders()))}},f.onload=b(),f.onerror=b("error"),b=Cc[g]=b("abort");try{f.send(a.hasContent&&a.data||null)}catch(h){if(b)throw h}},abort:function(){b&&b()}}:void 0}),n.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/(?:java|ecma)script/},converters:{"text script":function(a){return n.globalEval(a),a}}}),n.ajaxPrefilter("script",function(a){void 0===a.cache&&(a.cache=!1),a.crossDomain&&(a.type="GET")}),n.ajaxTransport("script",function(a){if(a.crossDomain){var b,c;return{send:function(d,e){b=n("<script>").prop({async:!0,charset:a.scriptCharset,src:a.url}).on("load error",c=function(a){b.remove(),c=null,a&&e("error"===a.type?404:200,a.type)}),l.head.appendChild(b[0])},abort:function(){c&&c()}}}});var Fc=[],Gc=/(=)\?(?=&|$)|\?\?/;n.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var a=Fc.pop()||n.expando+"_"+cc++;return this[a]=!0,a}}),n.ajaxPrefilter("json jsonp",function(b,c,d){var e,f,g,h=b.jsonp!==!1&&(Gc.test(b.url)?"url":"string"==typeof b.data&&!(b.contentType||"").indexOf("application/x-www-form-urlencoded")&&Gc.test(b.data)&&"data");return h||"jsonp"===b.dataTypes[0]?(e=b.jsonpCallback=n.isFunction(b.jsonpCallback)?b.jsonpCallback():b.jsonpCallback,h?b[h]=b[h].replace(Gc,"$1"+e):b.jsonp!==!1&&(b.url+=(dc.test(b.url)?"&":"?")+b.jsonp+"="+e),b.converters["script json"]=function(){return g||n.error(e+" was not called"),g[0]},b.dataTypes[0]="json",f=a[e],a[e]=function(){g=arguments},d.always(function(){a[e]=f,b[e]&&(b.jsonpCallback=c.jsonpCallback,Fc.push(e)),g&&n.isFunction(f)&&f(g[0]),g=f=void 0}),"script"):void 0}),n.parseHTML=function(a,b,c){if(!a||"string"!=typeof a)return null;"boolean"==typeof b&&(c=b,b=!1),b=b||l;var d=v.exec(a),e=!c&&[];return d?[b.createElement(d[1])]:(d=n.buildFragment([a],b,e),e&&e.length&&n(e).remove(),n.merge([],d.childNodes))};var Hc=n.fn.load;n.fn.load=function(a,b,c){if("string"!=typeof a&&Hc)return Hc.apply(this,arguments);var d,e,f,g=this,h=a.indexOf(" ");return h>=0&&(d=n.trim(a.slice(h)),a=a.slice(0,h)),n.isFunction(b)?(c=b,b=void 0):b&&"object"==typeof b&&(e="POST"),g.length>0&&n.ajax({url:a,type:e,dataType:"html",data:b}).done(function(a){f=arguments,g.html(d?n("<div>").append(n.parseHTML(a)).find(d):a)}).complete(c&&function(a,b){g.each(c,f||[a.responseText,b,a])}),this},n.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(a,b){n.fn[b]=function(a){return this.on(b,a)}}),n.expr.filters.animated=function(a){return n.grep(n.timers,function(b){return a===b.elem}).length};var Ic=a.document.documentElement;function Jc(a){return n.isWindow(a)?a:9===a.nodeType&&a.defaultView}n.offset={setOffset:function(a,b,c){var d,e,f,g,h,i,j,k=n.css(a,"position"),l=n(a),m={};"static"===k&&(a.style.position="relative"),h=l.offset(),f=n.css(a,"top"),i=n.css(a,"left"),j=("absolute"===k||"fixed"===k)&&(f+i).indexOf("auto")>-1,j?(d=l.position(),g=d.top,e=d.left):(g=parseFloat(f)||0,e=parseFloat(i)||0),n.isFunction(b)&&(b=b.call(a,c,h)),null!=b.top&&(m.top=b.top-h.top+g),null!=b.left&&(m.left=b.left-h.left+e),"using"in b?b.using.call(a,m):l.css(m)}},n.fn.extend({offset:function(a){if(arguments.length)return void 0===a?this:this.each(function(b){n.offset.setOffset(this,a,b)});var b,c,d=this[0],e={top:0,left:0},f=d&&d.ownerDocument;if(f)return b=f.documentElement,n.contains(b,d)?(typeof d.getBoundingClientRect!==U&&(e=d.getBoundingClientRect()),c=Jc(f),{top:e.top+c.pageYOffset-b.clientTop,left:e.left+c.pageXOffset-b.clientLeft}):e},position:function(){if(this[0]){var a,b,c=this[0],d={top:0,left:0};return"fixed"===n.css(c,"position")?b=c.getBoundingClientRect():(a=this.offsetParent(),b=this.offset(),n.nodeName(a[0],"html")||(d=a.offset()),d.top+=n.css(a[0],"borderTopWidth",!0),d.left+=n.css(a[0],"borderLeftWidth",!0)),{top:b.top-d.top-n.css(c,"marginTop",!0),left:b.left-d.left-n.css(c,"marginLeft",!0)}}},offsetParent:function(){return this.map(function(){var a=this.offsetParent||Ic;while(a&&!n.nodeName(a,"html")&&"static"===n.css(a,"position"))a=a.offsetParent;return a||Ic})}}),n.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(b,c){var d="pageYOffset"===c;n.fn[b]=function(e){return J(this,function(b,e,f){var g=Jc(b);return void 0===f?g?g[c]:b[e]:void(g?g.scrollTo(d?a.pageXOffset:f,d?f:a.pageYOffset):b[e]=f)},b,e,arguments.length,null)}}),n.each(["top","left"],function(a,b){n.cssHooks[b]=yb(k.pixelPosition,function(a,c){return c?(c=xb(a,b),vb.test(c)?n(a).position()[b]+"px":c):void 0})}),n.each({Height:"height",Width:"width"},function(a,b){n.each({padding:"inner"+a,content:b,"":"outer"+a},function(c,d){n.fn[d]=function(d,e){var f=arguments.length&&(c||"boolean"!=typeof d),g=c||(d===!0||e===!0?"margin":"border");return J(this,function(b,c,d){var e;return n.isWindow(b)?b.document.documentElement["client"+a]:9===b.nodeType?(e=b.documentElement,Math.max(b.body["scroll"+a],e["scroll"+a],b.body["offset"+a],e["offset"+a],e["client"+a])):void 0===d?n.css(b,c,g):n.style(b,c,d,g)},b,f?d:void 0,f,null)}})}),n.fn.size=function(){return this.length},n.fn.andSelf=n.fn.addBack,"function"==typeof define&&define.amd&&define("jquery",[],function(){return n});var Kc=a.jQuery,Lc=a.$;return n.noConflict=function(b){return a.$===n&&(a.$=Lc),b&&a.jQuery===n&&(a.jQuery=Kc),n},typeof b===U&&(a.jQuery=a.$=n),n});
-
-define('dmobi',[], function() {
-    var DmobiObject = function() {
-    	this.identityId = 0;
-    }
-
-    DmobiObject.prototype.getIdentityId = function(){
-    	this.identityId++;
-    	return this.identityId;
-    }
-
-    DmobiObject.prototype.showToast = function(str) {
-    	var ele = $('<div/>').addClass('dmobi_toast').html('<span>'+ str +'</span>');
-    	$('body').append(ele);
-    	ele.fadeIn();
-		setTimeout(function(){ele.fadeOut();}, 2000);
-    }
-
-    Dmobi = new DmobiObject();
-    console.log('Declara Dmobi Object');
-    console.log(Dmobi);
-    return Dmobi;
-});
 
 define('extendScope',[], function() {
 	var ExtendScope = function(){
@@ -588,7 +588,7 @@ define('theme',[], function() {
 c.onprogress=function(e){a.notify(e)},a.promise.abort=function(){c.abort()},c.download(s,r,a.resolve,a.reject,i,o),a.promise},upload:function(t,r,o,i){var a=e.defer(),c=new FileTransfer,s=o&&o.encodeURI===!1?t:encodeURI(t);return o&&void 0!==o.timeout&&null!==o.timeout&&(n(function(){c.abort()},o.timeout),o.timeout=null),c.onprogress=function(e){a.notify(e)},a.promise.abort=function(){c.abort()},c.upload(r,s,a.resolve,a.reject,o,i),a.promise}}}]),angular.module("ngCordova.plugins.flashlight",[]).factory("$cordovaFlashlight",["$q","$window",function(e,n){return{available:function(){var t=e.defer();return n.plugins.flashlight.available(function(e){t.resolve(e)}),t.promise},switchOn:function(){var t=e.defer();return n.plugins.flashlight.switchOn(function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise},switchOff:function(){var t=e.defer();return n.plugins.flashlight.switchOff(function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise},toggle:function(){var t=e.defer();return n.plugins.flashlight.toggle(function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise}}}]),angular.module("ngCordova.plugins.flurryAds",[]).factory("$cordovaFlurryAds",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.FlurryAds.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.FlurryAds.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.FlurryAds.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.FlurryAds.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.FlurryAds.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.FlurryAds.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.FlurryAds.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.FlurryAds.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins.ga",[]).factory("$cordovaGA",["$q","$window",function(e,n){return{init:function(t,r){var o=e.defer();return r=r>=0?r:10,n.plugins.gaPlugin.init(function(e){o.resolve(e)},function(e){o.reject(e)},t,r),o.promise},trackEvent:function(t,r,o,i,a,c){var s=e.defer();return n.plugins.gaPlugin.trackEvent(function(e){s.resolve(e)},function(e){s.reject(e)},o,i,a,c),s.promise},trackPage:function(t,r,o){var i=e.defer();return n.plugins.gaPlugin.trackPage(function(e){i.resolve(e)},function(e){i.reject(e)},o),i.promise},setVariable:function(t,r,o,i){var a=e.defer();return n.plugins.gaPlugin.setVariable(function(e){a.resolve(e)},function(e){a.reject(e)},o,i),a.promise},exit:function(t,r){var o=e.defer();return n.plugins.gaPlugin.exit(function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise}}}]),angular.module("ngCordova.plugins.geolocation",[]).factory("$cordovaGeolocation",["$q",function(e){return{getCurrentPosition:function(n){var t=e.defer();return navigator.geolocation.getCurrentPosition(function(e){t.resolve(e)},function(e){t.reject(e)},n),t.promise},watchPosition:function(n){var t=e.defer(),r=navigator.geolocation.watchPosition(function(e){t.notify(e)},function(e){t.reject(e)},n);return t.promise.cancel=function(){navigator.geolocation.clearWatch(r)},t.promise.clearWatch=function(e){navigator.geolocation.clearWatch(e||r)},t.promise.watchID=r,t.promise},clearWatch:function(e){return navigator.geolocation.clearWatch(e)}}}]),angular.module("ngCordova.plugins.globalization",[]).factory("$cordovaGlobalization",["$q",function(e){return{getPreferredLanguage:function(){var n=e.defer();return navigator.globalization.getPreferredLanguage(function(e){n.resolve(e)},function(e){n.reject(e)}),n.promise},getLocaleName:function(){var n=e.defer();return navigator.globalization.getLocaleName(function(e){n.resolve(e)},function(e){n.reject(e)}),n.promise},getFirstDayOfWeek:function(){var n=e.defer();return navigator.globalization.getFirstDayOfWeek(function(e){n.resolve(e)},function(e){n.reject(e)}),n.promise},dateToString:function(n,t){var r=e.defer();return navigator.globalization.dateToString(n,function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise},stringToDate:function(n,t){var r=e.defer();return navigator.globalization.stringToDate(n,function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise},getDatePattern:function(n){var t=e.defer();return navigator.globalization.getDatePattern(function(e){t.resolve(e)},function(e){t.reject(e)},n),t.promise},getDateNames:function(n){var t=e.defer();return navigator.globalization.getDateNames(function(e){t.resolve(e)},function(e){t.reject(e)},n),t.promise},isDayLightSavingsTime:function(n){var t=e.defer();return navigator.globalization.isDayLightSavingsTime(n,function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise},numberToString:function(n,t){var r=e.defer();return navigator.globalization.numberToString(n,function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise},stringToNumber:function(n,t){var r=e.defer();return navigator.globalization.stringToNumber(n,function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise},getNumberPattern:function(n){var t=e.defer();return navigator.globalization.getNumberPattern(function(e){t.resolve(e)},function(e){t.reject(e)},n),t.promise},getCurrencyPattern:function(n){var t=e.defer();return navigator.globalization.getCurrencyPattern(n,function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise}}}]),angular.module("ngCordova.plugins.googleAds",[]).factory("$cordovaGoogleAds",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.AdMob.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.AdMob.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.AdMob.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.AdMob.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.AdMob.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.AdMob.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.AdMob.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.AdMob.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins.googleAnalytics",[]).factory("$cordovaGoogleAnalytics",["$q","$window",function(e,n){return{startTrackerWithId:function(t){var r=e.defer();return n.analytics.startTrackerWithId(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},setUserId:function(t){var r=e.defer();return n.analytics.setUserId(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},debugMode:function(){var t=e.defer();return n.analytics.debugMode(function(e){t.resolve(e)},function(){t.reject()}),t.promise},trackView:function(t){var r=e.defer();return n.analytics.trackView(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},addCustomDimension:function(t,r){var o=e.defer();return n.analytics.addCustomDimension(t,r,function(){o.resolve()},function(e){o.reject(e)}),o.promise},trackEvent:function(t,r,o,i){var a=e.defer();return n.analytics.trackEvent(t,r,o,i,function(e){a.resolve(e)},function(e){a.reject(e)}),a.promise},trackException:function(t,r){var o=e.defer();return n.analytics.trackException(t,r,function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise},trackTiming:function(t,r,o,i){var a=e.defer();return n.analytics.trackTiming(t,r,o,i,function(e){a.resolve(e)},function(e){a.reject(e)}),a.promise},addTransaction:function(t,r,o,i,a,c){var s=e.defer();return n.analytics.addTransaction(t,r,o,i,a,c,function(e){s.resolve(e)},function(e){s.reject(e)}),s.promise},addTransactionItem:function(t,r,o,i,a,c,s){var u=e.defer();return n.analytics.addTransactionItem(t,r,o,i,a,c,s,function(e){u.resolve(e)},function(e){u.reject(e)}),u.promise}}}]),angular.module("ngCordova.plugins.googleMap",[]).factory("$cordovaGoogleMap",["$q","$window",function(e,n){var t=null;return{getMap:function(r){var o=e.defer();if(n.plugin.google.maps){var i=document.getElementById("map_canvas");t=n.plugin.google.maps.Map.getMap(r),t.setDiv(i),o.resolve(t)}else o.reject(null);return o.promise},isMapLoaded:function(){return!!t},addMarker:function(n){var r=e.defer();return t.addMarker(n,function(e){r.resolve(e)}),r.promise},getMapTypeIds:function(){return n.plugin.google.maps.mapTypeId},setVisible:function(n){var r=e.defer();return t.setVisible(n),r.promise},cleanup:function(){t=null}}}]),angular.module("ngCordova.plugins.googlePlayGame",[]).factory("$cordovaGooglePlayGame",["$q",function(e){return{auth:function(){var n=e.defer();return googleplaygame.auth(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise},signout:function(){var n=e.defer();return googleplaygame.signout(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise},isSignedIn:function(){var n=e.defer();return googleplaygame.isSignedIn(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise},showPlayer:function(){var n=e.defer();return googleplaygame.showPlayer(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise},submitScore:function(n){var t=e.defer();return googleplaygame.submitScore(n,function(e){return t.resolve(e)},function(e){return t.reject(e)}),t.promise},showAllLeaderboards:function(){var n=e.defer();return googleplaygame.showAllLeaderboards(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise},showLeaderboard:function(n){var t=e.defer();return googleplaygame.showLeaderboard(n,function(e){return t.resolve(e)},function(e){return t.reject(e)}),t.promise},unlockAchievement:function(n){var t=e.defer();return googleplaygame.unlockAchievement(n,function(e){return t.resolve(e)},function(e){return t.reject(e)}),t.promise},incrementAchievement:function(n){var t=e.defer();return googleplaygame.incrementAchievement(n,function(e){return t.resolve(e)},function(e){return t.reject(e)}),t.promise},showAchievements:function(){var n=e.defer();return googleplaygame.showAchievements(function(e){return n.resolve(e)},function(e){return n.reject(e)}),n.promise}}}]),angular.module("ngCordova.plugins.googleplus",[]).factory("$cordovaGooglePlus",["$q","$window",function(e,n){return{login:function(t){var r=e.defer();return void 0===t&&(t={}),n.plugins.googleplus.login({iOSApiKey:t},function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},silentLogin:function(t){var r=e.defer();return void 0===t&&(t={}),n.plugins.googleplus.trySilentLogin({iOSApiKey:t},function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},logout:function(){var t=e.defer();n.plugins.googleplus.logout(function(e){t.resolve(e)})},disconnect:function(){var t=e.defer();n.plugins.googleplus.disconnect(function(e){t.resolve(e)})}}}]),angular.module("ngCordova.plugins.healthKit",[]).factory("$cordovaHealthKit",["$q","$window",function(e,n){return{isAvailable:function(){var t=e.defer();return n.plugins.healthkit.available(function(e){t.resolve(e)},function(e){t.reject(e)}),t.promise},checkAuthStatus:function(t){var r=e.defer();return t=t||"HKQuantityTypeIdentifierHeight",n.plugins.healthkit.checkAuthStatus({type:t},function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},requestAuthorization:function(t,r){var o=e.defer();return t=t||["HKCharacteristicTypeIdentifierDateOfBirth","HKQuantityTypeIdentifierActiveEnergyBurned","HKQuantityTypeIdentifierHeight"],r=r||["HKQuantityTypeIdentifierActiveEnergyBurned","HKQuantityTypeIdentifierHeight","HKQuantityTypeIdentifierDistanceCycling"],n.plugins.healthkit.requestAuthorization({readTypes:t,writeTypes:r},function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise},readDateOfBirth:function(){var t=e.defer();return n.plugins.healthkit.readDateOfBirth(function(e){t.resolve(e)},function(e){t.resolve(e)}),t.promise},readGender:function(){var t=e.defer();return n.plugins.healthkit.readGender(function(e){t.resolve(e)},function(e){t.resolve(e)}),t.promise},saveWeight:function(t,r,o){var i=e.defer();return n.plugins.healthkit.saveWeight({unit:r||"lb",amount:t,date:o||new Date},function(e){i.resolve(e)},function(e){i.resolve(e)}),i.promise},readWeight:function(t){var r=e.defer();return n.plugins.healthkit.readWeight({unit:t||"lb"},function(e){r.resolve(e)},function(e){r.resolve(e)}),r.promise},saveHeight:function(t,r,o){var i=e.defer();return n.plugins.healthkit.saveHeight({unit:r||"in",amount:t,date:o||new Date},function(e){i.resolve(e)},function(e){i.resolve(e)}),i.promise},readHeight:function(t){var r=e.defer();return n.plugins.healthkit.readHeight({unit:t||"in"},function(e){r.resolve(e)},function(e){r.resolve(e)}),r.promise},findWorkouts:function(){var t=e.defer();return n.plugins.healthkit.findWorkouts({},function(e){t.resolve(e)},function(e){t.resolve(e)}),t.promise},saveWorkout:function(t){var r=e.defer();return n.plugins.healthkit.saveWorkout(t,function(e){r.resolve(e)},function(e){r.resolve(e)}),r.promise},querySampleType:function(t){var r=e.defer();return n.plugins.healthkit.querySampleType(t,function(e){r.resolve(e)},function(e){r.resolve(e)}),r.promise}}}]),angular.module("ngCordova.plugins.httpd",[]).factory("$cordovaHttpd",["$q",function(e){return{startServer:function(n){var t=e.defer();return cordova.plugins.CorHttpd.startServer(n,function(){t.resolve()},function(){t.reject()}),t.promise},stopServer:function(){var n=e.defer();return cordova.plugins.CorHttpd.stopServer(function(){n.resolve()},function(){n.reject()}),n.promise},getURL:function(){var n=e.defer();return cordova.plugins.CorHttpd.getURL(function(e){n.resolve(e)},function(){n.reject()}),n.promise},getLocalPath:function(){var n=e.defer();return cordova.plugins.CorHttpd.getLocalPath(function(e){n.resolve(e)},function(){n.reject()}),n.promise}}}]),angular.module("ngCordova.plugins.iAd",[]).factory("$cordovaiAd",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.iAd.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.iAd.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.iAd.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.iAd.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.iAd.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.iAd.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.iAd.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.iAd.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins.imagePicker",[]).factory("$cordovaImagePicker",["$q","$window",function(e,n){return{getPictures:function(t){var r=e.defer();return n.imagePicker.getPictures(function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise}}}]),angular.module("ngCordova.plugins.inAppBrowser",[]).provider("$cordovaInAppBrowser",[function(){var e,n=this.defaultOptions={};this.setDefaultOptions=function(e){n=angular.extend(n,e)},this.$get=["$rootScope","$q","$window","$timeout",function(t,r,o,i){return{open:function(a,c,s){var u=r.defer();if(s&&!angular.isObject(s))return u.reject("options must be an object"),u.promise;var l=angular.extend({},n,s),d=[];angular.forEach(l,function(e,n){d.push(n+"="+e)});var f=d.join();return e=o.open(a,c,f),e.addEventListener("loadstart",function(e){i(function(){t.$broadcast("$cordovaInAppBrowser:loadstart",e)})},!1),e.addEventListener("loadstop",function(e){u.resolve(e),i(function(){t.$broadcast("$cordovaInAppBrowser:loadstop",e)})},!1),e.addEventListener("loaderror",function(e){u.reject(e),i(function(){t.$broadcast("$cordovaInAppBrowser:loaderror",e)})},!1),e.addEventListener("exit",function(e){i(function(){t.$broadcast("$cordovaInAppBrowser:exit",e)})},!1),u.promise},close:function(){e.close(),e=null},show:function(){e.show()},executeScript:function(n){var t=r.defer();return e.executeScript(n,function(e){t.resolve(e)}),t.promise},insertCSS:function(n){var t=r.defer();return e.insertCSS(n,function(e){t.resolve(e)}),t.promise}}}]}]),angular.module("ngCordova.plugins.insomnia",[]).factory("$cordovaInsomnia",["$window",function(e){return{keepAwake:function(){return e.plugins.insomnia.keepAwake()},allowSleepAgain:function(){return e.plugins.insomnia.allowSleepAgain()}}}]),angular.module("ngCordova.plugins.instagram",[]).factory("$cordovaInstagram",["$q",function(e){return{share:function(n){var t=e.defer();return window.Instagram?(Instagram.share(n.image,n.caption,function(e){e?t.reject(e):t.resolve(!0)}),t.promise):(console.error("Tried to call Instagram.share but the Instagram plugin isn't installed!"),t.resolve(null),t.promise)},isInstalled:function(){var n=e.defer();return window.Instagram?(Instagram.isInstalled(function(e,t){e?n.reject(e):n.resolve(t||!0)}),n.promise):(console.error("Tried to call Instagram.isInstalled but the Instagram plugin isn't installed!"),n.resolve(null),n.promise)}}}]),angular.module("ngCordova.plugins.keyboard",[]).factory("$cordovaKeyboard",["$rootScope",function(e){var n=function(){e.$evalAsync(function(){e.$broadcast("$cordovaKeyboard:show")})},t=function(){e.$evalAsync(function(){e.$broadcast("$cordovaKeyboard:hide")})};return document.addEventListener("deviceready",function(){cordova.plugins.Keyboard&&(window.addEventListener("native.keyboardshow",n,!1),window.addEventListener("native.keyboardhide",t,!1))}),{hideAccessoryBar:function(e){return cordova.plugins.Keyboard.hideKeyboardAccessoryBar(e)},close:function(){return cordova.plugins.Keyboard.close()},show:function(){return cordova.plugins.Keyboard.show()},disableScroll:function(e){return cordova.plugins.Keyboard.disableScroll(e)},isVisible:function(){return cordova.plugins.Keyboard.isVisible},clearShowWatch:function(){document.removeEventListener("native.keyboardshow",n),e.$$listeners["$cordovaKeyboard:show"]=[]},clearHideWatch:function(){document.removeEventListener("native.keyboardhide",t),e.$$listeners["$cordovaKeyboard:hide"]=[]}}}]),angular.module("ngCordova.plugins.keychain",[]).factory("$cordovaKeychain",["$q",function(e){return{getForKey:function(n,t){var r=e.defer(),o=new Keychain;return o.getForKey(r.resolve,r.reject,n,t),r.promise},setForKey:function(n,t,r){var o=e.defer(),i=new Keychain;return i.setForKey(o.resolve,o.reject,n,t,r),o.promise},removeForKey:function(n,t){var r=e.defer(),o=new Keychain;return o.removeForKey(r.resolve,r.reject,n,t),r.promise}}}]),angular.module("ngCordova.plugins.localNotification",[]).factory("$cordovaLocalNotification",["$q","$window","$rootScope","$timeout",function(e,n,t,r){return document.addEventListener("deviceready",function(){n.cordova&&n.cordova.plugins&&n.cordova.plugins.notification&&n.cordova.plugins.notification.local&&(n.cordova.plugins.notification.local.on("schedule",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:schedule",e,n)})}),n.cordova.plugins.notification.local.on("trigger",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:trigger",e,n)})}),n.cordova.plugins.notification.local.on("update",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:update",e,n)})}),n.cordova.plugins.notification.local.on("clear",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:clear",e,n)})}),n.cordova.plugins.notification.local.on("clearall",function(e){r(function(){t.$broadcast("$cordovaLocalNotification:clearall",e)})}),n.cordova.plugins.notification.local.on("cancel",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:cancel",e,n)})}),n.cordova.plugins.notification.local.on("cancelall",function(e){r(function(){t.$broadcast("$cordovaLocalNotification:cancelall",e)})}),n.cordova.plugins.notification.local.on("click",function(e,n){r(function(){t.$broadcast("$cordovaLocalNotification:click",e,n)})}))},!1),{schedule:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.schedule(t,function(e){o.resolve(e)},r),o.promise},add:function(t,r){console.warn('Deprecated: use "schedule" instead.');var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.schedule(t,function(e){o.resolve(e)},r),o.promise},update:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.update(t,function(e){o.resolve(e)},r),o.promise},clear:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.clear(t,function(e){o.resolve(e)},r),o.promise},clearAll:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.clearAll(function(e){r.resolve(e)},t),r.promise},cancel:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.cancel(t,function(e){o.resolve(e)},r),o.promise},cancelAll:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.cancelAll(function(e){r.resolve(e)},t),r.promise},isPresent:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.isPresent(t,function(e){o.resolve(e)},r),o.promise},isScheduled:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.isScheduled(t,function(e){o.resolve(e)},r),o.promise},isTriggered:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.isTriggered(t,function(e){o.resolve(e)},r),o.promise},hasPermission:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.hasPermission(function(e){e?r.resolve(e):r.reject(e)},t),r.promise},registerPermission:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.registerPermission(function(e){e?r.resolve(e):r.reject(e)},t),r.promise},promptForPermission:function(t){console.warn('Deprecated: use "registerPermission" instead.');var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.registerPermission(function(e){e?r.resolve(e):r.reject(e)},t),r.promise},getAllIds:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getAllIds(function(e){r.resolve(e)},t),r.promise},getIds:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getIds(function(e){r.resolve(e)},t),r.promise},getScheduledIds:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getScheduledIds(function(e){r.resolve(e)},t),r.promise},getTriggeredIds:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getTriggeredIds(function(e){r.resolve(e)},t),r.promise},get:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.get(t,function(e){o.resolve(e)},r),o.promise},getAll:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getAll(function(e){r.resolve(e)},t),r.promise},getScheduled:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.getScheduled(t,function(e){o.resolve(e)},r),o.promise},getAllScheduled:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getAllScheduled(function(e){r.resolve(e)},t),r.promise},getTriggered:function(t,r){var o=e.defer();return r=r||null,n.cordova.plugins.notification.local.getTriggered(t,function(e){o.resolve(e)},r),o.promise},getAllTriggered:function(t){var r=e.defer();return t=t||null,n.cordova.plugins.notification.local.getAllTriggered(function(e){r.resolve(e)},t),r.promise},getDefaults:function(){return n.cordova.plugins.notification.local.getDefaults()},setDefaults:function(e){n.cordova.plugins.notification.local.setDefaults(e)}}}]),angular.module("ngCordova.plugins.mMediaAds",[]).factory("$cordovaMMediaAds",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.mMedia.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.mMedia.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.mMedia.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.mMedia.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.mMedia.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.mMedia.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.mMedia.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.mMedia.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins.media",[]).factory("$cordovaMedia",["$q",function(e){return{newMedia:function(n){var t,r=e.defer(),o=null;return t=new Media(n,function(e){r.resolve(e)},function(e){r.reject(e)},function(e){o=e}),r.promise.getCurrentPosition=function(){t.getCurrentPosition(function(e){},function(e){})},r.promise.getDuration=function(){t.getDuration()},r.promise.play=function(e){"object"!=typeof e&&(e={}),t.play(e)},r.promise.pause=function(){t.pause()},r.promise.stop=function(){t.stop()},r.promise.release=function(){t.release()},r.promise.seekTo=function(e){t.seekTo(e)},r.promise.setVolume=function(e){t.setVolume(e)},r.promise.startRecord=function(){t.startRecord()},r.promise.stopRecord=function(){t.stopRecord()},r.promise.media=t,r.promise}}}]),angular.module("ngCordova.plugins.mobfoxAds",[]).factory("$cordovaMobFoxAds",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.MobFox.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.MobFox.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.MobFox.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.MobFox.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.MobFox.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.MobFox.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.MobFox.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.MobFox.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins",["ngCordova.plugins.actionSheet","ngCordova.plugins.adMob","ngCordova.plugins.appAvailability","ngCordova.plugins.appRate","ngCordova.plugins.appVersion","ngCordova.plugins.backgroundGeolocation","ngCordova.plugins.badge","ngCordova.plugins.barcodeScanner","ngCordova.plugins.batteryStatus","ngCordova.plugins.ble","ngCordova.plugins.bluetoothSerial","ngCordova.plugins.brightness","ngCordova.plugins.calendar","ngCordova.plugins.camera","ngCordova.plugins.capture","ngCordova.plugins.clipboard","ngCordova.plugins.contacts","ngCordova.plugins.datePicker","ngCordova.plugins.device","ngCordova.plugins.deviceMotion","ngCordova.plugins.deviceOrientation","ngCordova.plugins.dialogs","ngCordova.plugins.emailComposer","ngCordova.plugins.facebook","ngCordova.plugins.facebookAds","ngCordova.plugins.file","ngCordova.plugins.fileTransfer","ngCordova.plugins.fileOpener2","ngCordova.plugins.flashlight","ngCordova.plugins.flurryAds","ngCordova.plugins.ga","ngCordova.plugins.geolocation","ngCordova.plugins.globalization","ngCordova.plugins.googleAds","ngCordova.plugins.googleAnalytics","ngCordova.plugins.googleMap","ngCordova.plugins.googlePlayGame","ngCordova.plugins.healthKit","ngCordova.plugins.httpd","ngCordova.plugins.iAd","ngCordova.plugins.imagePicker","ngCordova.plugins.inAppBrowser","ngCordova.plugins.keyboard","ngCordova.plugins.keychain","ngCordova.plugins.localNotification","ngCordova.plugins.media","ngCordova.plugins.mMediaAds","ngCordova.plugins.mobfoxAds","ngCordova.plugins.mopubAds","ngCordova.plugins.nativeAudio","ngCordova.plugins.network","ngCordovaOauth","ngCordova.plugins.pinDialog","ngCordova.plugins.prefs","ngCordova.plugins.printer","ngCordova.plugins.progressIndicator","ngCordova.plugins.push","ngCordova.plugins.sms","ngCordova.plugins.socialSharing","ngCordova.plugins.spinnerDialog","ngCordova.plugins.splashscreen","ngCordova.plugins.sqlite","ngCordova.plugins.statusbar","ngCordova.plugins.toast","ngCordova.plugins.touchid","ngCordova.plugins.vibration","ngCordova.plugins.videoCapturePlus","ngCordova.plugins.zip","ngCordova.plugins.insomnia"]),angular.module("ngCordova.plugins.mopubAds",[]).factory("$cordovaMoPubAds",["$q","$window",function(e,n){return{setOptions:function(t){var r=e.defer();return n.MoPub.setOptions(t,function(){r.resolve()},function(){r.reject()}),r.promise},createBanner:function(t){var r=e.defer();return n.MoPub.createBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},removeBanner:function(){var t=e.defer();return n.MoPub.removeBanner(function(){t.resolve()},function(){t.reject()}),t.promise},showBanner:function(t){var r=e.defer();return n.MoPub.showBanner(t,function(){r.resolve()},function(){r.reject()}),r.promise},showBannerAtXY:function(t,r){var o=e.defer();return n.MoPub.showBannerAtXY(t,r,function(){o.resolve()},function(){o.reject()}),o.promise},hideBanner:function(){var t=e.defer();return n.MoPub.hideBanner(function(){t.resolve()},function(){t.reject()}),t.promise},prepareInterstitial:function(t){var r=e.defer();return n.MoPub.prepareInterstitial(t,function(){r.resolve()},function(){r.reject()}),r.promise},showInterstitial:function(){var t=e.defer();return n.MoPub.showInterstitial(function(){t.resolve()},function(){t.reject()}),t.promise}}}]),angular.module("ngCordova.plugins.nativeAudio",[]).factory("$cordovaNativeAudio",["$q","$window",function(e,n){return{preloadSimple:function(t,r){var o=e.defer();return n.plugins.NativeAudio.preloadSimple(t,r,function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise},preloadComplex:function(t,r,o,i){var a=e.defer();return n.plugins.NativeAudio.preloadComplex(t,r,o,i,function(e){a.resolve(e)},function(e){a.reject(e)}),a.promise},play:function(t,r){var o=e.defer();return n.plugins.NativeAudio.play(t,r,function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise},stop:function(t){var r=e.defer();return n.plugins.NativeAudio.stop(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},loop:function(t){var r=e.defer();return n.plugins.NativeAudio.loop(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},unload:function(t){var r=e.defer();return n.plugins.NativeAudio.unload(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},setVolumeForComplexAsset:function(t,r){var o=e.defer();return n.plugins.NativeAudio.setVolumeForComplexAsset(t,r,function(e){
 o.resolve(e)},function(e){o.reject(e)}),o.promise}}}]),angular.module("ngCordova.plugins.network",[]).factory("$cordovaNetwork",["$rootScope","$timeout",function(e,n){var t=function(){var t=navigator.connection.type;n(function(){e.$broadcast("$cordovaNetwork:offline",t)})},r=function(){var t=navigator.connection.type;n(function(){e.$broadcast("$cordovaNetwork:online",t)})};return document.addEventListener("deviceready",function(){navigator.connection&&(document.addEventListener("offline",t,!1),document.addEventListener("online",r,!1))}),{getNetwork:function(){return navigator.connection.type},isOnline:function(){var e=navigator.connection.type;return e!==Connection.UNKNOWN&&e!==Connection.NONE},isOffline:function(){var e=navigator.connection.type;return e===Connection.UNKNOWN||e===Connection.NONE},clearOfflineWatch:function(){document.removeEventListener("offline",t),e.$$listeners["$cordovaNetwork:offline"]=[]},clearOnlineWatch:function(){document.removeEventListener("online",t),e.$$listeners["$cordovaNetwork:online"]=[]}}}]).run(["$cordovaNetwork",function(e){}]),angular.module("ngCordova.plugins.pinDialog",[]).factory("$cordovaPinDialog",["$q","$window",function(e,n){return{prompt:function(t,r,o){var i=e.defer();return n.plugins.pinDialog.prompt(t,function(e){i.resolve(e)},r,o),i.promise}}}]),angular.module("ngCordova.plugins.prefs",[]).factory("$cordovaPreferences",["$window","$q",function(e,n){return{set:function(t,r){var o=n.defer();return e.appgiraffe.plugins.applicationPreferences.set(t,r,function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise},get:function(t){var r=n.defer();return e.appgiraffe.plugins.applicationPreferences.get(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise}}}]),angular.module("ngCordova.plugins.printer",[]).factory("$cordovaPrinter",["$q","$window",function(e,n){return{isAvailable:function(){var t=e.defer();return n.plugin.printer.isAvailable(function(e){t.resolve(e)}),t.promise},print:function(t,r){var o=e.defer();return n.plugin.printer.print(t,r,function(){o.resolve()}),o.promise}}}]),angular.module("ngCordova.plugins.progressIndicator",[]).factory("$cordovaProgress",["$q",function(e){return{show:function(e){var n=e||"Please wait...";return ProgressIndicator.show(n)},showSimple:function(e){var n=e||!1;return ProgressIndicator.showSimple(n)},showSimpleWithLabel:function(e,n){var t=e||!1,r=n||"Loading...";return ProgressIndicator.showSimpleWithLabel(t,r)},showSimpleWithLabelDetail:function(e,n,t){var r=e||!1,o=n||"Loading...",i=t||"Please wait";return ProgressIndicator.showSimpleWithLabelDetail(r,o,i)},showDeterminate:function(e,n){var t=e||!1,r=n||5e4;return ProgressIndicator.showDeterminate(t,r)},showDeterminateWithLabel:function(e,n,t){var r=e||!1,o=n||5e4,i=t||"Loading...";return ProgressIndicator.showDeterminateWithLabel(r,o,i)},showAnnular:function(e,n){var t=e||!1,r=n||5e4;return ProgressIndicator.showAnnular(t,r)},showAnnularWithLabel:function(e,n,t){var r=e||!1,o=n||5e4,i=t||"Loading...";return ProgressIndicator.showAnnularWithLabel(r,o,i)},showBar:function(e,n){var t=e||!1,r=n||5e4;return ProgressIndicator.showBar(t,r)},showBarWithLabel:function(e,n,t){var r=e||!1,o=n||5e4,i=t||"Loading...";return ProgressIndicator.showBarWithLabel(r,o,i)},showSuccess:function(e,n){var t=e||!1,r=n||"Success";return ProgressIndicator.showSuccess(t,r)},showText:function(e,n,t){var r=e||!1,o=n||"Warning",i=t||"center";return ProgressIndicator.showText(r,o,i)},hide:function(){return ProgressIndicator.hide()}}}]),angular.module("ngCordova.plugins.push",[]).factory("$cordovaPush",["$q","$window","$rootScope","$timeout",function(e,n,t,r){return{onNotification:function(e){r(function(){t.$broadcast("$cordovaPush:notificationReceived",e)})},register:function(t){var r,o=e.defer();return void 0!==t&&void 0===t.ecb&&(r=null===document.querySelector("[ng-app]")?"document.body":"document.querySelector('[ng-app]')",t.ecb="angular.element("+r+").injector().get('$cordovaPush').onNotification"),n.plugins.pushNotification.register(function(e){o.resolve(e)},function(e){o.reject(e)},t),o.promise},unregister:function(t){var r=e.defer();return n.plugins.pushNotification.unregister(function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise},setBadgeNumber:function(t){var r=e.defer();return n.plugins.pushNotification.setApplicationIconBadgeNumber(function(e){r.resolve(e)},function(e){r.reject(e)},t),r.promise}}}]),angular.module("ngCordova.plugins.sms",[]).factory("$cordovaSms",["$q",function(e){return{send:function(n,t,r){var o=e.defer();return sms.send(n,t,r,function(e){o.resolve(e)},function(e){o.reject(e)}),o.promise}}}]),angular.module("ngCordova.plugins.socialSharing",[]).factory("$cordovaSocialSharing",["$q","$window",function(e,n){return{share:function(t,r,o,i){var a=e.defer();return r=r||null,o=o||null,i=i||null,n.plugins.socialsharing.share(t,r,o,i,function(){a.resolve(!0)},function(){a.reject(!1)}),a.promise},shareViaTwitter:function(t,r,o){var i=e.defer();return r=r||null,o=o||null,n.plugins.socialsharing.shareViaTwitter(t,r,o,function(){i.resolve(!0)},function(){i.reject(!1)}),i.promise},shareViaWhatsApp:function(t,r,o){var i=e.defer();return r=r||null,o=o||null,n.plugins.socialsharing.shareViaWhatsApp(t,r,o,function(){i.resolve(!0)},function(){i.reject(!1)}),i.promise},shareViaFacebook:function(t,r,o){var i=e.defer();return t=t||null,r=r||null,o=o||null,n.plugins.socialsharing.shareViaFacebook(t,r,o,function(){i.resolve(!0)},function(){i.reject(!1)}),i.promise},shareViaFacebookWithPasteMessageHint:function(t,r,o,i){var a=e.defer();return r=r||null,o=o||null,n.plugins.socialsharing.shareViaFacebookWithPasteMessageHint(t,r,o,i,function(){a.resolve(!0)},function(){a.reject(!1)}),a.promise},shareViaSMS:function(t,r){var o=e.defer();return n.plugins.socialsharing.shareViaSMS(t,r,function(){o.resolve(!0)},function(){o.reject(!1)}),o.promise},shareViaEmail:function(t,r,o,i,a,c){var s=e.defer();return o=o||null,i=i||null,a=a||null,c=c||null,n.plugins.socialsharing.shareViaEmail(t,r,o,i,a,c,function(){s.resolve(!0)},function(){s.reject(!1)}),s.promise},shareVia:function(t,r,o,i,a){var c=e.defer();return r=r||null,o=o||null,i=i||null,a=a||null,n.plugins.socialsharing.shareVia(t,r,o,i,a,function(){c.resolve(!0)},function(){c.reject(!1)}),c.promise},canShareViaEmail:function(){var t=e.defer();return n.plugins.socialsharing.canShareViaEmail(function(){t.resolve(!0)},function(){t.reject(!1)}),t.promise},canShareVia:function(t,r,o,i,a){var c=e.defer();return n.plugins.socialsharing.canShareVia(t,r,o,i,a,function(e){c.resolve(e)},function(e){c.reject(e)}),c.promise},available:function(){var n=e.defer();window.plugins.socialsharing.available(function(e){e?n.resolve():n.reject()})}}}]),angular.module("ngCordova.plugins.spinnerDialog",[]).factory("$cordovaSpinnerDialog",["$window",function(e){return{show:function(n,t,r){return r=r||!1,e.plugins.spinnerDialog.show(n,t,r)},hide:function(){return e.plugins.spinnerDialog.hide()}}}]),angular.module("ngCordova.plugins.splashscreen",[]).factory("$cordovaSplashscreen",[function(){return{hide:function(){return navigator.splashscreen.hide()},show:function(){return navigator.splashscreen.show()}}}]),angular.module("ngCordova.plugins.sqlite",[]).factory("$cordovaSQLite",["$q","$window",function(e,n){return{openDB:function(e,t){return"undefined"==typeof t&&(t=0),n.sqlitePlugin.openDatabase({name:e,bgType:t})},execute:function(n,t,r){var o=e.defer();return n.transaction(function(e){e.executeSql(t,r,function(e,n){o.resolve(n)},function(e,n){o.reject(n)})}),o.promise},insertCollection:function(n,t,r){var o=e.defer(),i=r.slice(0);return n.transaction(function(e){!function n(){var r=i.splice(0,1)[0];try{e.executeSql(t,r,function(e,t){0===i.length?o.resolve(t):n()},function(e,n){o.reject(n)})}catch(a){o.reject(a)}}()}),o.promise},nestedExecute:function(n,t,r,o,i){var a=e.defer();return n.transaction(function(e){e.executeSql(t,o,function(e,n){a.resolve(n),e.executeSql(r,i,function(e,n){a.resolve(n)})})},function(e,n){a.reject(n)}),a.promise},deleteDB:function(t){var r=e.defer();return n.sqlitePlugin.deleteDatabase(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise}}}]),angular.module("ngCordova.plugins.statusbar",[]).factory("$cordovaStatusbar",[function(){return{overlaysWebView:function(e){return StatusBar.overlaysWebView(!!e)},STYLES:{DEFAULT:0,LIGHT_CONTENT:1,BLACK_TRANSLUCENT:2,BLACK_OPAQUE:3},style:function(e){switch(e){case 0:return StatusBar.styleDefault();case 1:return StatusBar.styleLightContent();case 2:return StatusBar.styleBlackTranslucent();case 3:return StatusBar.styleBlackOpaque();default:return StatusBar.styleDefault()}},styleColor:function(e){return StatusBar.backgroundColorByName(e)},styleHex:function(e){return StatusBar.backgroundColorByHexString(e)},hide:function(){return StatusBar.hide()},show:function(){return StatusBar.show()},isVisible:function(){return StatusBar.isVisible}}}]),angular.module("ngCordova.plugins.toast",[]).factory("$cordovaToast",["$q","$window",function(e,n){return{showShortTop:function(t){var r=e.defer();return n.plugins.toast.showShortTop(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},showShortCenter:function(t){var r=e.defer();return n.plugins.toast.showShortCenter(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},showShortBottom:function(t){var r=e.defer();return n.plugins.toast.showShortBottom(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},showLongTop:function(t){var r=e.defer();return n.plugins.toast.showLongTop(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},showLongCenter:function(t){var r=e.defer();return n.plugins.toast.showLongCenter(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},showLongBottom:function(t){var r=e.defer();return n.plugins.toast.showLongBottom(t,function(e){r.resolve(e)},function(e){r.reject(e)}),r.promise},show:function(t,r,o){var i=e.defer();return n.plugins.toast.show(t,r,o,function(e){i.resolve(e)},function(e){i.reject(e)}),i.promise}}}]),angular.module("ngCordova.plugins.touchid",[]).factory("$cordovaTouchID",["$q",function(e){return{checkSupport:function(){var n=e.defer();return window.cordova?touchid.checkSupport(function(e){n.resolve(e)},function(e){n.reject(e)}):n.reject("Not supported without cordova.js"),n.promise},authenticate:function(n){var t=e.defer();return window.cordova?touchid.authenticate(function(e){t.resolve(e)},function(e){t.reject(e)},n):t.reject("Not supported without cordova.js"),t.promise}}}]),angular.module("ngCordova.plugins.vibration",[]).factory("$cordovaVibration",[function(){return{vibrate:function(e){return navigator.notification.vibrate(e)},vibrateWithPattern:function(e,n){return navigator.notification.vibrateWithPattern(e,n)},cancelVibration:function(){return navigator.notification.cancelVibration()}}}]),angular.module("ngCordova.plugins.videoCapturePlus",[]).provider("$cordovaVideoCapturePlus",[function(){var e={};this.setLimit=function(n){e.limit=n},this.setMaxDuration=function(n){e.duration=n},this.setHighQuality=function(n){e.highquality=n},this.useFrontCamera=function(n){e.frontcamera=n},this.setPortraitOverlay=function(n){e.portraitOverlay=n},this.setLandscapeOverlay=function(n){e.landscapeOverlay=n},this.setOverlayText=function(n){e.overlayText=n},this.$get=["$q","$window",function(n,t){return{captureVideo:function(r){var o=n.defer();return t.plugins.videocaptureplus?(t.plugins.videocaptureplus.captureVideo(o.resolve,o.reject,angular.extend({},e,r)),o.promise):(o.resolve(null),o.promise)}}}]}]),angular.module("ngCordova.plugins.zip",[]).factory("$cordovaZip",["$q","$window",function(e,n){return{unzip:function(t,r){var o=e.defer();return n.zip.unzip(t,r,function(e){0===e?o.resolve():o.reject()},function(e){o.notify(e)}),o.promise}}}]),angular.module("oauth.providers",["oauth.utils"]).factory("$cordovaOauth",["$q","$http","$cordovaOauthUtility",function(e,n,t){return{adfs:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s=window.open(o+"/adfs/oauth2/authorize?response_type=code&client_id="+r+"&redirect_uri=http://localhost/callback&resource="+i,"_blank","location=no");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf("http://localhost/callback")){var t=e.url.split("code=")[1];n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:o+"/adfs/oauth2/token",data:"client_id="+r+"&code="+t+"&redirect_uri=http://localhost/callback&grant_type=authorization_code"}).success(function(e){a.resolve(e)}).error(function(e,n){a.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){s.close()},10)})}}),s.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},dropbox:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a="http://localhost/callback";void 0!==r&&r.hasOwnProperty("redirect_uri")&&(a=r.redirect_uri);var c=window.open("https://www.dropbox.com/1/oauth2/authorize?client_id="+n+"&redirect_uri="+a+"&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf(a)){c.removeEventListener("exit",function(e){}),c.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];void 0!==r.access_token&&null!==r.access_token?o.resolve({access_token:r.access_token,token_type:r.token_type,uid:r.uid}):o.reject("Problem authenticating")}}),c.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},digitalOcean:function(r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c=window.open("https://cloud.digitalocean.com/v1/oauth/authorize?client_id="+r+"&redirect_uri=http://localhost/callback&response_type=code&scope=read%20write","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf("http://localhost/callback")){var t=e.url.split("code=")[1];n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://cloud.digitalocean.com/v1/oauth/token",data:"client_id="+r+"&client_secret="+o+"&redirect_uri=http://localhost/callback&grant_type=authorization_code&code="+t}).success(function(e){i.resolve(e)}).error(function(e,n){i.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){c.close()},10)})}}),c.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},google:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="http://localhost/callback";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://accounts.google.com/o/oauth2/auth?client_id="+n+"&redirect_uri="+c+"&scope="+r.join(" ")+"&approval_prompt=force&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,token_type:r.token_type,expires_in:r.expires_in}):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},github:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s=window.open("https://github.com/login/oauth/authorize?client_id="+r+"&redirect_uri=http://localhost/callback&scope="+i.join(","),"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n.defaults.headers.post.accept="application/json",n({method:"post",url:"https://github.com/login/oauth/access_token",data:"client_id="+r+"&client_secret="+o+"&redirect_uri=http://localhost/callback&code="+requestToken}).success(function(e){a.resolve(e)}).error(function(e,n){a.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){s.close()},10)}))}),s.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},facebook:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="http://localhost/callback";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://www.facebook.com/v2.0/dialog/oauth?client_id="+n+"&redirect_uri="+c+"&response_type=token&scope="+r.join(","),"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,expires_in:r.expires_in}):0!==e.url.indexOf("error_code=100")?i.reject("Facebook returned error_code=100: Invalid permissions"):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},linkedin:function(r,o,i,a,c){var s=e.defer();if(window.cordova){var u=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(u)===!0){var l="http://localhost/callback";void 0!==c&&c.hasOwnProperty("redirect_uri")&&(l=c.redirect_uri);var d=window.open("https://www.linkedin.com/uas/oauth2/authorization?client_id="+r+"&redirect_uri="+l+"&scope="+i.join(" ")+"&response_type=code&state="+a,"_blank","location=no,clearsessioncache=yes,clearcache=yes");d.addEventListener("loadstart",function(e){0===e.url.indexOf(l)&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://www.linkedin.com/uas/oauth2/accessToken",data:"client_id="+r+"&client_secret="+o+"&redirect_uri="+l+"&grant_type=authorization_code&code="+requestToken}).success(function(e){s.resolve(e)}).error(function(e,n){s.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){d.close()},10)}))}),d.addEventListener("exit",function(e){s.reject("The sign in flow was canceled")})}else s.reject("Could not find InAppBrowser plugin")}else s.reject("Cannot authenticate via a web browser");return s.promise},instagram:function(n,r,o){var i=e.defer(),a={code:"?",token:"#"};if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s="http://localhost/callback",u="token";void 0!==o&&(o.hasOwnProperty("redirect_uri")&&(s=o.redirect_uri),o.hasOwnProperty("response_type")&&(u=o.response_type));var l=window.open("https://api.instagram.com/oauth/authorize/?client_id="+n+"&redirect_uri="+s+"&scope="+r.join(" ")+"&response_type="+u,"_blank","location=no,clearsessioncache=yes,clearcache=yes");l.addEventListener("loadstart",function(e){if(0===e.url.indexOf(s)){l.removeEventListener("exit",function(e){}),l.close();var n=e.url.split(a[u])[1],r=t.parseResponseParameters(n);void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token}):void 0!==r.code&&null!==r.code?i.resolve({code:r.code}):i.reject("Problem authenticating")}}),l.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},box:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s=window.open("https://app.box.com/api/oauth2/authorize/?client_id="+r+"&redirect_uri=http://localhost/callback&state="+i+"&response_type=code","_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://app.box.com/api/oauth2/token",data:"client_id="+r+"&client_secret="+o+"&redirect_uri=http://localhost/callback&grant_type=authorization_code&code="+requestToken}).success(function(e){a.resolve(e)}).error(function(e,n){a.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){s.close()},10)}))}),s.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},reddit:function(r,o,i,a){var c=e.defer();if(window.cordova){var s=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(s)===!0){var u=window.open("https://ssl.reddit.com/api/v1/authorize?client_id="+r+"&redirect_uri=http://localhost/callback&duration=permanent&state=ngcordovaoauth&scope="+i.join(",")+"&response_type=code","_blank","location=no,clearsessioncache=yes,clearcache=yes");u.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n.defaults.headers.post.Authorization="Basic "+btoa(r+":"+o),n({method:"post",url:"https://ssl.reddit.com/api/v1/access_token",data:"redirect_uri=http://localhost/callback&grant_type=authorization_code&code="+requestToken}).success(function(e){c.resolve(e)}).error(function(e,n){c.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){u.close()},10)}))}),u.addEventListener("exit",function(e){c.reject("The sign in flow was canceled")})}else c.reject("Could not find InAppBrowser plugin")}else c.reject("Cannot authenticate via a web browser");return c.promise},twitter:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s="http://localhost/callback";if(void 0!==i&&i.hasOwnProperty("redirect_uri")&&(s=i.redirect_uri),"undefined"!=typeof jsSHA){var u={oauth_consumer_key:r,oauth_nonce:t.createNonce(10),oauth_signature_method:"HMAC-SHA1",oauth_timestamp:Math.round((new Date).getTime()/1e3),oauth_version:"1.0"},l=t.createSignature("POST","https://api.twitter.com/oauth/request_token",u,{oauth_callback:s},o);n({method:"post",url:"https://api.twitter.com/oauth/request_token",headers:{Authorization:l.authorization_header,"Content-Type":"application/x-www-form-urlencoded"},data:"oauth_callback="+encodeURIComponent(s)}).success(function(e){for(var r=e.split("&"),i={},c=0;c<r.length;c++)i[r[c].split("=")[0]]=r[c].split("=")[1];i.hasOwnProperty("oauth_token")===!1&&a.reject("Oauth request token was not received");var l=window.open("https://api.twitter.com/oauth/authenticate?oauth_token="+i.oauth_token,"_blank","location=no,clearsessioncache=yes,clearcache=yes");l.addEventListener("loadstart",function(e){if(0===e.url.indexOf(s)){for(var r=e.url.split("?")[1],i=r.split("&"),c={},d=0;d<i.length;d++)c[i[d].split("=")[0]]=i[d].split("=")[1];c.hasOwnProperty("oauth_verifier")===!1&&a.reject("Browser authentication failed to complete.  No oauth_verifier was returned"),delete u.oauth_signature,u.oauth_token=c.oauth_token;var f=t.createSignature("POST","https://api.twitter.com/oauth/access_token",u,{oauth_verifier:c.oauth_verifier},o);n({method:"post",url:"https://api.twitter.com/oauth/access_token",headers:{Authorization:f.authorization_header},params:{oauth_verifier:c.oauth_verifier}}).success(function(e){for(var n=e.split("&"),t={},r=0;r<n.length;r++)t[n[r].split("=")[0]]=n[r].split("=")[1];t.hasOwnProperty("oauth_token_secret")===!1&&a.reject("Oauth access token was not received"),a.resolve(t)}).error(function(e){a.reject(e)})["finally"](function(){setTimeout(function(){l.close()},10)})}}),l.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}).error(function(e){a.reject(e)})}else a.reject("Missing jsSHA JavaScript library")}else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},meetup:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a="http://localhost/callback";void 0!==r&&r.hasOwnProperty("redirect_uri")&&(a=r.redirect_uri);var c=window.open("https://secure.meetup.com/oauth2/authorize/?client_id="+n+"&redirect_uri="+a+"&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf(a)){c.removeEventListener("exit",function(e){}),c.close();for(var n=e.url.split("#")[1],t=n.split("&"),r={},i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];void 0!==r.access_token&&null!==r.access_token?o.resolve(r):o.reject("Problem authenticating")}}),c.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},salesforce:function(n,r){var o="http://localhost/callback",i=function(e,n,t){return e+"services/oauth2/authorize?display=touch&response_type=token&client_id="+escape(n)+"&redirect_uri="+escape(t)},a=function(e,n){return e.substr(0,n.length)===n},c=e.defer();if(window.cordova){var s=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(s)===!0){var u=window.open(i(n,r,o),"_blank","location=no,clearsessioncache=yes,clearcache=yes");u.addEventListener("loadstart",function(e){if(a(e.url,o)){var n={},t=e.url.split("#")[1];if(t){var r=t.split("&");for(var i in r){var s=r[i].split("=");n[s[0]]=unescape(s[1])}}"undefined"==typeof n||"undefined"==typeof n.access_token?c.reject("Problem authenticating"):c.resolve(n),setTimeout(function(){u.close()},10)}}),u.addEventListener("exit",function(e){c.reject("The sign in flow was canceled")})}else c.reject("Could not find InAppBrowser plugin")}else c.reject("Cannot authenticate via a web browser");return c.promise},strava:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0){var s=window.open("https://www.strava.com/oauth/authorize?client_id="+r+"&redirect_uri=http://localhost/callback&scope="+i.join(",")+"&response_type=code&approval_prompt=force","_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://www.strava.com/oauth/token",data:"client_id="+r+"&client_secret="+o+"&code="+requestToken}).success(function(e){a.resolve(e)}).error(function(e,n){a.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){s.close()},10)}))}),s.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},withings:function(r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0)if("undefined"!=typeof jsSHA){var c=t.generateOauthParametersInstance(r);c.oauth_callback="http://localhost/callback";var s="https://oauth.withings.com/account/request_token",u=t.createSignature("GET",s,{},c,o);c.oauth_signature=u.signature;var l=t.generateUrlParameters(c);n({method:"get",url:s+"?"+l}).success(function(e){var a=t.parseResponseParameters(e);a.hasOwnProperty("oauth_token")===!1&&i.reject("Oauth request token was not received");var c=t.generateOauthParametersInstance(r);c.oauth_token=a.oauth_token;var s=a.oauth_token_secret,u="https://oauth.withings.com/account/authorize",l=t.createSignature("GET",u,{},c,o);c.oauth_signature=l.signature;var d=t.generateUrlParameters(c),f=window.open(u+"?"+d,"_blank","location=no,clearsessioncache=yes,clearcache=yes");f.addEventListener("loadstart",function(e){if(0===e.url.indexOf("http://localhost/callback")){var c=e.url.split("?")[1];a=t.parseResponseParameters(c),a.hasOwnProperty("oauth_verifier")===!1&&i.reject("Browser authentication failed to complete.  No oauth_verifier was returned");var u=t.generateOauthParametersInstance(r);u.oauth_token=a.oauth_token;var l="https://oauth.withings.com/account/access_token",d=t.createSignature("GET",l,{},u,o,s);u.oauth_signature=d.signature;var p=t.generateUrlParameters(u);n({method:"get",url:l+"?"+p}).success(function(e){var n=t.parseResponseParameters(e);n.hasOwnProperty("oauth_token_secret")===!1&&i.reject("Oauth access token was not received"),i.resolve(n)}).error(function(e){i.reject(e)})["finally"](function(){setTimeout(function(){f.close()},10)})}}),f.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}).error(function(e){i.reject(e)})}else i.reject("Missing jsSHA JavaScript library");else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},foursquare:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a="http://localhost/callback";void 0!==r&&r.hasOwnProperty("redirect_uri")&&(a=r.redirect_uri);var c=window.open("https://foursquare.com/oauth2/authenticate?client_id="+n+"&redirect_uri="+a+"&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf(a)){c.removeEventListener("exit",function(e){}),c.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];if(void 0!==r.access_token&&null!==r.access_token){var s={access_token:r.access_token,expires_in:r.expires_in};o.resolve(s)}else o.reject("Problem authenticating")}}),c.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},magento:function(r,o,i){var a=e.defer();if(window.cordova){var c=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(c)===!0)if("undefined"!=typeof jsSHA){var s={oauth_callback:"http://localhost/callback",oauth_consumer_key:o,oauth_nonce:t.createNonce(5),oauth_signature_method:"HMAC-SHA1",oauth_timestamp:Math.round((new Date).getTime()/1e3),oauth_version:"1.0"},u=t.createSignature("POST",r+"/oauth/initiate",s,{oauth_callback:"http://localhost/callback"},i);n.defaults.headers.post.Authorization=u.authorization_header,
 n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:r+"/oauth/initiate",data:"oauth_callback=http://localhost/callback"}).success(function(e){for(var o=e.split("&"),c={},u=0;u<o.length;u++)c[o[u].split("=")[0]]=o[u].split("=")[1];c.hasOwnProperty("oauth_token")===!1&&a.reject("Oauth request token was not received");var l=c.oauth_token_secret,d=window.open(r+"/oauth/authorize?oauth_token="+c.oauth_token,"_blank","location=no,clearsessioncache=yes,clearcache=yes");d.addEventListener("loadstart",function(e){if(0===e.url.indexOf("http://localhost/callback")){for(var o=e.url.split("?")[1],c=o.split("&"),u={},f=0;f<c.length;f++)u[c[f].split("=")[0]]=c[f].split("=")[1];u.hasOwnProperty("oauth_verifier")===!1&&a.reject("Browser authentication failed to complete.  No oauth_verifier was returned"),delete s.oauth_signature,delete s.oauth_callback,s.oauth_token=u.oauth_token,s.oauth_nonce=t.createNonce(5),s.oauth_verifier=u.oauth_verifier;var p=t.createSignature("POST",r+"/oauth/token",s,{},i,l);n.defaults.headers.post.Authorization=p.authorization_header,n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:r+"/oauth/token"}).success(function(e){for(var n=e.split("&"),t={},r=0;r<n.length;r++)t[n[r].split("=")[0]]=n[r].split("=")[1];t.hasOwnProperty("oauth_token_secret")===!1&&a.reject("Oauth access token was not received"),a.resolve(t)}).error(function(e){a.reject(e)})["finally"](function(){setTimeout(function(){d.close()},10)})}}),d.addEventListener("exit",function(e){a.reject("The sign in flow was canceled")})}).error(function(e){a.reject(e)})}else a.reject("Missing jsSHA JavaScript library");else a.reject("Could not find InAppBrowser plugin")}else a.reject("Cannot authenticate via a web browser");return a.promise},vkontakte:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a=window.open("https://oauth.vk.com/authorize?client_id="+n+"&redirect_uri=http://oauth.vk.com/blank.html&response_type=token&scope="+r.join(",")+"&display=touch&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");a.addEventListener("loadstart",function(e){var n=e.url.split("#");if("https://oauth.vk.com/blank.html"==n[0]||"http://oauth.vk.com/blank.html"==n[0]){a.removeEventListener("exit",function(e){}),a.close();for(var t=e.url.split("#")[1],r=t.split("&"),i=[],c=0;c<r.length;c++)i[r[c].split("=")[0]]=r[c].split("=")[1];if(void 0!==i.access_token&&null!==i.access_token){var s={access_token:i.access_token,expires_in:i.expires_in};void 0!==i.email&&null!==i.email&&(s.email=i.email),o.resolve(s)}else o.reject("Problem authenticating")}}),a.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},odnoklassniki:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a=window.open("http://www.odnoklassniki.ru/oauth/authorize?client_id="+n+"&scope="+r.join(",")+"&response_type=token&redirect_uri=http://localhost/callback&layout=m","_blank","location=no,clearsessioncache=yes,clearcache=yes");a.addEventListener("loadstart",function(e){if(0===e.url.indexOf("http://localhost/callback")){for(var n=e.url.split("#")[1],t=n.split("&"),r=[],i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];void 0!==r.access_token&&null!==r.access_token?o.resolve({access_token:r.access_token,session_secret_key:r.session_secret_key}):o.reject("Problem authenticating"),setTimeout(function(){a.close()},10)}}),a.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},imgur:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a="http://localhost/callback";void 0!==r&&r.hasOwnProperty("redirect_uri")&&(a=r.redirect_uri);var c=window.open("https://api.imgur.com/oauth2/authorize?client_id="+n+"&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf(a)){c.removeEventListener("exit",function(e){}),c.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];void 0!==r.access_token&&null!==r.access_token?o.resolve({access_token:r.access_token,expires_in:r.expires_in,account_username:r.account_username}):o.reject("Problem authenticating")}}),c.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},spotify:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="http://localhost/callback";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://accounts.spotify.com/authorize?client_id="+n+"&redirect_uri="+c+"&response_type=token&scope="+r.join(" "),"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,expires_in:r.expires_in,account_username:r.account_username}):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},uber:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="http://localhost/callback";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://login.uber.com/oauth/authorize?client_id="+n+"&redirect_uri="+c+"&response_type=token&scope="+r.join(" "),"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,token_type:r.token_type,expires_in:r.expires_in,scope:r.scope}):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},windowsLive:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="https://login.live.com/oauth20_desktop.srf";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://login.live.com/oauth20_authorize.srf?client_id="+n+"&scope="+r.join(",")+"&response_type=token&display=touch&redirect_uri="+c,"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,expires_in:r.expires_in}):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},yammer:function(n,r){var o=e.defer();if(window.cordova){var i=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(i)===!0){var a="http://localhost/callback";void 0!==r&&r.hasOwnProperty("redirect_uri")&&(a=r.redirect_uri);var c=window.open("https://www.yammer.com/dialog/oauth?client_id="+n+"&redirect_uri="+a+"&response_type=token","_blank","location=no,clearsessioncache=yes,clearcache=yes");c.addEventListener("loadstart",function(e){if(0===e.url.indexOf(a)){c.removeEventListener("exit",function(e){}),c.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],i=0;i<t.length;i++)r[t[i].split("=")[0]]=t[i].split("=")[1];void 0!==r.access_token&&null!==r.access_token?o.resolve({access_token:r.access_token}):o.reject("Problem authenticating")}}),c.addEventListener("exit",function(e){o.reject("The sign in flow was canceled")})}else o.reject("Could not find InAppBrowser plugin")}else o.reject("Cannot authenticate via a web browser");return o.promise},venmo:function(n,r,o){var i=e.defer();if(window.cordova){var a=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(a)===!0){var c="http://localhost/callback";void 0!==o&&o.hasOwnProperty("redirect_uri")&&(c=o.redirect_uri);var s=window.open("https://api.venmo.com/v1/oauth/authorize?client_id="+n+"&redirect_uri="+c+"&response_type=token&scope="+r.join(" "),"_blank","location=no,clearsessioncache=yes,clearcache=yes");s.addEventListener("loadstart",function(e){if(0===e.url.indexOf(c)){s.removeEventListener("exit",function(e){}),s.close();for(var n=e.url.split("#")[1],t=n.split("&"),r=[],o=0;o<t.length;o++)r[t[o].split("=")[0]]=t[o].split("=")[1];void 0!==r.access_token&&null!==r.access_token?i.resolve({access_token:r.access_token,expires_in:r.expires_in}):i.reject("Problem authenticating")}}),s.addEventListener("exit",function(e){i.reject("The sign in flow was canceled")})}else i.reject("Could not find InAppBrowser plugin")}else i.reject("Cannot authenticate via a web browser");return i.promise},stripe:function(r,o,i,a){var c=e.defer();if(window.cordova){var s=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(s)===!0){var u="http://localhost/callback";void 0!==a&&a.hasOwnProperty("redirect_uri")&&(u=a.redirect_uri);var l=window.open("https://connect.stripe.com/oauth/authorize?client_id="+r+"&redirect_uri="+u+"&scope="+i+"&response_type=code","_blank","location=no,clearsessioncache=yes,clearcache=yes");l.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://connect.stripe.com/oauth/token",data:"client_id="+r+"&client_secret="+o+"&redirect_uri="+u+"&grant_type=authorization_code&code="+requestToken}).success(function(e){c.resolve(e)}).error(function(e,n){c.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){l.close()},10)}))}),l.addEventListener("exit",function(e){c.reject("The sign in flow was canceled")})}else c.reject("Could not find InAppBrowser plugin")}else c.reject("Cannot authenticate via a web browser");return c.promise},rally:function(r,o,i,a){var c=e.defer();if(window.cordova){var s=cordova.require("cordova/plugin_list").metadata;if(t.isInAppBrowserInstalled(s)===!0){var u="http://localhost/callback";void 0!==a&&a.hasOwnProperty("redirect_uri")&&(u=a.redirect_uri);var l=window.open("https://rally1.rallydev.com/login/oauth2/auth?client_id="+r+"&redirect_uri="+u+"&scope="+i+"&response_type=code","_blank","location=no,clearsessioncache=yes,clearcache=yes");l.addEventListener("loadstart",function(e){0===e.url.indexOf("http://localhost/callback")&&(requestToken=e.url.split("code=")[1],n.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded",n({method:"post",url:"https://rally1.rallydev.com/login/oauth2/auth",data:"client_id="+r+"&client_secret="+o+"&redirect_uri="+u+"&grant_type=authorization_code&code="+requestToken}).success(function(e){c.resolve(e)}).error(function(e,n){c.reject("Problem authenticating")})["finally"](function(){setTimeout(function(){l.close()},10)}))}),l.addEventListener("exit",function(e){c.reject("The sign in flow was canceled")})}else c.reject("Could not find InAppBrowser plugin")}else c.reject("Cannot authenticate via a web browser");return c.promise}}}]),angular.module("ngCordovaOauth",["oauth.providers","oauth.utils"]),angular.module("oauth.utils",[]).factory("$cordovaOauthUtility",["$q",function(e){return{isInAppBrowserInstalled:function(e){var n=["cordova-plugin-inappbrowser","org.apache.cordova.inappbrowser"];return n.some(function(n){return e.hasOwnProperty(n)})},createSignature:function(e,n,t,r,o,i){if("undefined"!=typeof jsSHA){for(var a=angular.copy(t),c=Object.keys(r),s=0;s<c.length;s++)a[c[s]]=encodeURIComponent(r[c[s]]);var u=e+"&"+encodeURIComponent(n)+"&",l=Object.keys(a).sort();for(s=0;s<l.length;s++)u+=s==l.length-1?encodeURIComponent(l[s]+"="+a[l[s]]):encodeURIComponent(l[s]+"="+a[l[s]]+"&");var d=new jsSHA(u,"TEXT"),f="";i&&(f=encodeURIComponent(i)),t.oauth_signature=encodeURIComponent(d.getHMAC(encodeURIComponent(o)+"&"+f,"TEXT","SHA-1","B64"));var p=Object.keys(t),v="OAuth ";for(s=0;s<p.length;s++)v+=s==p.length-1?p[s]+'="'+t[p[s]]+'"':p[s]+'="'+t[p[s]]+'",';return{signature_base_string:u,authorization_header:v,signature:t.oauth_signature}}return"Missing jsSHA JavaScript library"},createNonce:function(e){for(var n="",t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",r=0;e>r;r++)n+=t.charAt(Math.floor(Math.random()*t.length));return n},generateUrlParameters:function(e){var n=Object.keys(e);n.sort();for(var t="",r="",o=0;o<n.length;o++)t+=r+n[o]+"="+e[n[o]],r="&";return t},parseResponseParameters:function(e){if(e.split){for(var n=e.split("&"),t={},r=0;r<n.length;r++)t[n[r].split("=")[0]]=n[r].split("=")[1];return t}return{}},generateOauthParametersInstance:function(e){var n=new jsSHA(Math.round((new Date).getTime()/1e3),"TEXT"),t={oauth_consumer_key:e,oauth_nonce:n.getHash("SHA-1","HEX"),oauth_signature_method:"HMAC-SHA1",oauth_timestamp:Math.round((new Date).getTime()/1e3),oauth_version:"1.0"};return t}}}])}();
-define("ngcordova", ["ionic"], function(){});
+define("ngcordova", function(){});
 
 define('corePath/controllers/menu',[
         'extendScope'
@@ -979,6 +979,1727 @@ define('application',[
         return MyApp;
     });
 
+define('js/modules/base/run',[
+	'application'
+], function() {
+
+});
+//jQuery, canvas and the app/sub module are all
+//loaded and can be used here now.
+define('js/modules/core/run',[
+        'application'
+    ],
+    function() {
+        MyApp.registerModule('core')
+            .addFactory('core.userService')
+            ;
+    });
+
+define('js/modules/user/run',[
+    'application'
+], function() {
+    MyApp.registerModule('user')
+        .addController('user/login', 'user.login')
+        .addController('user/profile/:user_id', 'user.profile')
+        .addController('user/members', 'user.members')
+        .addController('user/signup', 'user.signup')
+        .addMenu('Signup', 'user/signup', {
+            requireGuest: true
+        })
+        .addMenu('Login', 'user/login', {
+            requireGuest: true
+        })
+        .addMenu('Members', 'user/members');
+});
+
+define('js/modules/feed/run',[
+    'application'
+], function() {
+    MyApp.registerModule('feed')
+        .addController('feed/index', 'feed.index')
+        .addMenu('Home', 'feed/index')
+        .addController('feed/add', 'feed.add')
+        .addDirective('feed.actionBar', { controller: true })
+        .addController('feed/nojs', 'feed.nojs')
+        .addController('', 'feed.commentModalCtrl', true)
+        .addDirective('feed.display', { controller: true });
+});
+
+define('js/modules/photo/run',[
+	'application'
+], function() {
+	MyApp.registerModule('photo')
+	.addDirective('photo.feedItem')
+	.addController('photo/index', 'photo.index')
+	.addMenu('Photo', 'photo/index');
+});
+define('js/modules/link/run',[
+	'application'
+], function() {
+	MyApp.registerModule('link')
+	.addDirective('link.feedItem');
+});
+define('js/modules/video/run',[
+	'application'
+], function() {
+	MyApp.registerModule('video')
+	.addDirective('video.feedItem');
+});
+define('js/modules/music/run',[
+	'application'
+], function() {
+	MyApp.registerModule('music')
+	.addDirective('music_song.feedItem');
+});
+define('js/modules/blog/run',[
+	'application'
+], function() {
+	MyApp.registerModule('blog')
+	.addDirective('blog.feedItem');
+});
+define('js/static/cores/controllers',[
+
+], function() {
+    console.log('Load controllers core...');
+});
+
+define('corePath/services/viewer',[
+    'settings',
+], function($settings) {
+    angular.module(MyApp.appName)
+        .factory('$viewer', function($rootScope, $timeout, $location) {
+            return {
+                get: function() {
+                    if (MyApp.viewer) {
+                        return MyApp.viewer;
+                    }
+                    var sViewerJson = localStorage.getItem(MyApp.settings.securityKey + '_viewer');
+                    if (!sViewerJson || sViewerJson.trim().length == 0) {
+                        MyApp.viewer = null;
+                        return false;
+                    }
+                    var viewer = JSON.parse(sViewerJson);
+                    MyApp.viewer = viewer;
+
+                    this.getToken();
+                    return viewer;
+                },
+                set: function(data) {
+                    var sJsonViewer = JSON.stringify(data);
+                    localStorage.setItem(MyApp.settings.securityKey + '_viewer', sJsonViewer);
+                    MyApp.viewer = data;
+                },
+                update: function(data) {
+                    if (MyApp.viewer) {
+                        return this.set(data);
+                    }
+                    $.extend(MyApp.viewer, data);
+                    return this.set(MyApp.viewer);
+                },
+                remove: function() {
+                    localStorage.removeItem(MyApp.settings.securityKey + '_viewer');
+                    MyApp.viewer = null;
+                },
+                getToken: function() {
+                    if (MyApp.token) {
+                        return MyApp.token;
+                    }
+                    var sToken = localStorage.getItem(MyApp.settings.securityKey + '_token');
+
+                    if (!sToken || sToken.trim().length == 0) {
+                        MyApp.token = null;
+                        return false;
+                    }
+                    MyApp.token = sToken;
+                    return sToken;
+                },
+                setToken: function(token) {
+                    localStorage.setItem(MyApp.settings.securityKey + '_token', token);
+                    MyApp.token = token;
+                },
+                removeToken: function() {
+                    localStorage.removeItem(MyApp.settings.securityKey + '_token');
+                    MyApp.token = null;
+                },
+                logout: function() {
+                    this.removeToken();
+                    this.remove();
+                    $rootScope.$broadcast('viewer:update', {});
+                },
+                isUser: function(direct) {
+                    var token = this.getToken();
+                    var bUser = token ? true : false;
+                    if (typeof direct !== 'undefined') {
+                        if (direct) {
+                            $location.path($settings.getHomePage());
+                        } else {
+                            $location.path('/app/user/login');
+                        }
+                    }
+                    return bUser;
+                },
+                loginSuccess: function(data) {
+                    this.setToken(data.data.token);
+                    this.set(data.data.user);
+                    $rootScope.$broadcast('viewer:update', {});
+                    $timeout(function() {
+                        $location.path('/app/feed/index');
+                    }, 2000);
+                },
+            }
+        });
+});
+
+define('corePath/services/history',[
+    'settings',
+], function($setting) {
+    angular.module(MyApp.appName)
+        .factory('$history', function($rootScope, $location) {
+
+            var $history = {
+                _data: [],
+                _maxLength: 3,
+                _root: {
+                    path: '/' + $setting.homeUrl,
+                    title: ''
+                }
+            };
+
+            $history.clear = function() {
+
+                $history = {
+                    _data: [],
+                    _root: {
+                        path: '/' + $setting.homeUrl,
+                        title: ''
+                    }
+                };
+
+                return $history;
+            };
+
+            $history.back = function() {
+
+                var last = $history._data.pop();
+
+                if (last && last.path == $location.path()) {
+                    last = $history._data.pop();
+                };
+
+                if (last) {
+                    $location.path(last.path);
+                    $rootScope.$$phase || $rootScope.$apply();
+                } else if ($history._root.path != $location.path()) {
+                    $location.path($history._root.path);
+                    $rootScope.$$phase || $rootScope.$apply();
+                } else {
+                    ionic.Platform.exitApp();
+                }
+            };
+
+            $history.go = function(seek) {
+
+                var index = $history._data.length - 1 + seek;
+
+                if (index < 0 || index >= len) {
+                    return;
+                }
+
+                $location.path($history._data[index].path);
+                $rootScope.$$phase || $rootScope.$apply();
+            };
+
+            $history.push = function(title, isRoot, replace) {
+
+                var current = {
+                    path: $location.path(),
+                    title: title || ''
+                };
+
+                if (isRoot) {
+                    $history._root = current;
+                    $history._data = [];
+                    $history._data.push(current);
+                    return $history;
+                }
+
+                var len = $history._data.length;
+
+                if (!len || $history._data[len - 1].path != current.path) { // add
+                    if (len == $history._maxLength) {
+                        $history._data.shift();
+                    }
+                } else { // update
+                    $history._data.pop();
+                }
+
+                $history._data.push(current);
+
+                return $history;
+            };
+
+            $history.getPrev = function() {
+
+                var len = $history._data.length;
+                var prev = $history._data[len - 1];
+
+                if (prev && prev.path == $location.path()) {
+                    prev = $history._data[len - 2];
+                }
+
+                if (prev) {
+                    return prev;
+                }
+
+                return $history._root;
+            };
+
+            $history.getLevel = function() {
+                return $history._data.length;
+            };
+
+            $history.canPrev = function() {
+                var len = $history._data.length;
+                if (!len) {
+                    return false;
+                }
+                var prev = $history._data[len - 1];
+
+                if (prev && prev.path == $location.path()) {
+                    prev = $history._data[len - 2];
+                }
+
+                if (prev) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return $history;
+
+        });
+});
+
+define('corePath/services/global-data',[
+    'settings',
+], function($setting) {
+    angular.module(MyApp.appName)
+        .factory('$globalData', function($rootScope) {
+            return {
+                data: {},
+                cacheTime: 15 * 60 * 1000,
+                remove: function(key) {
+                    if (typeof this.data[key] !== 'undefined') {
+                        delete this.data[key];
+                    }
+                },
+                put: function(key, value) {
+                    this.data[key] = {
+                        value: value,
+                        time: new Date().getTime()
+                    };
+                },
+                clear: function() {
+                    this.data = {};
+                },
+                get: function(key) {
+                    if (typeof this.data[key] !== 'undefined') {
+                        var item = this.data[key];
+                        if (new Date().getTime() - item.time < this.cacheTime) {
+                            return item.value;
+                        }
+                        this.remove(key);
+                    }
+                    return null;
+                }
+            };
+        });
+});
+
+define('js/static/cores/services',[
+    'corePath/services/viewer',
+    'corePath/services/history',
+    'corePath/services/global-data',
+], function() {
+    console.log('Load services core...');
+    angular.module(MyApp.appName)
+        .factory('$dhttp', function($http, $ionicLoading) {
+            return {
+                post: function(api, data) {
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    if (token) {
+                        data.token = token;
+                    }
+                    return $http.post(url, data, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                },
+                get: function(api, data) {
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    if (token) {
+                        data.token = token;
+                    }
+                    return $http.get(url, data, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                },
+                getFileName: function(path, type) {
+                    var name = '';
+
+                    if ('video' == type) {
+                        if (ionic.Platform.isAndroid()) {
+                            name = path.match(/\/([^\/]+)$/)[1] + '.mp4';
+                        } else {
+                            name = path.split('/').pop();
+                        }
+                    } else {
+                        if (path.match(/[^\/]+.jpg$/g)) {
+                            name = path.match(/[^\/]+.jpg$/ig)[0];
+                        } else if (path.match(/id=(\w|\-)+/)) {
+                            name = path.match(/id=(\w|\-)+/)[0].replace('id=', '') + '.jpg';
+                        } else if (ionic.Platform.isAndroid()) {
+                            name = path.match(/\/([^\/]+)$/)[1] + '.jpg';
+                        }
+                    }
+
+                    return name;
+                },
+                getMimetype: function(type) {
+                    if ('video' == type) {
+                        return (ionic.Platform.isAndroid()) ? 'video/mp4' : 'video/quicktime';
+                    } else {
+                        return 'image/jpeg';
+                    }
+                },
+                upload: function(api, fileUrl, type, data, successCallBack, errorCallBack) {
+                    var ft = new FileTransfer();
+                    var options = new FileUploadOptions();
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    var token = MyApp.token;
+
+                    if (token) {
+                        data.token = token;
+                    }
+
+                    if (typeof type === 'undefined') {
+                        type = 'photo';
+                    }
+
+                    $.extend(options, {
+                        fileKey: 'image',
+                        fileName: this.getFileName(fileUrl, type),
+                        mimeType: this.getMimetype(type),
+                        chunkedMode: false,
+                        params: data
+                    });
+
+                    var percent = 0;
+
+                    var success = function(result) {
+                        console.log(result);
+                        $ionicLoading.hide();
+                        if (typeof successCallBack !== 'undefined' && successCallBack) {
+                            if (typeof result.response !== 'undefined') {
+                                result = JSON.parse(result.response);
+                            }
+                            successCallBack(result);
+                        }
+                    };
+
+                    var error = function(error) {
+                        console.log(error);
+                        $ionicLoading.hide();
+                        if (typeof errorCallBack !== 'undefined' && errorCallBack) {
+                            errorCallBack(error);
+                        }
+                    };
+
+                    ft.onprogress = function(progressEvent) {
+                        if (progressEvent.lengthComputable) {
+                            percent = (progressEvent.loaded * 100) / progressEvent.total;
+                            $ionicLoading.show({
+                                template: 'Uploading ' + parseInt(percent, 10) + '%, please wait ...'
+                            });
+                        }
+                    };
+
+                    $ionicLoading.show({
+                        template: 'Uploading 0%, please wait ...'
+                    });
+                    ft.upload(fileUrl, url, success, error, options);
+                },
+                ajaxForm: function(api, form, successCallBack, errorCallBack, finallyCallBack) {
+                    if (!$(form).length) {
+                        console.log('No form data to post.');
+                        return;
+                    }
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    var token = MyApp.token;
+
+                    if (token) {
+                        url += '&token=' + token;
+                    }
+                    var fd = new FormData($(form)[0]);
+                    var request = $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                    }).done(function(data) {
+                        if (typeof successCallBack !== 'undefined') {
+                            successCallBack(data);
+                        }
+                    }).fail(function(data) {
+                        if (typeof errorCallBack !== 'undefined') {
+                            errorCallBack(data);
+                        }
+                    }).always(function(data) {
+                        if (typeof finallyCallBack !== 'undefined') {
+                            finallyCallBack(data);
+                        }
+                    });
+                }
+            }
+        })
+        .factory('$dListService', function($dhttp) {
+            return {
+                init: function($scope, $model) {
+                    $scope.items = [];
+                    $scope.iMaxId = 0;
+                    $scope.iMinId = 0;
+
+                    $scope.canLoadMore = true;
+
+                    $scope.updateListInfo = function() {
+                        $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                        $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                    }
+
+                    $scope.doRefresh = function() {
+                        if ($scope.isLoadNewProcessing) {
+                            return;
+                        }
+                        $scope.isLoadNewProcessing = true;
+
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                            action: 'loadnew'
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.isLoadNewProcessing = false;
+                            if ($scope.refreshSuccess) {
+                                $scope.refreshSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = items.concat($scope.items);
+                                    $scope.updateListInfo();
+                                }
+
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isLoadNewProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
+
+                    $scope.doLoadMore = function() {
+
+                        if ($scope.isProcessing) {
+                            return;
+                        }
+                        $scope.isProcessing = true;
+                        var sendData = {
+                            max_id: $scope.iMaxId,
+                            min_id: $scope.iMinId,
+                        }
+                        if ($scope.listConfig.listData) {
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
+                        }
+
+                        $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $scope.isProcessing = false;
+                            if ($scope.loadMoreSuccess) {
+                                $scope.loadMoreSuccess(data);
+                            }
+                            if (data.status) {
+                                if (data.data) {
+                                    if (typeof $model !== 'undefined') {
+                                        var items = $scope.setModel(data.data, $model);
+                                    } else {
+                                        var items = data.data;
+                                    }
+                                    $scope.items = $scope.items.concat(items);
+                                    $scope.updateListInfo();
+                                }
+
+                                if (!data.data || data.data.length == 0) {
+                                    $scope.canLoadMore = false;
+                                }
+                            } else {
+                                alert(data.errors.join('.'));
+                            }
+                        }).error(function(data) {
+                            $scope.isProcessing = false;
+                            alert('Can not get data from server.');
+                        });
+                    };
+                }
+            }
+        });
+
+    if (typeof cordova === 'undefined') {
+        angular.module(MyApp.appName)
+            .factory('$cordovaToast', function() {
+                return {
+                    show: function(text) {
+                        Dmobi.showToast(text);
+                    }
+                }
+            });
+    }
+});
+
+define('js/static/cores/directives',[
+
+], function() {
+    console.log('Load directives core...');
+
+    // Directive compile html
+    angular.module(MyApp.appName)
+        .directive('ngHtmlCompile', function($compile) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    scope.$watch(attrs.ngHtmlCompile, function(newValue, oldValue) {
+                        element.html(newValue);
+                        $compile(element.contents())(scope);
+                    });
+                }
+            }
+        })
+
+    // Directive for loading image
+    .directive('fallbackSrc', function() {
+            var missingDefault = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBoRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAASAAAATgAAAAAAAABgAAAAAQAAAGAAAAABUGFpbnQuTkVUIHYzLjUuMTEA/9sAQwAEAgMDAwIEAwMDBAQEBAUJBgUFBQULCAgGCQ0LDQ0NCwwMDhAUEQ4PEw8MDBIYEhMVFhcXFw4RGRsZFhoUFhcW/9sAQwEEBAQFBQUKBgYKFg8MDxYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYW/8AAEQgB9AH0AwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+ggKcBQBRQAUAZpQKUUAFOAxRSgUAIBThQBTqAAClAoApwFACU4CilAoAQCnYoxTsUAJilpcUtACYpaXFLQAmKXFLiloAbilxTsUuKAG0YNOowaAExS4FLilxQA2inYooAbRg07BpcGgBmDRg0/FGKAGYNFPxSYNADaKdg0UANxSYp+BSYoAbikwafikoAbikxT6TFADMUYp2KMUAR4oxT8UmKAGYpMU/FJigCPFJin4pMUAMpCKfSEUAMIppFSEU2gBhFIRTyKaRQAykIp9NoAaRmm08ikNADaQilooAbiilxRQAtKBSAZpwoABTqKUCgAApwFAFKKAACnAUU4CgBAKUClApQKAClApaUCgBMU7FGKdigBMUuKUClxQAmKXFLiloATFLS4paAG4NLinYpcUANpcUtLigBuKXAp2KKAG0YNOooATFGKWigBMUYpaKAExRilooATBpMGnUUANowKdRigBmKTBp+KMUAMxSYp9JigBlGKdijFADMUmKdiigBmKTFPxSYoAjxSYp+KTFADKQin00igBpFNxTyKQigCMikIp5FIRQAwim08ikNAEZGKQin00jFADTTaeRSEUANooooAdTqAMUoFAABTgKAKUUAAFOopwoAAKUCgCnAUAAFLQBTqADGKUClApQKAEApwFFOAoATFLRinAUAJilpcUuKAExS0uKWgBMUuKKKACijBpcUAJRTqMGgBMGjFOxRigBuKXAp2BRigBuBRgU6igBuBSYp9GBQAzFGKfgUmKAGYNFPxSYoAbRTsUmKAEpMUtFADcUYp1GKAI8UYp+KTFAEeKMU7FJigBmKQin0hFADKaRipCKaaAGEUhFPIpCKAI6aRUlNNADCKQjNPIppFADCKbUhFNNAEZGKQinn0ptADaKXFFACgU4CgU4UAAp1ApwFAAKUChRTgKAAClAzQBmnAUAFOFAFOAoAQClApQKWgApQKUClAoAQCnYop2KAExS0UUAFFLiloATFLS4paAExS4pcUuKAG0uKXBpcUANxS4FOxRigBtFOowaAG0U7BowaAG0U7BowaAG4oxTqMCgBmKTBp+KMUAMpMU+kxQAzBoxTsUYoAZikp+KSgBtGKXFJQA0ikxT6QigBlNIqTFNIoAaRTaeRSUARkUhFPIpCKAGEZptPIpCKAIzSEU+mmgBjCmkU8jFIwoAYRmmmnsKawoAZRTqKAHAUqihRTgKABR3pyikApwoAUClAoFOoAKcBQKcBQAAYpQKAKWgApwFFOAxQAgFOAoApaACiilAoAAKWgCnUAJilxS4paAExS4pcUuKAExS0uKWgBuDS4p2KMUAJgUU6igBuDS4pcGlwaAG4oxTsUYoAbijBp2KTBoAbg0U7BooAbgUmKfikxQAzFGKdg0YoAZikxT8UlADMUmKfikoAZikxTyKQigCOinUhFACYzTadRQAwimkU8jFIRQAymkYp5FJQAwimkU8jFIRQAwjNNNPYU0igBh9KaakIppoAjPFNIqQ02gBmKKWigBwp1ApVoAUU4UiinKKAFHFOApFFOUUACinAUgFOoAKdQBTgMUAAGKUCgCloAKKAM07FAAKUClAxSgUAJinUAU7FACYpaXFLQAYoxTsUUAJilpcUtADcGlxTsUYoATFGDTqMGgBMGjFOxRigBuKMU7FGKAG4oxTsUYoAZg0U/FJg0ANxSYp+KTFADKKdg0YoAZikp+KSgBmKSn4pKAIyKQin4pCKAGU0ipKaRigBhFJTyKQigBtNIxTqKAGEU0inkYpCKAGU008ikoAjIxSMKeaaaAGMKawp5ppFADGFNanmmmgBtFLiigBRThQKcKAAU4UCnCgAFOFApwoAKcBSKKcooAAKcooApaACgDNFOHpQAU4UClAoAAKcBQBSgZoAAKcBRinAUAIBS0YzTsUAJilpcUtACYpaXFLigBMUuKXFLigBuKXFLg0uKAG4pcCnYoxQA3AowKdRQA3ApMU+jAoAZijBp2KMUAMpMU/FGKAI8UYp+KTFADMUmKfikxQBHiinYpMUAMxSEU+kIoAYRTSKkIptADCKaRTzSEUAMIzTaeRSEUANppp1FAEZFIwp9NNADSKaacaRhQAw0009qa1ADDTTT29aa1ADKKdiigBVpy0lOoAVactIKcKAFWlFFOFAAKcKBThQAUUUq0AKKcBikUU5RQAAU4ChRSgZoAUClAoAp1ABSgUAUoFAAKcBRTgKAEApaUCloATFLilxS4oATFLS4pcUAJijFOxS4oAbiinUYNADaKdg0YNADaKdg0YNADcCkxT8UmKAGYNGKfikoAZikp+KSgBmKTFPxSEUAR4pCKeRSEUAMptSEZptADCKQinEYpCKAGEU01IRTaAIyKRhT6aaAGMKSnGmmgANNNOpGoAYabT2prUAMNNNPamtQAw0009qa1ADKKdRQAq05aSnCgBVpy0gp1ACrTlpKcKAFWloooAVaUUU4UAApwoFOFAAKcPSgU4CgApQKFFKBQAoFKKBTgKAClApQKUCgAApaAKdQAmKXFLilxQAYoxTsUYoATFLilxS0ANwaXBpaKAExRilooATFJg06igBtGKdRigBmKSn4pKAGYpKfikoAZikxT8UhFAEZFIRTzTSKAGEUhp5FNIoAZTSMVIaaaAGEUhFOpGFADDTTT2pretADDTae1NagBlFK1JQA00009qa1ADKaae1IaAIzTTUjUxqAGUU6igBVpy0gp1ACrTlpKcKAFWnLSU6gApVpKdQAq05aQU4UAKtOX1pBThQAq0o5opwoABTqBThQAU4CkApwFAABTgKAKUDNAABTqKcBQAgFLilApaADFFFFABRS4paAG4NLinYNGKAG4oxTsUYoAbijBp2KMUAMop2DRigBtFLikoATFJTqKAGEU0inkUhFADCKaakIzTaAGEU0inkU0jFADGFIRTiKRhQAwim09qa3rQAw001IaaaAIzTTUhppoAjNNNSNTWoAbTTTqRqAGU2ntTWoAYaaae1NagBlFOxRQALT1pq09elAAKetNWnrQAq0tA6UUAKtOWkFOFACrTlpBThQA5actNFOoAVactJTqAFWnLSU4UAKopQKKdQACnUCnCgAFKBQBS0AFFFOAoAQClxSgUuKAExS4p2KMUAJijFOxS4FADcCjAp1FADcCkxT6MUAMxSU/FJQAzFJT8UlADCKSnEUhFACUhFLRQAwikIp5FNYUAMNNp7CmtQAymmntSNQBGaaakamtQBHSNTmpDQAxqYakNNNAEZppp7U1qAGUUrUlADTTTT2prUAMpppx60jUAMooPWigB1Opq9acOtADqcKRactAC0L1opVoActOWkXpTh0oAVactIKcKAFWnLSU4UAKtOWkpwoAVactIKcKAFWnLSCnCgBVpyikFOoAKKKcKACnAUAUoFAABS4pQKWgAxRinYoxQAmKWnYooAbRg07BpcGgBlGKdg0UAMxSU/FJQAzFJTyKQigCMikIp9NIxQAwikp7CmsKAEppp1BoAjNNNSGmmgCM001IaaaAIzTTUhpjUAMNNp7U1qAGNTTT2prUAMNNp7U1qAGGm09qYetAA3SmNT6bQAxqa1PNNoAbRRRQAq05aRelOXpQAq09elNHSnUAFOFNFOHWgB1OHWkWnLQAq9aetNWnLQAq9aetNWnLQA5actIOlOFACrTlpBThQA5acKaKcKAHCiiigBVpy0gpwoAVRTgKQU4UAAFOFApwoAAKMUoFKBQAYowadijBoATFGKdijFADcGkp+KTFADMUlPxSUAMIpCKeRTWFADCKbTyKQigCM001IaaaAIzRTjTaAEamtT6aaAGNTGqQ0xqAGGmmntTWoAZTTT2pjdaAG00049aa3WgBpprdKcetNNADGprU8009KAG0jdaWkagBh602ntTW60AMNFK1FAC04U2nUAOp1NHWnUAKvWnLTVpy0AOWnr0pq9KcKAHDpTqbTqAHCnU0dacvWgBwpy9aRactADlpy01aevSgBVpy0gp1ABSrSU6gBVp600U4UAOFOFNFOWgBwrUt9GlkgSUTIN6hgCDxkVlrXU27FNHjdeqwAj/vmgDN/sOX/nun5Gl/sSX/AJ7p+RqMaxdntH/3zS/2vd+kf/fNAEn9iy/89k/I0f2LL/z2T8jTP7WuvSP/AL5pf7Vu/SP/AL5oAf8A2NJ/z2X8jR/Y0n/PZPyNN/tW6/6Z/wDfNH9q3X/TP/vmgB39iy/89l/I0n9jS/8APZPyNN/tW6/6Z/8AfNJ/at16R/8AfNADv7Fl/wCeyfkaP7El/wCe6fkab/a136R/980n9r3fpH/3zQA7+w5v+e6fkaralpr2cAlaRWDNtwB7H/CrVnqlzLdxxsI9rMAcLVjxR/yD0/66j+RoA55qa1PppoAY1NanmmmgCNqaae1NagBKa3WnUjUAMNNNPamtQAw009KcetNNADW6UxqfTT0oAY1NanN0pG6UAMamt1pzU1qAGHrTae1MPWgBtDdKKDQAxqa1PbpTGoASiiigApy9aaOtPXrQA5aWkWloAVaevSmr0pwoAdTqbTh1oAcvWnDrSLTl60AOXrTlpq05aAHLT16U1elOHSgBw6U6m04daAHDrTqRetLQADrT1601actADlpy01aeOlACrT1ptOoAcK6aP/kCL/17j/0GuZHWumj/AOQKv/XuP/QaAOdFOFItKKAFAp2DU+mQ+feIhHyg5b6Crus2fW4iH++B/OgDLxS4FOxRQAzFLDG0syxKOWOBSkVPpTqmoRlvUj8xQBqWun20SAGNZG7swz+lQ6lpkUkTPAmyQDOB0b2xWhSOwRCzHAUZJoA5rTf+QhD/ANdB/OtTxR/yD0/66j+RrNsTnU4jjrIP51peKP8AkHr/ANdR/I0AYDU1qe3SmNQAw9aaae1NagBlNPSnN1ppoAbQelFFADW6UxqeelNbpQAxqa3WnNTWoAYetNp7daYetADT0ptOptADW6Uxqeaa3SgBjU1qc1NagBjdaKVqSgBtNbpTjTT0oAbRRRQAL1p60xetPWgBy0tItLQA5elOpq9KdQA6nL1ptOXrQA9actNWnLQA5actNWnLQA9elOpq9KdQA6nL1ptOXrQA9aWkWloAVactNWnLQA9elOpq9KdQA6nL1po609aAHLXSx/8AIFX/AK9x/wCg1zS10sf/ACBV/wCvcf8AoNAHPLTlpF6U6MFmCgZJOBQBr+HodsLTEcscD6Vo9eDTLaMQ26RD+EYp9AGPqVp5Em9B+7Y8e3tVWuglRZIyjjIPWsW8haCUoeR/CfUUAQMKa1Oanx280kLSIhKqMk0ATW+qTRKFdRIB0J61FfX81yuw4VPRe/1qu1MbrQBLp3/IQh/3xWp4m/48E/66j+RrM0//AJCEP++P51p+Jv8AjwT/AK6j+RoAwDTW6U4009KAGNTWpzU1qAGtTG609qY3WgBtFFFADaa3SnGmt0oAY1NanNTWoAa1MbrT2pjdaAG02nU2gBtNbpTqa3SgBjU1qc1NagBrUlK1JQA2m06m0ANooooAF609aZTl60APWlpFpaAHL0p1MXpTx0oAdTl602nDrQA9actNXrSr1oAetOWmrTloAevSnUxaeOlADqcvWm04UAPWlpq9adQAq05aavWnLQA9elOFMWnr0oAdTh1po6U6gB610sf/ACBV/wCvcf8AoNcyK6aP/kCr/wBe4/8AQaAOeWr+gw+ZebyPljGfx7f59qzxW/oMPlWIcj5pDn8O3+fegC7RRRQAVFeQLcQlG6/wn0NS0UAZlnpzFt1xwAeFB61pKoVdqgADoBS0UAYesWvkXG5R+7fp7H0qjXTXcK3Fu0T9+h9D61zdxG0MrRuMMpwaAH6d/wAhCH/fFanib/jwT/rqP5GsrTf+QhD/ANdB/OtTxR/yD0/66j+RoAwTTW6UrU1qAGtTWpzU1utADWph6049abQA2iiigBtNbpTj0pjUANamtTmprUANamN1pzdaaaAG02nU2gBtNbpTj0prdKAGNTWpzU1qAGtSUN1ooAbTacaa3SgBtFFFABTh1ptOoAevWlpo606gBVp69KYtOWgB46U6mr0pw6UAOHWnCm06gBy9aetMpw60APWnLTV605aAHr0pwpi05aAH06mr0pwoAKcOtNpwoAetOWmCnUAPWnLTKcKAHrXTx/8AIDX/AK9x/wCg1y4rqIudEXH/AD7j/wBBoAwLOMz3CRD+I4rqFUKoVRgKMAVy0IuI33xrIrDoQDU/2i//AOek/wCtAHR0VzouL7/npN+tL599/wA9Jv1oA6Giue8++/56TfrR59//AM9Jv1oA6Giue8++/wCek360faL7/npN+tAHQ1n69aebD56D54xz7is37Rf/APPSb9aabi//AOek/wCtADdN/wCQjD/10H861PFH/IPT/rqP5GszTo5BqEJMbf6wZ+WtPxV/yD0/66j+RoA58000401qAGmm0rU1qAENNPSlamtQAlDdKKRqAGtTWpzUw9aAEamN1pxptADTTacelNbpQA09KaelK1NbpQAjdKY1OamtQA1qa3WnN1ph60ANPWiig9KAGnpTW6U5ulMagBKKKKAAU4dKYvSnLQA+nU1elOHSgAXrT1plOFAD1py0wdaetAD16U4dKYtOWgB46U4UxactAD6cKYtPFADh1p60wU4UAPWnLTKdQA6lWkooAetOWmU4UAPWnKaYKcDQA9TXQWeqWcdnFG0jbljUH5T1ArngaUGgDpf7Wsf+erf98Gl/tay/56N/3ya5oGnZoA6P+1bL/no3/fJo/tWy/wCejf8AfJrnc0uaAOi/tSz/AOejf98mj+1LP/no3/fJrncmjJoA6L+1LP8A56N/3yaT+1bL/no3/fJrnqM0AdD/AGrZf89G/wC+TSf2tY/89G/75Nc7mgmgDov7Wsf+ejf98GqOvX9tc2axwuSwkBOVI4wf8ayc00mgAJpppSaaxoAQ000rGmtQAhptK1JQAU005qY1ACU00rU1qAEPSmNTmprUANamtSt1ppoARqa1LTT1oARutMPWnU00ANpppx6U1ulADaRulLSNQA1qa1ObrTD1oAKKa3WigBVpy0wdadQA9actMHWnrQAtOHSm0q0APFOFMWnLQA8U5etNFOFADqcOtNpwoActPWmCnCgB605aYKdQA9actMp1AD1pabTqAFU0oNNpVNADwadTAaUGgCQGlBplOBoAeDS5pmaXNAD80uaZmjNAD80ZpuRRmgB2aTNJkUmaAFzRmm5ozQAE0hNJmkJoACaQmgmm0ABNNNBNNJoAKKKRjQAhpppWprUAIaaaVqa1ACGmmlamtQAhpp6UrU1qAEpp6UrU1qAEbpTGpzUxqAEamtSmm0AFNPWnU00ANNNpx6U00ANooooABTqYtOWgB4pwpi05aAH0Ui0tADh1py00U4UAPWnLTBThQA9actMp1AD1py0wU4UAPWnLTBTgaAHrTlpgpwNADwaUGmA05TQA+ikBpaAFBpwNMpQaAH5p2ajBp2aAH5pc0zNLmgB2TS5pmaXNADs0ZpuaM0AOzRmm5oyaAFzSZpM0maAFzSE0maTNACk00mjNNJoAUmkoooADTSaKaTQAU2gmkY0AJTaVjTWNACGmmlamtQAlNpWprUAIabStTWoAQ000rU1qAEPSm0rUlACNTWpW6000AI1Nalpp60AITRSUUAApwpq04UAOpwpopy0AOFOpopwoAVactMpwoAetOWmCnCgB605aYKcKAHCnCmilWgB4pwNMU05TQA8GnA0xTSg0ASA04GowadQA8GnA0wGlBoAfRTQadmgAzTs02igB2aXNMzS5oAfRk03NGTQA/NGaZk0ZNAD8mkyabk0ZoAdmkzSZpM0ALmkzSUUAFFFITQAuabQTTSaAAmkJoJppNAAxpCaCabQAE00mimk0ABppoNNNABTTStTWoAQ02lamtQAhptK1NagBKKKRqAENNbpStTWoAQ000rU1qAEopCaKAEWnrTBThQA9aUU0U6gBwp60wU4UAOpVpBRQA9acppgpwNADgacKYppymgB4p1MU05TQA8U4Go6dQA8GnKaYDSg0ASA0oNMBpQaAJAaUGmUuaAH5p2ajzTs0APzS0zNLmgB1FNyaXNAC0UZFFABmjNFFABRRRQAUUZFJmgBaM03NJmgBc0maTNJmgBaaTRSE0ABNITQTTaACmk0E0hNAATTWNBNITQAjGkNFNNAAaaaCaaaAA000E0jGgBDTaVqSgApppWprUAIabStTWoASm0rU1qAEopM0UAC05aYKcKAHrTlpgpwoAcKcKaKVaAHg06mLTlNAC04U2lU0APpwqMGnA0ASA04GowadQA9TSg00GlBoAfTgajBpwNADwaUGmg0oNAD6UGmZp2aAHZp2ajzTs0APzS5qPNLmgB+aXNMzS5oAfmjNMzS5FADs0Z96bkUZFADs0ZFNyKTNADs0ZpuaTJoAdSZpM0maAFzSZpM0maAFpCaSkJoAUmm0E00mgBSaaTQTSE0ABNNopCaAEJpGNDGmk0ADGmsaUmmk0AIxpCaCabQAUGimk0ABppoNNNABTaVqa1ACU00rU1qAEopM0UAIKcKYtOWgB4pwpi05aAHinUxTTlNADxThUYNOBoAkBopop1ACqacpplOBoAeDSg0wGnA0APBpwNRg06gB4NLTQaUGgB4NKDTKXNAD807NR5p2aAHZp2ajzS5oAfmlzTM0uaAH5oyabmjNAD80ZpuTRmgB2aM03NGaAHZozTc0ZoAdmkzTcmjNADs0mabmjNAC5pM0maTNAC5pM0maTNAC5puaM03NACk0lGabmgAJpCaCaaTQAE0hNBNNoACaaTQTSMaAEJoopCaABjTWNKTTSaAEY0hoppNAAaaaDTTQAGmmg000AFFITRQAlOFMU05TQA+nUxTSg0ASCnA1GDTgaAJAaVTTKdQA8GlBpimnA0APopoNOoAcDSg0ynA0AOBp1MBpQaAJAaUGmA0uaAH5p2ajzTs0AOpc03NLmgB2aXNMpc0APpc0zNGTQBJmimZpcigB2TS5NMzRk0APzRmmZNGTQA/NJk03JoyaAHZozTc0ZFAC5pMmkzSZoAdmkzSZpM0ALSZpKTNAC0maTNJmgBc00mjNNzQApNITSE0hNAATTSaCaQmgAJpKKCaAAmmk0U0mgAJptBNIxoAGNNY0pNNJoARjTWpSaaaAEY0jUU00AFFNooAAacDUYNOFAEgNKppgpwNAD1NOU0wGnA0AOBpwNMBpymgB9KDTAadQA8GlBpgNOBoAfRTQadQAoNKDTaAaAJM0oNMpQaAH5p2ajzTs0APzS5qPNOzQA7NLmmZpc0APoyabmjJoAfmjNNzS5FADs0ZpuaKAHZozTaKAHZozTaKAHZFJmkzSZoAdmkpM0mTQA6kzSZpM0ALmkzSUmaAFzSZpKTNAC5ppNGaQmgAJpCaCabQAE0UUhNACk02gmmk0ABNITQTSE0ABNNJoptABTSaCaQmgBCaaTSsaaxoAGNNY0MaQmgBM0UlFACKacppgNKDQA8GnA0xTTgaAH04VGDTgaAJAaVTTKcDQA8GlBpgNOBoAfSg0wGnUAOBp1MBpQaAJAaKaDS5oAWlzSUUAOzTs1HmnZoAdmlzTM0uaAH5pc0ylzQA/NGTTc0ZoAfmjNNyaM0APyKM0zNLkUAOzRmm5FGRQA7NGabkUZoAdkUmabmjNADsmkpuTRmgB2aTNNzSZoAdmkzSZpM0ALmkzSUmaAFzSZpKKACijNNJoAUmkJpCaQmgAJppNFITQApNNoJptAATTSaCaQmgAJprGgmkJoACaaTRTSaACm0E00mgAopM0UAJThTFNKKAJAaUGmU4GgB6mnA0wGlBoAeDTqYDSg0ASA0oNMBpQaAHg04GmA0uaAJAaM03NKDQA8GlBplKDQA/NLmmZpc0APopuaXNAC0uaSigB2aXNMoyaAH5pc0zNLkUAOyaXJpmaMmgB+aM03NGaAHZozTc0ZoAdmjNNzRmgB2aMmm5NJk0AOozTc0ZoAXNJmkzSUAOzSZpKKACiikzQAtJmkzSZoAXNNzRmm5oAUmkozTSaAFJpCaQmkJoAKaTQTSE0ABNNJoJpCaAAmm0U0mgAJpCaGNNJoAGNNY0pNNoAKKbmigABpVNMpwNADgadTAaUGgCQGnA1HTgaAHg0oNMBpwNAD804GowacDQA8GlzTAaUGgCQGlBpmaXNAD80uaZmlzQA+lzTM07NADqXNMpc0APzS5pmaXNAD80UzNLmgB1FJk0ZoAWijIozQAZNLk0lFAC5ozSUUALmkyaKKADJooozQAUUmaM0ALRTcmjNAC5pMmkzSZoAdmkzSZpM0ALmkzSUmaAFpM0lJmgBc03NGabmgBSaQmkzSZoACaQmkJpCaAFJptBNNJoACaQmgmmk0ABNITQTTaACmk0pNNY0AGaKSigAopFNLQA4GlBplOBoAcDTs0wGloAkBpQaYDSg0APzTgajBp1ADwaXNMBpQaAJM0uaZmlzQA/NLmmZpc0APzTs1HmlzQA/NLmmZpc0APoyabmlzQA7NLmmZpaAHZNLmmUuTQA7NLkUzNGaAH5ozTcijIoAdmjNNzRmgB2aM03NGRQA7NGRTcikzQA7NGTTc0mTQA7NGabRmgBc0lJmkyaAHZpM0maTNAC0maSkzQAtJmkzSZoAXNNzRmm5oAUmkozTc0AKTTSaCaQmgAppNFNJoAUmkJpCaSgApCaQmkJoACaSiigAoptFAAtKtFFAC0UUUAOpVoooAWnUUUAKtLRRQA6lWiigBacKKKACnUUUAFOoooAKcKKKACjJoooAdRRRQAZpc0UUALRRRQAUUUUAFFFFABRRRQAUUUUABpuTRRQAUUUUAITSUUUAFITRRQAlI1FFACUjUUUAJSMaKKAEptFFACNSUUUANpGoooASmmiigBGpKKKACm0UUAITRRRQB//Z";
+            return {
+                restrict: 'A',
+                link: function(scope, element, attr) {
+                    element.on('error', function() {
+                        element[0].src = attr.fallbackSrc ? attr.fallbackSrc : missingDefault;
+                    });
+                }
+            };
+        })
+        .directive('loadingSrc', function() {
+            var loadingDefault = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBoRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAASAAAATgAAAAAAAABgAAAAAQAAAGAAAAABUGFpbnQuTkVUIHYzLjUuMTEA/9sAQwAEAgMDAwIEAwMDBAQEBAUJBgUFBQULCAgGCQ0LDQ0NCwwMDhAUEQ4PEw8MDBIYEhMVFhcXFw4RGRsZFhoUFhcW/9sAQwEEBAQFBQUKBgYKFg8MDxYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYW/8AAEQgB9AH0AwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+ggKcBQBRQAUAZpQKUUAFOAxRSgUAIBThQBTqAAClAoApwFACU4CilAoAQCnYoxTsUAJilpcUtACYpaXFLQAmKXFLiloAbilxTsUuKAG0YNOowaAExS4FLilxQA2inYooAbRg07BpcGgBmDRg0/FGKAGYNFPxSYNADaKdg0UANxSYp+BSYoAbikwafikoAbikxT6TFADMUYp2KMUAR4oxT8UmKAGYpMU/FJigCPFJin4pMUAMpCKfSEUAMIppFSEU2gBhFIRTyKaRQAykIp9NoAaRmm08ikNADaQilooAbiilxRQAtKBSAZpwoABTqKUCgAApwFAFKKAACnAUU4CgBAKUClApQKAClApaUCgBMU7FGKdigBMUuKUClxQAmKXFLiloATFLS4paAG4NLinYpcUANpcUtLigBuKXAp2KKAG0YNOooATFGKWigBMUYpaKAExRilooATBpMGnUUANowKdRigBmKTBp+KMUAMxSYp9JigBlGKdijFADMUmKdiigBmKTFPxSYoAjxSYp+KTFADKQin00igBpFNxTyKQigCMikIp5FIRQAwim08ikNAEZGKQin00jFADTTaeRSEUANooooAdTqAMUoFAABTgKAKUUAAFOopwoAAKUCgCnAUAAFLQBTqADGKUClApQKAEApwFFOAoATFLRinAUAJilpcUuKAExS0uKWgBMUuKKKACijBpcUAJRTqMGgBMGjFOxRigBuKXAp2BRigBuBRgU6igBuBSYp9GBQAzFGKfgUmKAGYNFPxSYoAbRTsUmKAEpMUtFADcUYp1GKAI8UYp+KTFAEeKMU7FJigBmKQin0hFADKaRipCKaaAGEUhFPIpCKAI6aRUlNNADCKQjNPIppFADCKbUhFNNAEZGKQinn0ptADaKXFFACgU4CgU4UAAp1ApwFAAKUChRTgKAAClAzQBmnAUAFOFAFOAoAQClApQKWgApQKUClAoAQCnYop2KAExS0UUAFFLiloATFLS4paAExS4pcUuKAG0uKXBpcUANxS4FOxRigBtFOowaAG0U7BowaAG0U7BowaAG4oxTqMCgBmKTBp+KMUAMpMU+kxQAzBoxTsUYoAZikp+KSgBtGKXFJQA0ikxT6QigBlNIqTFNIoAaRTaeRSUARkUhFPIpCKAGEZptPIpCKAIzSEU+mmgBjCmkU8jFIwoAYRmmmnsKawoAZRTqKAHAUqihRTgKABR3pyikApwoAUClAoFOoAKcBQKcBQAAYpQKAKWgApwFFOAxQAgFOAoApaACiilAoAAKWgCnUAJilxS4paAExS4pcUuKAExS0uKWgBuDS4p2KMUAJgUU6igBuDS4pcGlwaAG4oxTsUYoAbijBp2KTBoAbg0U7BooAbgUmKfikxQAzFGKdg0YoAZikxT8UlADMUmKfikoAZikxTyKQigCOinUhFACYzTadRQAwimkU8jFIRQAymkYp5FJQAwimkU8jFIRQAwjNNNPYU0igBh9KaakIppoAjPFNIqQ02gBmKKWigBwp1ApVoAUU4UiinKKAFHFOApFFOUUACinAUgFOoAKdQBTgMUAAGKUCgCloAKKAM07FAAKUClAxSgUAJinUAU7FACYpaXFLQAYoxTsUUAJilpcUtADcGlxTsUYoATFGDTqMGgBMGjFOxRigBuKMU7FGKAG4oxTsUYoAZg0U/FJg0ANxSYp+KTFADKKdg0YoAZikp+KSgBmKSn4pKAIyKQin4pCKAGU0ipKaRigBhFJTyKQigBtNIxTqKAGEU0inkYpCKAGU008ikoAjIxSMKeaaaAGMKawp5ppFADGFNanmmmgBtFLiigBRThQKcKAAU4UCnCgAFOFApwoAKcBSKKcooAAKcooApaACgDNFOHpQAU4UClAoAAKcBQBSgZoAAKcBRinAUAIBS0YzTsUAJilpcUtACYpaXFLigBMUuKXFLigBuKXFLg0uKAG4pcCnYoxQA3AowKdRQA3ApMU+jAoAZijBp2KMUAMpMU/FGKAI8UYp+KTFADMUmKfikxQBHiinYpMUAMxSEU+kIoAYRTSKkIptADCKaRTzSEUAMIzTaeRSEUANppp1FAEZFIwp9NNADSKaacaRhQAw0009qa1ADDTTT29aa1ADKKdiigBVpy0lOoAVactIKcKAFWlFFOFAAKcKBThQAUUUq0AKKcBikUU5RQAAU4ChRSgZoAUClAoAp1ABSgUAUoFAAKcBRTgKAEApaUCloATFLilxS4oATFLS4pcUAJijFOxS4oAbiinUYNADaKdg0YNADaKdg0YNADcCkxT8UmKAGYNGKfikoAZikp+KSgBmKTFPxSEUAR4pCKeRSEUAMptSEZptADCKQinEYpCKAGEU01IRTaAIyKRhT6aaAGMKSnGmmgANNNOpGoAYabT2prUAMNNNPamtQAw0009qa1ADKKdRQAq05aSnCgBVpy0gp1ACrTlpKcKAFWloooAVaUUU4UAApwoFOFAAKcPSgU4CgApQKFFKBQAoFKKBTgKAClApQKUCgAApaAKdQAmKXFLilxQAYoxTsUYoATFLilxS0ANwaXBpaKAExRilooATFJg06igBtGKdRigBmKSn4pKAGYpKfikoAZikxT8UhFAEZFIRTzTSKAGEUhp5FNIoAZTSMVIaaaAGEUhFOpGFADDTTT2pretADDTae1NagBlFK1JQA00009qa1ADKaae1IaAIzTTUjUxqAGUU6igBVpy0gp1ACrTlpKcKAFWnLSU6gApVpKdQAq05aQU4UAKtOX1pBThQAq0o5opwoABTqBThQAU4CkApwFAABTgKAKUDNAABTqKcBQAgFLilApaADFFFFABRS4paAG4NLinYNGKAG4oxTsUYoAbijBp2KMUAMop2DRigBtFLikoATFJTqKAGEU0inkUhFADCKaakIzTaAGEU0inkU0jFADGFIRTiKRhQAwim09qa3rQAw001IaaaAIzTTUhppoAjNNNSNTWoAbTTTqRqAGU2ntTWoAYaaae1NagBlFOxRQALT1pq09elAAKetNWnrQAq0tA6UUAKtOWkFOFACrTlpBThQA5actNFOoAVactJTqAFWnLSU4UAKopQKKdQACnUCnCgAFKBQBS0AFFFOAoAQClxSgUuKAExS4p2KMUAJijFOxS4FADcCjAp1FADcCkxT6MUAMxSU/FJQAzFJT8UlADCKSnEUhFACUhFLRQAwikIp5FNYUAMNNp7CmtQAymmntSNQBGaaakamtQBHSNTmpDQAxqYakNNNAEZppp7U1qAGUUrUlADTTTT2prUAMpppx60jUAMooPWigB1Opq9acOtADqcKRactAC0L1opVoActOWkXpTh0oAVactIKcKAFWnLSU4UAKtOWkpwoAVactIKcKAFWnLSCnCgBVpyikFOoAKKKcKACnAUAUoFAABS4pQKWgAxRinYoxQAmKWnYooAbRg07BpcGgBlGKdg0UAMxSU/FJQAzFJTyKQigCMikIp9NIxQAwikp7CmsKAEppp1BoAjNNNSGmmgCM001IaaaAIzTTUhpjUAMNNp7U1qAGNTTT2prUAMNNp7U1qAGGm09qYetAA3SmNT6bQAxqa1PNNoAbRRRQAq05aRelOXpQAq09elNHSnUAFOFNFOHWgB1OHWkWnLQAq9aetNWnLQAq9aetNWnLQA5actIOlOFACrTlpBThQA5acKaKcKAHCiiigBVpy0gpwoAVRTgKQU4UAAFOFApwoAAKMUoFKBQAYowadijBoATFGKdijFADcGkp+KTFADMUlPxSUAMIpCKeRTWFADCKbTyKQigCM001IaaaAIzRTjTaAEamtT6aaAGNTGqQ0xqAGGmmntTWoAZTTT2pjdaAG00049aa3WgBpprdKcetNNADGprU8009KAG0jdaWkagBh602ntTW60AMNFK1FAC04U2nUAOp1NHWnUAKvWnLTVpy0AOWnr0pq9KcKAHDpTqbTqAHCnU0dacvWgBwpy9aRactADlpy01aevSgBVpy0gp1ABSrSU6gBVp600U4UAOFOFNFOWgBwrUt9GlkgSUTIN6hgCDxkVlrXU27FNHjdeqwAj/vmgDN/sOX/nun5Gl/sSX/AJ7p+RqMaxdntH/3zS/2vd+kf/fNAEn9iy/89k/I0f2LL/z2T8jTP7WuvSP/AL5pf7Vu/SP/AL5oAf8A2NJ/z2X8jR/Y0n/PZPyNN/tW6/6Z/wDfNH9qXXon/fNADv7Fl/57L+RpP7Gl/wCeyfkab/at1/0z/wC+aT+1br0j/wC+aAHf2LL/AM9k/I0f2JL/AM90/I03+1rv0j/75pP7Xu/SP/vmgB39hzf890/I1W1LTXs4BK0isGbbgD2P+FWrPVLmW7jjYR7WYA4WrHij/kHp/wBdR/I0Ac81Nan000AMamtTzTTQBG1NNPamtQAlNbrTqRqAGGmmntTWoAYaaelOPWmmgBrdKY1Ppp6UAMamtTm6UjdKAGNTW605qa1ADD1ptPamHrQA2hulFBoAY1Nant0pjUAJRRRQAU5etNHWnr1oActLSLS0AKtPXpTV6U4UAOp1Npw60AOXrTh1pFpy9aAHL1py01actADlp69KavSnDpQA4dKdTacOtADh1p1IvWloAB1p69aatOWgBy05aatPHSgBVp602nUAOFdNH/yBF/69x/6DXMjrXTR/8gVf+vcf+g0Ac6KcKRaUUAOjQuwVQST0ArVs9LULvuT/AMBB/mafpsEdna/aZ/vEZ+g9PrVK9vJbliM7U7KP60AaIn0+3O1TGp/2Rn9RThf2bceYPxU1i4ooA2pLOzuEyqrz/ElZeoWElv8AMPnj/vDt9aZBLJC++Jip7jsa2bG5S7hOQNw4dTQBzp4pGq9q1p9nmyg/dv8Ad9vaqVAEmm/8hCH/AK6D+danij/kHp/11H8jWZpv/IQh/wCug/nWn4o/5B6/9dR/I0AYDU1qe3SmNQAw9aaae1NagBlNPSnN1ppoAbQelFFADW6UxqeelNbpQAxqa3WnNTWoAYetNp7daYetADT0ptOptADW6Uxqeaa3SgBjU1qc1NagBjdaKVqSgBtNbpTjTT0oAbRRRQAL1p60xetPWgBy0tItLQA5elOpq9KdQA6nL1ptOXrQA9actNWnLQA5actNWnLQA9elOpq9KdQA6nL1ptOXrQA9aWkWloAVactNWnLQA9elOpq9KdQA6nL1po609aAHLXSx/wDIFX/r3H/oNc0tdLH/AMgVf+vcf+g0Ac8tWdLi868RD0zk/QVXXpV/w7/x/H/cP9KAJNdnLXAhB+VOv1qkKddktdSE/wB8/wA6bQA4CiilJoAawqSymMF0smeM4b6VG1NagDd1OITWTrjJA3L9RXOnrXT253W6HPVR/Kuak4kIHrQA/Tv+QhD/AL4rU8Tf8eCf9dR/I1maf/yEIf8AfH860/E3/Hgn/XUfyNAGAaa3SnGmnpQAxqa1OamtQA1qY3WntTG60ANooooAbTW6U401ulADGprU5qa1ADWpjdae1MbrQA2m06m0ANprdKdTW6UAMamtTmprUANakpWpKAG02nU2gBtFFFAAvWnrTKcvWgB60tItLQA5elOpi9KeOlADqcvWm04daAHrTlpq9aVetAD1py01actAD16U6mLTx0oAdTl602nCgB60tNXrTqAFWnLTV605aAHr0pwpi09elADqcOtNHSnUAPWulj/5Aq/9e4/9BrmRXTR/8gVf+vcf+g0Ac8tXdEkEeoLno2VqiKepKsGBwQcg0AWdSj8u+kX1bI/HmolNX7oC+s1uY/8AWRjDrWeDQA8GjNNzRmgBSaaaM0sal2wOB1J9BQBILi4S38tZWCt29qrU+ZgW+Xp0A9qYaAJdO/5CEP8AvitTxN/x4J/11H8jWVpv/IQh/wCug/nWp4o/5B6f9dR/I0AYJprdKVqa1ADWprU5qa3WgBrUw9acetNoAbRRRQA2mt0px6UxqAGtTWpzU1qAGtTG605utNNADabTqbQA2mt0px6U1ulADGprU5qa1ADWpKG60UANptONNbpQA2iiigApw602nUAPXrS00dadQAq09elMWnLQA8dKdTV6U4dKAHDrThTadQA5etPWmU4daAHrTlpq9actAD16U4UxactAD6dTV6U4UAFOHWm04UAPWnLTBTqAHrTlplOFAD1rp4/+QGv/AF7j/wBBrlxXURc6IuP+fcf+g0Ac4tOBo8qX/nm//fJpfLl/55v/AN8mgCWzuJLaXfGfqD0NXGjtr354HEMp6o3Q/SqAjk/55t/3zR5cn/PNv++aAJ5rW5iOGhb6gZH6UwRyngRsf+AmnRyXkYwjTADtzStPfN1eb9aAD7M6jdOwiX/a+9+VMmlXb5cQ2p3z1b60xklJyUc/gaTy5P8Anm3/AHzQA2mk08xy/wDPNv8AvmkMcv8Azzf/AL5NAEmm/wDIRh/66D+danij/kHp/wBdR/I1mabHINQhJjYfOO1afir/AJB6f9dR/I0Ac+aaacaa1ADTTaVqa1ACGmnpStTWoAShulFI1ADWprU5qYetACNTG60402gBpptOPSmt0oAaelNPSlamt0oARulManNTWoAa1NbrTm60w9aAGnrRRQelADT0prdKc3SmNQAlFFFAAKcOlMXpTloAfTqavSnDpQAL1p60ynCgB605aYOtPWgB69KcOlMWnLQA8dKcKYtOWgB9OFMWnigBw609aYKcKAHrTlplOoAdSrSUUAPWnLTKcKAHrTlNMFOBoAeproLPVLOOzijaRtyxqD8p6gVzwNKDQB0v9rWP/PVv++DS/wBrWX/PRv8Avk1zQNOzQB0f9q2X/PRv++TR/atl/wA9G/75Nc7mlzQB0X9qWf8Az0b/AL5NH9qWf/PRv++TXO5NGTQB0X9qWf8Az0b/AL5NJ/atl/z0b/vk1z1GaAOh/tWy/wCejf8AfJpP7Wsf+ejf98mudzQTQB0X9rWP/PRv++DVHXr+2ubNY4XJYSAnKkcYP+NZOaaTQAE000pNNY0AIaaaVjTWoAQ02lakoAKaac1MagBKaaVqa1ACHpTGpzU1qAGtTWpW6000AI1Nalpp60AI3WmHrTqaaAG00049Ka3SgBtI3SlpGoAa1NanN1ph60AFFNbrRQAq05aYOtOoAetOWmDrT1oAWnDpTaVaAHinCmLTloAeKcvWminCgB1OHWm04UAOWnrTBThQA9actMFOoAetOWmU6gB60tNp1ACqaUGm0qmgB4NOpgNKDQBIDSg0ynA0APBpc0zNLmgB+aXNMzRmgB+aM03IozQA7NJmkyKTNAC5ozTc0ZoACaQmkzSE0ABNITQTTaAAmmmgmmk0AFFFIxoAQ000rU1qAENNNK1NagBDTTStTWoAQ009KVqa1ACU09KVqa1ACN0pjU5qY1ACNTWpTTaACmnrTqaaAGmm049KaaAG0UUUAAp1MWnLQA8U4UxactAD6KRaWgBw605aaKcKAHrTlpgpwoAetOWmU6gB605aYKcKAHrTlpgpwNAD1py0wU4GgB4NKDTAacpoAfRSA0tACg04GmUoNAD807NRg07NAD80uaZmlzQA7Jpc0zNLmgB2aM03NGaAHZozTc0ZNAC5pM0maTNAC5pCaTNJmgBSaaTRmmk0AKTSUUUABppNFNJoAKbQTSMaAEptKxprGgBDTTStTWoASm0rU1qAENNpWprUAIaaaVqa1ACHpTaVqSgBGprUrdaaaAEamtS009aAEJopKKAAU4U1acKAHU4U0U5aAHCnU0U4UAKtOWmU4UAPWnLTBThQA9actMFOFADhThTRSrQA8U4GmKacpoAeDTgaYppQaAJAacDUYNOoAeDTgaYDSg0APopoNOzQAZp2abRQA7NLmmZpc0APoyabmjJoAfmjNMyaMmgB+TSZNNyaM0AOzSZpM0maAFzSZpKKACiikJoAXNNoJppNAATSE0E00mgAY0hNBNNoACaaTRTSaAA000GmmgApppWprUAIabStTWoAQ02lamtQAlFFI1ACGmt0pWprUAIaaaVqa1ACUUhNFACLT1pgpwoAetKKaKdQA4U9aYKcKAHUq0gooAetOU0wU4GgBwNOFMU05TQA8U6mKacpoAeKcDUdOoAeDTlNMBpQaAJAaUGmA0oNAEgNKDTKXNAD807NR5p2aAH5paZmlzQA6im5NLmgBaKMiigAzRmiigAooooAKKMikzQAtGabmkzQAuaTNJmkzQAtNJopCaAAmkJoJptABTSaCaQmgAJprGgmkJoARjSGimmgANNNBNNNAAaaaCaRjQAhptK1JQAU00rU1qAENNpWprUAJTaVqa1ACUUmaKABactMFOFAD1py0wU4UAOFOFNFKtADwadTFpymgBacKbSqaAH04VGDTgaAJAacDUYNOoAeppQaaDSg0APpwNRg04GgB4NKDTQaUGgB9KDTM07NADs07NR5p2aAH5pc1HmlzQA/NLmmZpc0APzRmmZpcigB2aM+9NyKMigB2aMim5FJmgB2aM03NJk0AOpM0maTNAC5pM0maTNAC0hNJSE0AKTTaCaaTQApNNJoJpCaAAmm0UhNACE0jGhjTSaABjTWNKTTSaAEY0hNBNNoAKDRTSaAA000GmmgAptK1NagBKaaVqa1ACUUmaKAEFOFMWnLQA8U4UxactADxTqYppymgB4pwqMGnA0ASA0U0U6gBVNOU0ynA0APBpQaYDTgaAHg04GowadQA8GlpoNKDQA8GlBplLmgB+admo807NADs07NR5pc0APzS5pmaXNAD80ZNNzRmgB+aM03JozQA7NGabmjNADs0ZpuaM0AOzSZpuTRmgB2aTNNzRmgBc0maTNJmgBc0maTNJmgBc03NGabmgBSaSjNNzQAE0hNBNNJoACaQmgmm0ABNNJoJpGNACE0UUhNAAxprGlJppNACMaQ0U0mgANNNBppoADTTQaaaACikJooASnCmKacpoAfTqYppQaAJBTgajBpwNAEgNKpplOoAeDSg0xTTgaAH0U0GnUAOBpQaZTgaAHA06mA0oNAEgNKDTAaXNAD807NR5p2aAHUuabmlzQA7NLmmUuaAH0uaZmjJoAkzRTM0uRQA7JpcmmZoyaAH5ozTMmjJoAfmkyabk0ZNADs0ZpuaMigBc0mTSZpM0AOzSZpM0maAFpM0lJmgBaTNJmkzQAuaaTRmm5oAUmkJpCaQmgAJppNBNITQAE0lFBNAATTSaKaTQAE02gmkY0ADGmsaUmmk0AIxprUpNNNACMaRqKaaACim0UAANOBqMGnCgCQGlU0wU4GgB6mnKaYDTgaAHA04GmA05TQA+lBpgNOoAeDSg0wGnA0APopoNOoAUGlBptANAEmaUGmUoNAD807NR5p2aAH5pc1HmnZoAdmlzTM0uaAH0ZNNzRk0APzRmm5pcigB2aM03NFADs0ZptFADs0ZptFADsikzSZpM0AOzSUmaTJoAdSZpM0maAFzSZpKTNAC5pM0lJmgBc00mjNITQAE0hNBNNoACaKKQmgBSabQTTSaAAmkJoJpCaAAmmk0U2gAppNBNITQAhNNJpWNNY0ADGmsaGNITQAmaKSigBFNOU0wGlBoAeDTgaYppwNAD6cKjBpwNAEgNKpplOBoAeDSg0wGnA0APpQaYDTqAHA06mA0oNAEgNFNBpc0ALS5pKKAHZp2ajzTs0AOzS5pmaXNAD80uaZS5oAfmjJpuaM0APzRmm5NGaAH5FGaZmlyKAHZozTcijIoAdmjNNyKM0AOyKTNNzRmgB2TSU3JozQA7NJmm5pM0AOzSZpM0maAFzSZpKTNAC5pM0lFABRRmmk0AKTSE0hNITQAE00mikJoAUmm0E02gAJppNBNITQAE01jQTSE0ABNNJoppNABTaCaaTQAUUmaKAEpwpimlFAEgNKDTKcDQA9TTgaYDSg0APBp1MBpQaAJAaUGmA0oNADwacDTAaXNAEgNGabmlBoAeDSg0ylBoAfmlzTM0uaAH0U3NLmgBaXNJRQA7NLmmUZNAD80uaZmlyKAHZNLk0zNGTQA/NGabmjNADs0ZpuaM0AOzRmm5ozQA7NGTTcmkyaAHUZpuaM0ALmkzSZpKAHZpM0lFABRRSZoAWkzSZpM0ALmm5ozTc0AKTSUZppNACk0hNITSE0AFNJoJpCaAAmmk0E0hNAATTaKaTQAE0hNDGmk0ADGmsaUmm0AFFNzRQAA0qmmU4GgBwNOpgNKDQBIDTgajpwNADwaUGmA04GgB+acDUYNOBoAeDS5pgNKDQBIDSg0zNLmgB+aXNMzS5oAfS5pmadmgB1LmmUuaAH5pc0zNLmgB+aKZmlzQA6ikyaM0ALRRkUZoAMmlyaSigBc0ZpKKAFzSZNFFABk0UUZoAKKTNGaAFopuTRmgBc0mTSZpM0AOzSZpM0maAFzSZpKTNAC0maSkzQAuabmjNNzQApNITSZpM0ABNITSE0hNACk02gmmk0ABNITQTTSaAAmkJoJptABTSaUmmsaADNFJRQAUUimloAcDSg0ynA0AOBp2aYDS0ASA0oNMBpQaAH5pwNRg06gB4NLmmA0oNAEmaXNMzS5oAfmlzTM0uaAH5p2ajzS5oAfmlzTM0uaAH0ZNNzS5oAdmlzTM0tADsmlzTKXJoAdmlyKZmjNAD80ZpuRRkUAOzRmm5ozQA7NGabmjIoAdmjIpuRSZoAdmjJpuaTJoAdmjNNozQAuaSkzSZNADs0maTNJmgBaTNJSZoAWkzSZpM0ALmm5ozTc0AKTSUZpuaAFJppNBNITQAU0mimk0AKTSE0hNJQAUhNITSE0ABNJRRQAUU2igAWlWiigBaKKKAHUq0UUALTqKKAFWloooAdSrRRQAtOFFFABTqKKACnUUUAFOFFFABRk0UUAOooooAM0uaKKAFooooAKKKKACiiigAooooAKKKKAA03JoooAKKKKAEJpKKKACkJoooASkaiigBKRqKKAEpGNFFACU2iigBGpKKKAG0jUUUAJTTRRQAjUlFFABTaKKAEJooooA//2Q==";
+            return {
+                restrict: 'A',
+                link: function(scope, element, attr) {
+                    element[0].src = attr.loadingSrc ? attr.loadingSrc : loadingDefault;
+                    var img = angular.element('<img />');
+                    img.src = scope.ngSrc;
+                    img.on('load', function() {
+                        element[0].src = img.src;
+                    });
+                }
+            };
+        })
+
+    // Directive for pretty status bar
+    .directive('fakeStatusbar', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                template: '<div class="fake-statusbar"><div class="pull-left">Carrier</div><div class="time">3:30 PM</div><div class="pull-right">50%</div></div>'
+            }
+        })
+        .directive('headerShrink', function($document) {
+            var fadeAmt;
+
+            var shrink = function(header, content, amt, max) {
+                amt = Math.min(44, amt);
+                fadeAmt = 1 - amt / 44;
+                ionic.requestAnimationFrame(function() {
+                    header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
+                    for (var i = 0, j = header.children.length; i < j; i++) {
+                        header.children[i].style.opacity = fadeAmt;
+                    }
+                });
+            };
+
+            return {
+                restrict: 'A',
+                link: function($scope, $element, $attr) {
+                    var starty = $scope.$eval($attr.headerShrink) || 0;
+                    var shrinkAmt;
+
+                    var header = $document[0].body.querySelector('.bar-header');
+                    var headerHeight = header.offsetHeight;
+
+                    $element.bind('scroll', function(e) {
+                        var scrollTop = null;
+                        if (e.detail) {
+                            scrollTop = e.detail.scrollTop;
+                        } else if (e.target) {
+                            scrollTop = e.target.scrollTop;
+                        }
+                        if (scrollTop > starty) {
+                            shrinkAmt = headerHeight - Math.max(0, (starty + headerHeight) - scrollTop);
+                            shrink(header, $element[0], shrinkAmt, headerHeight);
+                        } else {
+                            shrink(header, $element[0], 0, headerHeight);
+                        }
+                    });
+                }
+            }
+        })
+        .directive('backDir', ['$history', '$ionicSideMenuDelegate', function($history, $ionicSideMenuDelegate) {
+            return {
+                restrict: 'A',
+                link: function($scope, element, attr) {
+                    var menuIcon = attr.menuIcon ? attr.menuIcon : 'ion-navicon';
+                    var backIcon = attr.backIcon ? attr.backIcon : 'ion-ios-arrow-back';
+                    if ($history.canPrev()) {
+                        if (!element.hasClass(backIcon)) {
+                            element.addClass(backIcon);
+                        }
+                    } else {
+                        if (!element.hasClass(menuIcon)) {
+                            element.addClass(menuIcon);
+                        }
+                    }
+                    element.bind('click', function(e) {
+                        if ($history.canPrev()) {
+                            $history.back();
+                        } else {
+                            $ionicSideMenuDelegate.toggleLeft();
+                        }
+                    });
+                }
+            }
+        }])
+        .directive('goTo', ['$location', function($location) {
+            return {
+                restrict: 'A',
+                scope: {
+                    url: '@'
+                },
+                link: function(scope, element, attrs) {
+                    element.bind('click', function(e) {
+                        if ((!scope.url) || $(e.currentTarget).has($(e.target).closest('a')).length || $(e.currentTarget).has($(e.target).closest('[go-to]')).length || $(e.currentTarget).has($(e.target).closest('[ng-click]')).length) {
+                            return;
+                        }
+
+                        window.location.href = '#app/' + scope.url;
+                    });
+                }
+            }
+        }])
+        .directive('imagePreviewUploadDir', function() {
+            return {
+                restrict: 'E',
+                link: function($scope, element, attr) {
+                    var inner = $('<div/>').addClass('image-preview-dir');
+                    var file = $('<input type="file">');
+                    var fileName = attr.name ? attr.name : 'image';
+                    file.attr('name', fileName);
+                    var imgPreview = $('<img>');
+                    if (attr.defaultImage) {
+                        imgPreview.attr('src', attr.defaultImage);
+                    }
+                    inner.append(imgPreview).append(file);
+                    file.bind('change', function(e) {
+                        var files = this.files;
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                            var imageType = /^image\//;
+
+                            if (!imageType.test(file.type)) {
+                                continue;
+                            }
+                            imgPreview.attr('src', window.URL.createObjectURL(file));
+                        }
+                    });
+                    element.append(inner);
+                }
+            }
+        });
+});
+
+define('js/modules/core/controllers/welcome',[
+
+], function() {
+    return function($scope, $dhttp, $rootScope) {
+    	console.log('Welcome pages');
+    }
+});
+
+define('js/modules/user/controllers/login',[
+    'settings',
+], function($settings) {
+    return function($scope, $http, $dhttp, $location, $timeout, $rootScope, $viewer, $cordovaToast) {
+        $viewer.isUser(true);
+        console.log('user.login');
+        $scope.loginData = {
+            login: '',
+            password: ''
+        };
+
+        $scope.loginSuccess = function($event, $args) {
+            console.log($args);
+            var data = $args;
+            $viewer.setToken(data.data.token);
+            $viewer.set(data.data.user);
+            $timeout(function() {
+                $location.path('/app/feed/index');
+            }, 2000);
+            $rootScope.$broadcast('viewer:update', {});
+        }
+
+        $scope.doLogin = function() {
+            if ($scope.isLogin) {
+                return;
+            }
+            $scope.isLogin = true;
+
+            $dhttp.post('user.login', $scope.loginData).success(function(data) {
+                console.log(data);
+                $scope.isLogin = false;
+                if (data.status) {
+                    $scope.loginSuccess(null, data);
+
+                    $cordovaToast.show('Login successfully.', 'short', 'bottom');
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                $scope.isLogin = false;
+                $cordovaToast.show('Can not get data from server.', 'long', 'bottom');
+            });
+        }
+    }
+});
+
+define('js/modules/user/controllers/profile',[], function() {
+    return function($scope, $http, $dhttp, $location, $timeout, $rootScope, $viewer, $cordovaToast, $state) {
+
+        $scope.user_id = $state.params.user_id;
+
+        $scope.feedConfig = {
+            user_id: $scope.user_id
+        };
+
+        $scope.getUserDetail = function() {
+            if ($scope.isProcessing) {
+                return;
+            }
+            $scope.isProcessing = true;
+
+            var sendData = {
+                user_id: $scope.user_id
+            }
+
+            $dhttp.post('user.get', sendData).success(function(data) {
+                $scope.isProcessing = false;
+                if (data.status) {
+                    if (data.data) {
+                        $scope.user = data.data;
+                    }
+
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                $scope.isProcessing = false;
+                alert('Can not get data from server.');
+            });
+        };
+
+        $scope.getUserDetail();
+    }
+});
+
+define('js/modules/feed/models/feed',[], function(){
+	return {
+		getItemContent : function(){
+			if(typeof this.item === 'undefined'){
+				return '';
+			}
+			if(typeof this.item.item_type === 'undefined'){
+				return '';
+			}
+			var sModule = this.item.item_type.replace('_','');
+			return '<'+sModule+'-feed-item-dir obj="item"></' + sModule + '-feed-item-dir>';
+		}
+	}
+});
+define('js/modules/user/controllers/members',[
+    'js/modules/feed/models/feed'
+], function($model) {
+    return function($scope, $dhttp, $dListService) {
+        $scope.listConfig = {
+            apiService: 'user.gets'
+        };
+        $dListService.init($scope, $model);
+    }
+});
+
+define('js/modules/feed/controllers/index',[
+    'js/modules/feed/models/feed',
+], function($feedModel) {
+    return function($scope, $dhttp, $rootScope, $ionicModal, $history, $viewer, $location ) {
+    	$history.push('Home', true);
+
+    	if(!$viewer.isUser()){
+    		$location.path('/app/user/login');
+    	}
+    }
+});
+
+define('js/modules/feed/controllers/add',[], function() {
+    return function($scope, $dhttp, $location, $rootScope, $ionicActionSheet, $ionicPopup, $timeout, $cordovaToast, $stateParams) {
+        $scope.data = {
+            module: 'user'
+        };
+
+        $scope.doPost = function() {
+            if ($scope.isProcessing) {
+                return;
+            }
+            console.log($scope.data);
+            if (!$scope.data.content || $scope.data.content.trim().length == 0) {
+                return alert('Add some text to share.');
+            }
+
+            $scope.isProcessing = true;
+
+            if ($scope.bUpload) {
+                if (typeof cordova !== 'undefined') {
+                    $dhttp.upload('feed.add', $scope.data.dataUrl, $scope.uploadType, $scope.data, $scope.postComplete, $scope.postFail);
+                } else {
+                    $dhttp.ajaxForm('feed.add', '#form_feed_add', $scope.postComplete, $scope.postFail);
+                }
+
+            } else {
+                $dhttp.post('feed.add', $scope.data).success($scope.postComplete).error($scope.postFail);
+            }
+        };
+
+        $scope.postComplete = function(data) {
+            $scope.isProcessing = false;
+            if (data.status) {
+                $rootScope.$broadcast('feed.refresh');
+                $timeout(function() {
+                    $location.path('/app/feed/index');
+                }, 2000);
+                $cordovaToast.show('Successfully.', 'short', 'bottom');
+
+            } else {
+                $cordovaToast.show(data.errors.join('.'), 'long', 'bottom');
+            }
+        }
+
+        $scope.postFail = function(data) {
+            $scope.isProcessing = false;
+            $cordovaToast.show('Can not get data from server.', 'long', 'bottom');
+        }
+
+        $scope.choosePhoto = function(bTakePhoto) {
+            if (typeof bTakePhoto === 'undefined') {
+                var bTakePhoto = false;
+            }
+            if (navigator && navigator.camera) {
+                navigator.camera.getPicture(
+                    function(fileURI) {
+                        $scope.data.dataUrl = fileURI;
+                        $scope.uploadType = 'photo';
+                        $scope.bUpload = true;
+                        $scope.bHasItem = true;
+                        $scope.data.module = 'photo';
+                        $scope.$$phase || $scope.$apply();
+                    },
+                    function() {
+
+                    }, {
+                        quality: 50,
+                        destinationType: navigator.camera.DestinationType.FILE_URI,
+                        sourceType: (bTakePhoto ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY),
+                        encodingType: Camera.EncodingType.JPEG,
+                        correctOrientation: true,
+                    });
+            } else {
+                $('#image').click();
+            }
+        };
+
+        $scope.shareStatus = function() {
+            $scope.bUpload = false;
+            $scope.bHasItem = false;
+            $scope.data.module = 'user';
+        }
+
+        $scope.addPhoto = function() {
+            var hideSheet = $ionicActionSheet.show({
+                buttons: [{
+                    text: ' <i class="material-icons">&#xE2C3;</i> Choose from device',
+                    action: $scope.choosePhoto,
+                    type: false
+                }, {
+                    text: ' <i class="material-icons">camera</i> Take a photo',
+                    action: $scope.choosePhoto,
+                    type: true
+                }],
+                cancelText: 'Cancel',
+                cancel: function() {
+
+                },
+                buttonClicked: function(index) {
+                    this.buttons[index].action(this.buttons[index].type);
+                    return true;
+                }
+            });
+        };
+
+        $scope.getPreviewLInk = function() {
+            if ($scope.isProcessing) {
+                return;
+            }
+
+            $scope.isProcessing = true;
+
+            $dhttp.post('link.preview', $scope.data).success(function(data) {
+                $scope.isProcessing = false;
+                if (data.status) {
+                    console.log(data);
+                    $scope.data.linkdata = data.data;
+                    $scope.data.linkdata.url = $scope.data.link_url;
+                    $scope.data.linkdata.image = $scope.data.linkdata.default_image;
+                    $scope.data.module = 'link';
+                    $scope.bHasItem = true;
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error($scope.postFail);
+        }
+
+        $scope.showLinkPopup = function() {
+            var myPopup = $ionicPopup.show({
+                template: '<input type="text" ng-model="data.link_url">',
+                title: 'Share link',
+                scope: $scope,
+                buttons: [{
+                    text: 'Cancel'
+                }, {
+                    text: '<b>Save</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                        if (!$scope.data.link_url) {
+                            e.preventDefault();
+                        } else {
+                            $scope.getPreviewLInk();
+                            return $scope.data.link_url;
+                        }
+                    }
+                }]
+            });
+        }
+
+        $scope.onSubmit = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        }
+
+        $timeout(function() {
+            $('#image').unbind('change').change(function(e) {
+                console.log('image change');
+                $scope.uploadType = 'photo';
+                $scope.bUpload = true;
+                $scope.bHasItem = true;
+                $scope.data.module = 'photo';
+                $scope.previewImage(this.files);
+                $scope.$$phase || $scope.$apply();
+            });
+        }, 300);
+
+        $scope.previewImage = function(files) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /^image\//;
+
+                if (!imageType.test(file.type)) {
+                    continue;
+                }
+                $scope.data.dataUrl = window.URL.createObjectURL(file);
+                $scope.$$phase || $scope.$apply();
+            }
+
+        }
+    }
+});
+
+define('js/modules/feed/controllers/nojs',[
+    'js/modules/feed/models/feed'
+], function($feedModel) {
+    return function($scope, $dhttp, $rootScope) {
+        $scope.items = [];
+        $scope.iPage = 0;
+        $scope.iMaxFeedId = 0;
+
+        $scope.canLoadMore = true;
+
+        $scope.doRefresh = function() {
+            if ($scope.isLoadNewProcessing) {
+                return;
+            }
+            $scope.isLoadNewProcessing = true;
+
+            var sendData = {
+                max_feed_id: $scope.iMaxFeedId,
+                action: 'loadnew'
+            }
+
+            $dhttp.post('feed.gets', sendData).success(function(data) {
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.isLoadNewProcessing = false;
+                if (data.status) {
+                    var items = $scope.setModel(data.data, $feedModel);
+
+                    $scope.items = items.concat($scope.items);
+                    $scope.iMaxFeedId = ($scope.items.length > 0 ? $scope.items[0].feed_id : 0);
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                $scope.isLoadNewProcessing = false;
+                alert('Can not get data from server.');
+            });
+        };
+
+        $rootScope.$on('feed.refresh', function() {
+            console.log('Feed Refresh...');
+            $scope.doRefresh();
+        });
+
+        $scope.loadMore = function() {
+
+            if ($scope.isProcessing) {
+                return;
+            }
+            $scope.isProcessing = true;
+            var sendData = {
+                page: $scope.iPage,
+                limit : 200
+            }
+
+            $dhttp.post('feed.gets', sendData).success(function(data) {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $scope.isProcessing = false;
+                if (data.status) {
+                    var items = $scope.setModel(data.data, $feedModel);
+                    $scope.items = $scope.items.concat(items);
+                    $scope.iPage++;
+                    $scope.iMaxFeedId = ($scope.items.length > 0 ? $scope.items[0].feed_id : 0);
+                    if (data.data.length == 0) {
+                        $scope.canLoadMore = false;
+                    }
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                $scope.isProcessing = false;
+                alert('Can not get data from server.');
+            });
+        };
+
+        $scope.loadMore();
+    }
+});
+
+define('js/modules/feed/models/comment',[], function() {
+    return {
+        toggleCommentLike: function() {
+            if (this.isLikeProcessing) {
+                return;
+            }
+            this.isLikeProcessing = true;
+
+            if (this.is_like) {
+                this.total_like -= 1;
+            } else {
+                this.total_like += 1;
+            }
+            this.is_like = !this.is_like;
+            var postData = {
+                type_id: 'feed_mini',
+                item_id: this.comment_id
+            };
+
+            var sApi = (this.is_like ? 'like.like' : 'like.removeLike');
+            var dis = this;
+            this.$dhttp.post(sApi, postData).success(function(data) {
+                dis.isLikeProcessing = false;
+                if (data.status) {
+                    dis.total_like = data.data.total_like;
+                    dis.is_like = data.data.is_like
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(error) {
+                dis.isLikeProcessing = false;
+                alert('Can not get data from server.');
+            });
+        }
+    }
+});
+
+define('js/modules/feed/controllers/commentModalCtrl',[
+    'js/modules/feed/models/comment',
+], function($commentModel) {
+    return function($scope, $dhttp, $rootScope, $ionicModal, $cordovaToast) {
+        $scope.commentItems = [];
+        $scope.commentItemPage = 0;
+
+        $scope.canLoadMore = true;
+
+        if ($scope.parentObj) {
+            $scope.item = $scope.parentObj;
+        }
+
+        $scope.commentData = {
+            item_type: $scope.obj.item_type,
+            item_id: $scope.obj.item_id,
+        }
+        $commentModel.$dhttp = $dhttp;
+        $scope.loadMore = function() {
+            if ($scope.isProcessing) {
+                return;
+            }
+            $scope.isProcessing = true;
+            var sendData = {
+                page: $scope.commentItemPage,
+                limit: 20,
+                item_type: $scope.obj.item_type,
+                item_id: $scope.obj.item_id,
+            }
+
+            $dhttp.post('comment.gets', sendData).success(function(data) {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $scope.isProcessing = false;
+                if (data.status) {
+                    if (data.data) {
+                        var items = $scope.setModel(data.data, $commentModel);
+                        $scope.commentItems = $scope.commentItems.concat(items);
+                        $scope.commentItemPage++;
+                    }
+
+                    if (!data.data || data.data.length == 0) {
+                        $scope.canLoadMore = false;
+                    }
+                } else {
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                $scope.isProcessing = false;
+                alert('Can not get data from server.');
+            });
+        };
+
+        $scope.onAddComment = function() {
+            if (!$scope.commentData.text || !$scope.commentData.text.trim().length) {
+                return;
+            }
+            if ($scope.isAddCommentProcessing) {
+                return;
+            }
+            $scope.isAddCommentProcessing = true;
+            // increase total comment
+            $scope.obj.total_comment++;
+            $dhttp.post('comment.add', $scope.commentData).success(function(data) {
+                $scope.isAddCommentProcessing = false;
+                if (data.status) {
+                    $.extend(data.data, $commentModel);
+                    if ($scope.commentItems.length == 0) {
+                        $scope.commentItems.push(data.data);
+                    } else {
+                        $scope.commentItems.splice(0, 0, data.data);
+                    }
+                    $scope.resetComment();
+                    if (typeof cordova !== 'undefined') {
+                        if (cordova.plugins.Keyboard.isVisible) {
+                            cordova.plugins.Keyboard.close();
+                        }
+                        $cordovaToast.show('Comment successfully.', 'short', 'bottom');
+                    }
+
+                } else {
+                    // restore total comment if comment fail
+                    $scope.obj.total_comment--;
+                    alert(data.errors.join('.'));
+                }
+            }).error(function(data) {
+                // restore total comment if comment fail
+                $scope.obj.total_comment--;
+                $scope.isAddCommentProcessing = false;
+                alert('Can not get data from server.');
+            });
+        }
+
+        $scope.resetComment = function() {
+            $scope.commentData.text = '';
+        }
+
+        $scope.hideKeyBoard = function() {
+            if (typeof cordova !== 'undefined') {
+                if (cordova.plugins.Keyboard.isVisible) {
+                    cordova.plugins.Keyboard.close();
+                }
+            }
+        }
+        $$scope = $scope;
+    }
+});
+
+/**
+ * @license RequireJS text 2.0.14 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/requirejs/text for details
+ */
+/*jslint regexp: true */
+/*global require, XMLHttpRequest, ActiveXObject,
+  define, window, process, Packages,
+  java, location, Components, FileUtils */
+
+define('text',['module'], function (module) {
+    'use strict';
+
+    var text, fs, Cc, Ci, xpcIsWindows,
+        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+        xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+        bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
+        hasLocation = typeof location !== 'undefined' && location.href,
+        defaultProtocol = hasLocation && location.protocol && location.protocol.replace(/\:/, ''),
+        defaultHostName = hasLocation && location.hostname,
+        defaultPort = hasLocation && (location.port || undefined),
+        buildMap = {},
+        masterConfig = (module.config && module.config()) || {};
+
+    text = {
+        version: '2.0.14',
+
+        strip: function (content) {
+            //Strips <?xml ...?> declarations so that external SVG and XML
+            //documents can be added to a document without worry. Also, if the string
+            //is an HTML document, only the part inside the body tag is returned.
+            if (content) {
+                content = content.replace(xmlRegExp, "");
+                var matches = content.match(bodyRegExp);
+                if (matches) {
+                    content = matches[1];
+                }
+            } else {
+                content = "";
+            }
+            return content;
+        },
+
+        jsEscape: function (content) {
+            return content.replace(/(['\\])/g, '\\$1')
+                .replace(/[\f]/g, "\\f")
+                .replace(/[\b]/g, "\\b")
+                .replace(/[\n]/g, "\\n")
+                .replace(/[\t]/g, "\\t")
+                .replace(/[\r]/g, "\\r")
+                .replace(/[\u2028]/g, "\\u2028")
+                .replace(/[\u2029]/g, "\\u2029");
+        },
+
+        createXhr: masterConfig.createXhr || function () {
+            //Would love to dump the ActiveX crap in here. Need IE 6 to die first.
+            var xhr, i, progId;
+            if (typeof XMLHttpRequest !== "undefined") {
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject !== "undefined") {
+                for (i = 0; i < 3; i += 1) {
+                    progId = progIds[i];
+                    try {
+                        xhr = new ActiveXObject(progId);
+                    } catch (e) {}
+
+                    if (xhr) {
+                        progIds = [progId];  // so faster next time
+                        break;
+                    }
+                }
+            }
+
+            return xhr;
+        },
+
+        /**
+         * Parses a resource name into its component parts. Resource names
+         * look like: module/name.ext!strip, where the !strip part is
+         * optional.
+         * @param {String} name the resource name
+         * @returns {Object} with properties "moduleName", "ext" and "strip"
+         * where strip is a boolean.
+         */
+        parseName: function (name) {
+            var modName, ext, temp,
+                strip = false,
+                index = name.lastIndexOf("."),
+                isRelative = name.indexOf('./') === 0 ||
+                             name.indexOf('../') === 0;
+
+            if (index !== -1 && (!isRelative || index > 1)) {
+                modName = name.substring(0, index);
+                ext = name.substring(index + 1);
+            } else {
+                modName = name;
+            }
+
+            temp = ext || modName;
+            index = temp.indexOf("!");
+            if (index !== -1) {
+                //Pull off the strip arg.
+                strip = temp.substring(index + 1) === "strip";
+                temp = temp.substring(0, index);
+                if (ext) {
+                    ext = temp;
+                } else {
+                    modName = temp;
+                }
+            }
+
+            return {
+                moduleName: modName,
+                ext: ext,
+                strip: strip
+            };
+        },
+
+        xdRegExp: /^((\w+)\:)?\/\/([^\/\\]+)/,
+
+        /**
+         * Is an URL on another domain. Only works for browser use, returns
+         * false in non-browser environments. Only used to know if an
+         * optimized .js version of a text resource should be loaded
+         * instead.
+         * @param {String} url
+         * @returns Boolean
+         */
+        useXhr: function (url, protocol, hostname, port) {
+            var uProtocol, uHostName, uPort,
+                match = text.xdRegExp.exec(url);
+            if (!match) {
+                return true;
+            }
+            uProtocol = match[2];
+            uHostName = match[3];
+
+            uHostName = uHostName.split(':');
+            uPort = uHostName[1];
+            uHostName = uHostName[0];
+
+            return (!uProtocol || uProtocol === protocol) &&
+                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+                   ((!uPort && !uHostName) || uPort === port);
+        },
+
+        finishLoad: function (name, strip, content, onLoad) {
+            content = strip ? text.strip(content) : content;
+            if (masterConfig.isBuild) {
+                buildMap[name] = content;
+            }
+            onLoad(content);
+        },
+
+        load: function (name, req, onLoad, config) {
+            //Name has format: some.module.filext!strip
+            //The strip part is optional.
+            //if strip is present, then that means only get the string contents
+            //inside a body tag in an HTML string. For XML/SVG content it means
+            //removing the <?xml ...?> declarations so the content can be inserted
+            //into the current doc without problems.
+
+            // Do not bother with the work if a build and text will
+            // not be inlined.
+            if (config && config.isBuild && !config.inlineText) {
+                onLoad();
+                return;
+            }
+
+            masterConfig.isBuild = config && config.isBuild;
+
+            var parsed = text.parseName(name),
+                nonStripName = parsed.moduleName +
+                    (parsed.ext ? '.' + parsed.ext : ''),
+                url = req.toUrl(nonStripName),
+                useXhr = (masterConfig.useXhr) ||
+                         text.useXhr;
+
+            // Do not load if it is an empty: url
+            if (url.indexOf('empty:') === 0) {
+                onLoad();
+                return;
+            }
+
+            //Load the text. Use XHR if possible and in a browser.
+            if (!hasLocation || useXhr(url, defaultProtocol, defaultHostName, defaultPort)) {
+                text.get(url, function (content) {
+                    text.finishLoad(name, parsed.strip, content, onLoad);
+                }, function (err) {
+                    if (onLoad.error) {
+                        onLoad.error(err);
+                    }
+                });
+            } else {
+                //Need to fetch the resource across domains. Assume
+                //the resource has been optimized into a JS module. Fetch
+                //by the module name + extension, but do not include the
+                //!strip part to avoid file system issues.
+                req([nonStripName], function (content) {
+                    text.finishLoad(parsed.moduleName + '.' + parsed.ext,
+                                    parsed.strip, content, onLoad);
+                });
+            }
+        },
+
+        write: function (pluginName, moduleName, write, config) {
+            if (buildMap.hasOwnProperty(moduleName)) {
+                var content = text.jsEscape(buildMap[moduleName]);
+                write.asModule(pluginName + "!" + moduleName,
+                               "define(function () { return '" +
+                                   content +
+                               "';});\n");
+            }
+        },
+
+        writeFile: function (pluginName, moduleName, req, write, config) {
+            var parsed = text.parseName(moduleName),
+                extPart = parsed.ext ? '.' + parsed.ext : '',
+                nonStripName = parsed.moduleName + extPart,
+                //Use a '.js' file name so that it indicates it is a
+                //script that can be loaded across domains.
+                fileName = req.toUrl(parsed.moduleName + extPart) + '.js';
+
+            //Leverage own load() method to load plugin value, but only
+            //write out values that do not have the strip argument,
+            //to avoid any potential issues with ! in file names.
+            text.load(nonStripName, req, function (value) {
+                //Use own write() method to construct full module value.
+                //But need to create shell that translates writeFile's
+                //write() to the right interface.
+                var textWrite = function (contents) {
+                    return write(fileName, contents);
+                };
+                textWrite.asModule = function (moduleName, contents) {
+                    return write.asModule(moduleName, fileName, contents);
+                };
+
+                text.write(pluginName, nonStripName, textWrite, config);
+            }, config);
+        }
+    };
+
+    if (masterConfig.env === 'node' || (!masterConfig.env &&
+            typeof process !== "undefined" &&
+            process.versions &&
+            !!process.versions.node &&
+            !process.versions['node-webkit'] &&
+            !process.versions['atom-shell'])) {
+        //Using special require.nodeRequire, something added by r.js.
+        fs = require.nodeRequire('fs');
+
+        text.get = function (url, callback, errback) {
+            try {
+                var file = fs.readFileSync(url, 'utf8');
+                //Remove BOM (Byte Mark Order) from utf8 files if it is there.
+                if (file[0] === '\uFEFF') {
+                    file = file.substring(1);
+                }
+                callback(file);
+            } catch (e) {
+                if (errback) {
+                    errback(e);
+                }
+            }
+        };
+    } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
+            text.createXhr())) {
+        text.get = function (url, callback, errback, headers) {
+            var xhr = text.createXhr(), header;
+            xhr.open('GET', url, true);
+
+            //Allow plugins direct access to xhr headers
+            if (headers) {
+                for (header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header.toLowerCase(), headers[header]);
+                    }
+                }
+            }
+
+            //Allow overrides specified in config
+            if (masterConfig.onXhr) {
+                masterConfig.onXhr(xhr, url);
+            }
+
+            xhr.onreadystatechange = function (evt) {
+                var status, err;
+                //Do not explicitly handle errors, those should be
+                //visible via console output in the browser.
+                if (xhr.readyState === 4) {
+                    status = xhr.status || 0;
+                    if (status > 399 && status < 600) {
+                        //An http 4xx or 5xx error. Signal an error.
+                        err = new Error(url + ' HTTP status: ' + status);
+                        err.xhr = xhr;
+                        if (errback) {
+                            errback(err);
+                        }
+                    } else {
+                        callback(xhr.responseText);
+                    }
+
+                    if (masterConfig.onXhrComplete) {
+                        masterConfig.onXhrComplete(xhr, url);
+                    }
+                }
+            };
+            xhr.send(null);
+        };
+    } else if (masterConfig.env === 'rhino' || (!masterConfig.env &&
+            typeof Packages !== 'undefined' && typeof java !== 'undefined')) {
+        //Why Java, why is this so awkward?
+        text.get = function (url, callback) {
+            var stringBuffer, line,
+                encoding = "utf-8",
+                file = new java.io.File(url),
+                lineSeparator = java.lang.System.getProperty("line.separator"),
+                input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
+                content = '';
+            try {
+                stringBuffer = new java.lang.StringBuffer();
+                line = input.readLine();
+
+                // Byte Order Mark (BOM) - The Unicode Standard, version 3.0, page 324
+                // http://www.unicode.org/faq/utf_bom.html
+
+                // Note that when we use utf-8, the BOM should appear as "EF BB BF", but it doesn't due to this bug in the JDK:
+                // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058
+                if (line && line.length() && line.charAt(0) === 0xfeff) {
+                    // Eat the BOM, since we've already found the encoding on this file,
+                    // and we plan to concatenating this buffer with others; the BOM should
+                    // only appear at the top of a file.
+                    line = line.substring(1);
+                }
+
+                if (line !== null) {
+                    stringBuffer.append(line);
+                }
+
+                while ((line = input.readLine()) !== null) {
+                    stringBuffer.append(lineSeparator);
+                    stringBuffer.append(line);
+                }
+                //Make sure we return a JavaScript string and not a Java string.
+                content = String(stringBuffer.toString()); //String
+            } finally {
+                input.close();
+            }
+            callback(content);
+        };
+    } else if (masterConfig.env === 'xpconnect' || (!masterConfig.env &&
+            typeof Components !== 'undefined' && Components.classes &&
+            Components.interfaces)) {
+        //Avert your gaze!
+        Cc = Components.classes;
+        Ci = Components.interfaces;
+        Components.utils['import']('resource://gre/modules/FileUtils.jsm');
+        xpcIsWindows = ('@mozilla.org/windows-registry-key;1' in Cc);
+
+        text.get = function (url, callback) {
+            var inStream, convertStream, fileObj,
+                readData = {};
+
+            if (xpcIsWindows) {
+                url = url.replace(/\//g, '\\');
+            }
+
+            fileObj = new FileUtils.File(url);
+
+            //XPCOM, you so crazy
+            try {
+                inStream = Cc['@mozilla.org/network/file-input-stream;1']
+                           .createInstance(Ci.nsIFileInputStream);
+                inStream.init(fileObj, 1, 0, false);
+
+                convertStream = Cc['@mozilla.org/intl/converter-input-stream;1']
+                                .createInstance(Ci.nsIConverterInputStream);
+                convertStream.init(inStream, "utf-8", inStream.available(),
+                Ci.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
+
+                convertStream.readString(inStream.available(), readData);
+                convertStream.close();
+                inStream.close();
+                callback(readData.value);
+            } catch (e) {
+                throw new Error((fileObj && fileObj.path || '') + ': ' + e);
+            }
+        };
+    }
+    return text;
+});
+
+
+define('text!js/modules/core/templates/welcome.html',[],function () { return '<ion-view cache-view="false" view-title="Welcome">\r\n    <ion-content class="has-header">\r\n    \t<div>\r\n    \t\t<img class="full-image" ng-src="http://phpfox/phpfox.3.7.7/file/pic/photo/2015/09/62def78eb5abb721ce06b052fddc3958_1024.png">\r\n    \t</div>\r\n    </ion-content>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/user/templates/login.html',[],function () { return '<ion-view hide-nav-bar="true">\r\n    <ion-content class="has-header login-page">\r\n        <div class="login-page-content">\r\n            <form ng-submit="doLogin()">\r\n                <div class="site-login-logo">\r\n                    <i class="material-icons">&#xE859;</i>\r\n                </div>\r\n                <div class="list padding">\r\n                    <label class="item item-input">\r\n                        <span class="input-label">Username</span>\r\n                        <input type="text" ng-model="loginData.login">\r\n                    </label>\r\n                    <label class="item item-input">\r\n                        <span class="input-label">Password</span>\r\n                        <input type="password" ng-model="loginData.password">\r\n                    </label>\r\n                    <label>\r\n                        <button class="button button-block button-positive" type="submit">Log in</button>\r\n                    </label>\r\n                    <p class="text-align-center">or</p>\r\n                    <div>\r\n                        <a class="button button-block button-positive" type="button" go-to url="user/signup">Signup</a>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </ion-content>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/user/templates/profile.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">{{user.full_name}}</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header overflow-initial">\r\n        <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? \'background-image:url(\'+user.cover_photo.full.url+\');\' : \'\'}}">\r\n            <div>\r\n                <span class="profile_avatar" style="background-image:url({{user.images.full.url}});"></span>\r\n                <h2 class="profile_title">{{user.full_name}}</h2>\r\n            </div>\r\n        </div>\r\n        <div class="media center-content">\r\n            <div>\r\n                <feed-display-dir obj="feedConfig"></feed-display-dir>\r\n            </div>\r\n        </div>\r\n    </ion-content>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/user/templates/members.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Members</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header">\r\n        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>\r\n        <div class="list">\r\n            <div class="item item-avatar" ng-repeat="item in items">\r\n                <img go-to url="user/profile/{{item.user_id}}" ng-src="{{item.images.avatar.url}}">\r\n                <h2 go-to url="user/profile/{{item.user_id}}">{{item.full_name}}</h2>\r\n                <p>{{item.time}}</p>\r\n            </div>\r\n        </div>\r\n        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>\r\n    </ion-content>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/feed/templates/index.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Home</h1>\r\n    </ion-header-bar>\r\n    <left-content class="background-color-red media">\r\n    </left-content>\r\n    <ion-content class="has-header media overflow-initial  has-left-content has-right-content">\r\n        <feed-display-dir></feed-display-dir>\r\n    </ion-content>\r\n    <right-content class="background-color-green media">\r\n    </right-content>\r\n    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/feed/templates/add.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Post Status</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header has-footer">\r\n        <form method="POST" id="form_feed_add">\r\n            <div class="list">\r\n                <label class="item item-input">\r\n                    <textarea name="content" ng-model="data.content" style="min-height:100px;" placeholder="What\'s on your mind?"></textarea>\r\n                </label>\r\n            </div>\r\n            <div class="padding">\r\n                <input class="disapear" type="file" name="image" id="image" ng-model="image">\r\n                <button ng-click="doPost()" class="button button-block button-balanced">Post</button>\r\n            </div>\r\n            <div ng-if="bHasItem">\r\n                <div ng-if="data.module == \'photo\'"><img ng-src="{{data.dataUrl}}" ng-if="data.dataUrl" class="full-image"></div>\r\n                <div ng-if="data.module == \'link\'">\r\n                    <input type="hidden" name="linkdata[title]" value="{{data.linkdata.title}}">\r\n                    <input type="hidden" name="linkdata[link]" value="{{data.linkdata.link}}">\r\n                    <input type="hidden" name="linkdata[default_image]" value="{{data.linkdata.default_image}}">\r\n                    <input type="hidden" name="linkdata[description]" value="{{data.linkdata.description}}">\r\n                    <h2>{{data.linkdata.title}}</h2>\r\n                    <p><a ng-href="{{data.linkdata.link}}">{{data.linkdata.link}}</a></p>\r\n                    <img ng-src="{{data.linkdata.default_image}}">\r\n                    <p>{{data.linkdata.description}}</p>\r\n                </div>\r\n            </div>\r\n            <input type="hidden" name="module" value="{{data.module}}" />\r\n        </form>\r\n    </ion-content>\r\n    <ion-footer-bar align-title="left" class="no-padding">\r\n        <div class="tabs tabs-icon-left">\r\n            <a class="tab-item" ng-click="shareStatus()">\r\n                <i class="icon ion-share"></i>\r\n            </a>\r\n            <a class="tab-item" ng-click="addPhoto()">\r\n                <i class="icon ion-camera"></i>\r\n            </a>\r\n            <a class="tab-item" ng-click="showLinkPopup()">\r\n                <i class="icon ion-link"></i>\r\n            </a>\r\n            <a class="tab-item">\r\n                <i class="icon ion-document"></i>\r\n            </a>\r\n            <a class="tab-item">\r\n                <i class="icon ion-music-note"></i>\r\n            </a>\r\n        </div>\r\n    </ion-footer-bar>\r\n</ion-view>\r\n';});
+
+
+define('text!js/modules/feed/templates/nojs.html',[],function () { return '<ion-view side-menu-content drag-content="false">\r\n    <div class="bar bar-header bar-royal">\r\n        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>\r\n        <h1 class="title">Home</h1>\r\n    </div>\r\n    <div class="dcontent has-header" id="nojs-content">\r\n        <div class="dcontent-scroll">\r\n            <div class="list">\r\n                <div class="list dcard" ng-repeat="item in items">\r\n                    <div class="item item-avatar">\r\n                        <img ng-src="{{item.user.images.avatar.url}}">\r\n                        <h2>{{item.user.full_name}}</h2>\r\n                        <p>{{item.time}}</p>\r\n                    </div>\r\n                    <div class="dcard-body">\r\n                        <p class="dcard-content">{{item.content}}</p>\r\n                        <div ng-html-compile="item.getItemContent()"></div>\r\n                    </div>\r\n                    <feed-action-bar-dir obj="item.item"></feed-action-bar-dir>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</ion-view>\r\n';});
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -1014,7 +2735,7 @@ requirejs.config({
             // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
             // gdrag : '../lib/gsap/utils/Draggable.min',
             jquery: './js/static/libs/jquery/jquery-2.1.3.min',
-            dmobi : '././js/static/libs/extensions/dmobi',
+            dmobi: '././js/static/libs/extensions/dmobi',
             extendScope: './js/static/cores/extendScope',
             directives: './js/static/cores/directives',
 
@@ -1026,13 +2747,10 @@ requirejs.config({
                 exports: 'ionic'
             },
             application: {
-                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi' , 'extendScope']
+                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi', 'extendScope']
             },
             bootstrap: {
                 deps: ['application']
-            },
-            ngcordova : {
-                deps : ['ionic']
             }
         },
         priority: [
@@ -1045,6 +2763,38 @@ requirejs.config({
 
     requirejs([
             'ionic',
+            'dmobi',
+            // required all module
+            './js/modules/base/run',
+            './js/modules/core/run',
+            './js/modules/user/run',
+            './js/modules/feed/run',
+            './js/modules/photo/run',
+            './js/modules/link/run',
+            './js/modules/video/run',
+            './js/modules/music/run',
+            './js/modules/blog/run',
+            // required all controller
+            './js/static/cores/controllers',
+            './js/static/cores/services',
+            './js/static/cores/directives',
+            './js/modules/core/controllers/welcome',
+            './js/modules/user/controllers/login',
+            './js/modules/user/controllers/profile',
+            './js/modules/user/controllers/members',
+            './js/modules/feed/controllers/index',
+            './js/modules/feed/controllers/add',
+            './js/modules/feed/controllers/nojs',
+            './js/modules/feed/controllers/commentModalCtrl',
+            // required all template
+            'text!./js/modules/core/templates/welcome.html',
+            'text!./js/modules/user/templates/login.html',
+            'text!./js/modules/user/templates/profile.html',
+            'text!./js/modules/user/templates/members.html',
+            'text!./js/modules/feed/templates/index.html',
+            'text!./js/modules/feed/templates/add.html',
+            'text!./js/modules/feed/templates/nojs.html',
+            // required bootstrap and application
             'application',
         ],
         function() {
