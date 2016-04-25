@@ -417,3 +417,79 @@
 .bt-post-feed i {
     font-size: 32px;
 }
+
+
+/** style chat message */
+
+.item-message {
+    position: relative;
+    clear: both;
+    max-width: 80%;
+    min-height: 60px;
+}
+
+.item-message > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+}
+
+.item-message h2 {
+    margin-top: 25px;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+.item-message p{
+    margin-top: 10px;
+}
+
+.item-message-left {
+    float: left;
+}
+
+.item-message-left > img {
+    left: 10px;
+}
+
+.item-message-left p,
+.item-message-left h2 {
+    margin-left: 70px;
+    text-align: left;
+}
+
+.item-message-left p {
+    border-radius: 16px;
+    background: #efefef;
+    border-top-left-radius: 0;
+    padding: 10px;
+}
+
+.item-message-right {
+    float: right;
+}
+
+.item-message-right>img {
+    right: 10px;
+}
+
+.item-message-right p,
+.item-message-right h2 {
+    margin-right: 70px;
+    text-align: right;
+}
+
+.item-message-right p {
+    border-radius: 16px;
+    background: #387ef5;
+    border-top-right-radius: 0;
+    padding: 10px;
+    color: #fff;
+}
+
+.message-item-photo {
+    max-width: 100%;
+    margin-top: 10px;
+}

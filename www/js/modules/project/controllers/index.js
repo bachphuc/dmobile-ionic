@@ -2,8 +2,8 @@ define([
     'js/modules/project/models/project'
 ], function($model) {
     return function($scope, $dListService, $history) {
-    	$history.push();
-    	
+        $history.push();
+
         $scope.listConfig = {
             apiService: 'project.gets'
         };

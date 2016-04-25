@@ -1,0 +1,40 @@
+<ion-view cache-view="true" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Chat with {{fullname}}</h1>
+    </ion-header-bar>
+    <ion-content class="has-header" delegate-handle="chatDetailScroll" style="bottom:90px !important;">
+        <ion-refresher on-refresh="doLoadMore()"></ion-refresher>
+        <div class="list">
+            <div class="item" style="text-align: center;" ng-if="isConnecting">
+                <ion-spinner icon="ripple" class="spinner-royal"></ion-spinner>
+                <span style="position: relative;top:-8px;" class="royal">Connecting...</span>
+            </div>
+            <div ng-repeat="message in items track by $index" class="item-message" ng-class="{'item-message-left' : !message.bMine, 'item-message-right' : message.bMine}">
+                <img ng-src="{{message.user.images.avatar.url}}">
+                <h2 ng-if="config.showTitle">{{message.sender.fullname}}</h2>
+                <p>
+                    {{message.message}}
+                    <img class="message-item-photo" ng-if="message.attachment.photo || message.photo" ng-src="{{message.attachment.photo || message.photo}}">
+                </p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar" style="height:auto;">
+        <form ng-submit="onSendChat()" style="width:100%;" id="form-upload-chat-image" method="POST">
+            <input class="disapear" type="file" name="image" id="image" ng-model="image">
+            <div style="height: 40px">
+                <button type="button" ng-click="choosePhoto()" class="button-clear button "><i class="material-icons">&#xE410;</i></button>
+                <button type="button" ng-click="choosePhoto()" style="margin-left: 10px;" class="button-clear button "><i class="material-icons">&#xE3AF;</i></button>
+            </div>
+            <div class="item item-input-inset" style="width: 100%;padding:0;border: none;">
+                <label class="item-input-wrapper" style="background: none;">
+                    <input style="width: 100%" ng-model="form.message" type="text" placeholder="Enter your messase...">
+                </label>
+                <button type="submit" class="button-clear button-small button-positive ion-ios-paperplane" style="font-size: 40px;"></button>
+            </div>
+        </form>
+    </ion-footer-bar>
+</ion-view>

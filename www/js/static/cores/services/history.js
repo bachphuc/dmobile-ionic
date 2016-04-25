@@ -6,7 +6,7 @@ define([
 
             var $history = {
                 _data: [],
-                _maxLength: 3,
+                _maxLength: 5,
                 _root: {
                     path: '/' + $setting.homeUrl,
                     title: ''
