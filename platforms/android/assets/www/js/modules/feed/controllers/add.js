@@ -16,7 +16,12 @@ define([], function() {
             $scope.isProcessing = true;
 
             if ($scope.bUpload) {
-                $dhttp.upload('feed.add', $scope.data.dataUrl, $scope.uploadType, $scope.data, $scope.postComplete, $scope.postFail);
+                if (typeof cordova !== 'undefined') {
+                    $dhttp.upload('feed.add', $scope.data.dataUrl, $scope.uploadType, $scope.data, $scope.postComplete, $scope.postFail);
+                } else {
+                    $dhttp.ajaxForm('feed.add', '#form_feed_add', $scope.postComplete, $scope.postFail);
+                }
+
             } else {
                 $dhttp.post('feed.add', $scope.data).success($scope.postComplete).error($scope.postFail);
             }
@@ -45,24 +50,28 @@ define([], function() {
             if (typeof bTakePhoto === 'undefined') {
                 var bTakePhoto = false;
             }
-            navigator.camera.getPicture(
-                function(fileURI) {
-                    $scope.data.dataUrl = fileURI;
-                    $scope.uploadType = 'photo';
-                    $scope.bUpload = true;
-                    $scope.bHasItem = true;
-                    $scope.data.module = 'photo';
-                    $scope.$$phase || $scope.$apply();
-                },
-                function() {
+            if (navigator && navigator.camera) {
+                navigator.camera.getPicture(
+                    function(fileURI) {
+                        $scope.data.dataUrl = fileURI;
+                        $scope.uploadType = 'photo';
+                        $scope.bUpload = true;
+                        $scope.bHasItem = true;
+                        $scope.data.module = 'photo';
+                        $scope.$$phase || $scope.$apply();
+                    },
+                    function() {
 
-                }, {
-                    quality: 50,
-                    destinationType: navigator.camera.DestinationType.FILE_URI,
-                    sourceType: (bTakePhoto ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY),
-                    encodingType: Camera.EncodingType.JPEG,
-                    correctOrientation: true,
-                });
+                    }, {
+                        quality: 50,
+                        destinationType: navigator.camera.DestinationType.FILE_URI,
+                        sourceType: (bTakePhoto ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY),
+                        encodingType: Camera.EncodingType.JPEG,
+                        correctOrientation: true,
+                    });
+            } else {
+                $('#image').click();
+            }
         };
 
         $scope.shareStatus = function() {
@@ -135,6 +144,38 @@ define([], function() {
                     }
                 }]
             });
+        }
+
+        $scope.onSubmit = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        }
+
+        $timeout(function() {
+            $('#image').unbind('change').change(function(e) {
+                console.log('image change');
+                $scope.uploadType = 'photo';
+                $scope.bUpload = true;
+                $scope.bHasItem = true;
+                $scope.data.module = 'photo';
+                $scope.previewImage(this.files);
+                $scope.$$phase || $scope.$apply();
+            });
+        }, 300);
+
+        $scope.previewImage = function(files) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var imageType = /^image\//;
+
+                if (!imageType.test(file.type)) {
+                    continue;
+                }
+                $scope.data.dataUrl = window.URL.createObjectURL(file);
+                $scope.$$phase || $scope.$apply();
+            }
+
         }
     }
 });

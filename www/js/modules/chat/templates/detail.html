@@ -1,5 +1,5 @@
 <ion-view cache-view="true" hide-back-button="true" hide-nav-bar="true">
-    <ion-header-bar class="bar-positive" align-title="center">
+    <ion-header-bar ng-class="{'bar-assertive' : (!chatUser || !chatUser.online), 'bar-positive' : (chatUser && chatUser.online)}" align-title="center">
         <div class="buttons">
             <button class="button button-icon button-clear" back-dir></button>
         </div>
@@ -20,6 +20,7 @@
                     <img class="message-item-photo" ng-if="message.attachment.photo || message.photo" ng-src="{{message.attachment.photo || message.photo}}">
                 </p>
             </div>
+            <div style="height: 32px;clear: both;"></div>
         </div>
     </ion-content>
     <ion-footer-bar class="bar" style="height:auto;">

@@ -9,5 +9,7 @@ define([], function() {
 		'video',
 		'music',
 		'blog',
+		'project',
+		'chat'
 	]
 });

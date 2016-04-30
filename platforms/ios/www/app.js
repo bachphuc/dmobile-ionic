@@ -28,11 +28,14 @@ requirejs.config({
             settings: './js/settings/settings',
             theme: './js/settings/theme',
             exobject: './js/static/libs/extensions/object',
+            chatprototype: './js/static/libs/extensions/chatprototype',
+            chatservice: './js/static/libs/extensions/chatservice',
             // gdraw : '../lib/gsap/DrawSVGPlugin',
             // gmax : '../lib/gsap/TweenMax.min',
             // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
             // gdrag : '../lib/gsap/utils/Draggable.min',
             jquery: './js/static/libs/jquery/jquery-2.1.3.min',
+            io : './js/static/libs/socket.io/socket.io-1.4.5',
             dmobi : '././js/static/libs/extensions/dmobi',
             extendScope: './js/static/cores/extendScope',
             directives: './js/static/cores/directives',
@@ -45,7 +48,7 @@ requirejs.config({
                 exports: 'ionic'
             },
             application: {
-                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi' , 'extendScope']
+                deps: ['settings', 'exobject', 'chatprototype', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi' , 'extendScope']
             },
             bootstrap: {
                 deps: ['application']

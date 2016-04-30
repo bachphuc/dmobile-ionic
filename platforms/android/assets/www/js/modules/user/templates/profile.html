@@ -1,12 +1,21 @@
-<ion-view title="{{user.full_name}}">
-    <div class="bar bar-header bar-positive">
-        <h1 class="title"></h1>
-    </div>
-    <ion-content class="has-header">
-        <div class="profile-header" style="{{user.cover_photo ? 'background-image:url('+user.cover_photo.full.url+');' : ''}}">
-            <span class="profile_avatar" style="background-image:url({{user.images.full.url}});"></span>
-            <h2 class="profile_title">{{user.full_name}}</h2>
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
         </div>
-        <feed-display-dir obj="feedConfig"></feed-display-dir>
+        <h1 class="title">{{user.full_name}}</h1>
+    </ion-header-bar>
+    <ion-content class="has-header overflow-initial">
+        <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? 'background-image:url('+user.cover_photo.full.url+');' : ''}}">
+            <div>
+                <span class="profile_avatar" ng-style="myStyle={'background-image':'url(' + user.images.full.url + ')'}"></span>
+                <h2 class="profile_title">{{user.full_name}}</h2>
+            </div>
+        </div>
+        <div class="media center-content">
+            <div>
+                <feed-display-dir obj="feedConfig"></feed-display-dir>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

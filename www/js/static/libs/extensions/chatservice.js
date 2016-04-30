@@ -162,7 +162,7 @@ var SChat = function() {
     }
 
     this.createUsername = function(user) {
-        return "user" + user.id;
+        return "user-" + user.id;
     }
 
     this.socketLogin = function() {
@@ -335,11 +335,11 @@ var SChat = function() {
                 var user = users.get(tmUsername);
                 if (user) {
                     user.online = false;
+                    that.processCallback(userLeftCallbacks, user);
                 }
             }
         }
         totalUser = data.getInt("numUsers");
-        that.processCallback(userLeftCallbacks, data);
     }
 
     // params data is object include user information 

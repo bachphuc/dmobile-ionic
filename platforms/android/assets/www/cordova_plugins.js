@@ -8,6 +8,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
+        "id": "com.synconset.imagepicker.ImagePicker",
+        "clobbers": [
+            "plugins.imagePicker"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "id": "cordova-plugin-camera.Camera",
         "clobbers": [
@@ -207,22 +214,25 @@ module.exports = [
         "id": "nl.x-services.plugins.toast.tests"
     },
     {
-        "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
-        "id": "com.synconset.imagepicker.ImagePicker",
+        "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
+        "id": "ionic-plugin-keyboard.keyboard",
         "clobbers": [
-            "plugins.imagePicker"
-        ]
+            "cordova.plugins.Keyboard"
+        ],
+        "runs": true
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "com.ionic.keyboard": "1.0.4",
+    "com.synconset.imagepicker": "1.0.6",
     "cordova-plugin-camera": "1.2.1-dev",
     "cordova-plugin-file": "2.1.1-dev",
     "cordova-plugin-file-transfer": "1.2.1-dev",
     "nl.x-services.plugins.toast": "2.1.1",
-    "com.synconset.imagepicker": "1.0.6"
-}
+    "ionic-plugin-keyboard": "2.0.1",
+    "cordova-plugin-whitelist": "1.2.2"
+};
 // BOTTOM OF METADATA
 });

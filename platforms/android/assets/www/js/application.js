@@ -27,7 +27,10 @@ define([
             this.currentController = null;
             this.controllerObjects = [];
 
+            // array include controller paths
             this.controllerPaths = [];
+            // array include template paths
+            this.templatePaths = [];
 
             this.viewer = null;
 
@@ -45,16 +48,18 @@ define([
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
                     $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
-                    // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
-                    //     console.log('Turn off ionic scroll on android');
-                    //     $ionicConfigProvider.scrolling.jsScrolling(false);
-                    // }
+                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                        console.log('Turn off ionic scroll on android');
+                        $ionicConfigProvider.scrolling.jsScrolling(false);
+                    }
 
                     // Turn off animate transition to increase performan
-                    // $ionicConfigProvider.views.transition('none');
+                    if (typeof cordova === 'undefined') {
+                        $ionicConfigProvider.views.transition('none');
+                    }
 
                     // Add white list src to prevent block link or url
-                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file):/);
+                    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|content|file|blob):/);
 
                     $stateProvider.state('app', {
                         url: "/app",
@@ -112,7 +117,7 @@ define([
         Application.prototype._createRouter = function(sRouter, sController, $module) {
             var state = 'app.' + sController.replace('.', '_');
             var sTemplate = './js/modules/' + $module.sModule + '/templates/' + $module.sController + '.html';
-
+            this.templatePaths.push(sTemplate);
             angular.module(this.appName).config(function($stateProvider, $urlRouterProvider) {
 
                 var config = {
@@ -194,7 +199,7 @@ define([
                 replace: true,
                 scope: {
                     obj: '=obj',
-                    parentObj : '=parent'
+                    parentObj: '=parent'
                 }
             };
 
@@ -273,10 +278,11 @@ define([
             modulePaths.push('./js/static/cores/controllers');
             modulePaths.push('./js/static/cores/services');
             modulePaths.push('./js/static/cores/directives');
-
+            console.log(modulePaths);
             var dis = this;
             require(modulePaths, function() {
                 console.log('Load all modules complete...');
+                console.log(dis.controllerPaths);
 
                 require(dis.controllerPaths, function() {
                     // Begin register controllers...
@@ -290,7 +296,7 @@ define([
                         }
                         dis._createController(ctrObj.sName, ctrObj, $controller);
                     }
-
+                    console.log(dis.templatePaths);
                     require([
                             'bootstrap'
                         ],
@@ -301,11 +307,15 @@ define([
             });
         }
 
-        Application.prototype.addMenu = function(title, link) {
-            this.menus.push({
+        Application.prototype.addMenu = function(title, link, params) {
+            var menu = {
                 title: title,
                 link: link
-            });
+            };
+            if (typeof params !== 'undefined') {
+                menu.params = params;
+            }
+            this.menus.push(menu);
             return this;
         }
         console.log(modules);

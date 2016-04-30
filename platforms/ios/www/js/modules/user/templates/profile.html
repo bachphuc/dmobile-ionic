@@ -8,7 +8,7 @@
     <ion-content class="has-header overflow-initial">
         <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? 'background-image:url('+user.cover_photo.full.url+');' : ''}}">
             <div>
-                <span class="profile_avatar" style="background-image:url({{user.images.full.url}});"></span>
+                <span class="profile_avatar" ng-style="myStyle={'background-image':'url(' + user.images.full.url + ')'}"></span>
                 <h2 class="profile_title">{{user.full_name}}</h2>
             </div>
         </div>

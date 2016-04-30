@@ -5,5 +5,6 @@ define([
     ],
     function() {
         MyApp.registerModule('core')
-            .addFactory('core.userService');
+            .addFactory('core.userService')
+            ;
     });

@@ -1,22 +1,36 @@
-<ion-view cache-view="false" view-title="POST STATUS">
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
+        <h1 class="title">Post Status</h1>
+    </ion-header-bar>
     <ion-content class="has-header has-footer">
-        <div class="list">
-            <label class="item item-input">
-                <textarea ng-model="data.content" style="min-height:100px;" placeholder="What's on your mind?"></textarea>
-            </label>
-        </div>
-        <div class="padding">
-            <button ng-click="doPost()" class="button button-block button-balanced">Post</button>
-        </div>
-        <div ng-if="bHasItem">
-            <div ng-if="data.module == 'photo'"><img ng-src="{{data.dataUrl}}" ng-if="data.dataUrl" class="full-image"></div>
-            <div ng-if="data.module == 'link'">
-                <h2>{{data.linkdata.title}}</h2>
-                <p><a ng-href="{{data.linkdata.link}}">{{data.linkdata.link}}</a></p>
-                <img ng-src="{{data.linkdata.default_image}}">
-                <p>{{data.linkdata.description}}</p>
+        <form method="POST" id="form_feed_add">
+            <div class="list">
+                <label class="item item-input">
+                    <textarea name="content" ng-model="data.content" style="min-height:100px;" placeholder="What's on your mind?"></textarea>
+                </label>
             </div>
-        </div>
+            <div class="padding">
+                <input class="disapear" type="file" name="image" id="image" ng-model="image">
+                <button ng-click="doPost()" class="button button-block button-balanced">Post</button>
+            </div>
+            <div ng-if="bHasItem">
+                <div ng-if="data.module == 'photo'"><img ng-src="{{data.dataUrl}}" ng-if="data.dataUrl" class="full-image"></div>
+                <div ng-if="data.module == 'link'">
+                    <input type="hidden" name="linkdata[title]" value="{{data.linkdata.title}}">
+                    <input type="hidden" name="linkdata[link]" value="{{data.linkdata.link}}">
+                    <input type="hidden" name="linkdata[default_image]" value="{{data.linkdata.default_image}}">
+                    <input type="hidden" name="linkdata[description]" value="{{data.linkdata.description}}">
+                    <h2>{{data.linkdata.title}}</h2>
+                    <p><a ng-href="{{data.linkdata.link}}">{{data.linkdata.link}}</a></p>
+                    <img ng-src="{{data.linkdata.default_image}}">
+                    <p>{{data.linkdata.description}}</p>
+                </div>
+            </div>
+            <input type="hidden" name="module" value="{{data.module}}" />
+        </form>
     </ion-content>
     <ion-footer-bar align-title="left" class="no-padding">
         <div class="tabs tabs-icon-left">

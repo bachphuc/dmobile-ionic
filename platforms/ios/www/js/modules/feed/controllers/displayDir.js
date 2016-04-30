@@ -3,7 +3,10 @@ define([
     ],
 
     function($feedModel) {
-        return function($scope, $dhttp, $ionicModal, $timeout, $rootScope, $cordovaToast, $ionicActionSheet) {
+        return function($scope, $viewer, $dhttp, $ionicModal, $timeout, $rootScope, $cordovaToast, $ionicActionSheet) {
+            if(!$viewer.isUser()){
+                return;
+            }
             $scope.items = [];
             $scope.iMaxFeedId = 0;
             $scope.iMinFeedId = 0;

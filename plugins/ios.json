@@ -115,6 +115,12 @@
         },
         "com.synconset.imagepicker": {
             "PACKAGE_NAME": "com.ionicframework.test1522502"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.test1522502"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.test1522502"
         }
     },
     "dependent_plugins": {}

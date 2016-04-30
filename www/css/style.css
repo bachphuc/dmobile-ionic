@@ -23,7 +23,9 @@
 .dcard-content:empty {
     display: none;
 }
-
+.dcard .feed-head-line{
+    color:#666;
+}
 .dcontent {
     position: absolute;
     right: 0;

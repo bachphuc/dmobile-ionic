@@ -1,8 +1,9 @@
 define([
-    'corePath/services/viewer'
+    'corePath/services/viewer',
+    'corePath/services/history',
+    'corePath/services/global-data',
 ], function() {
     console.log('Load services core...');
-
     angular.module(MyApp.appName)
         .factory('$dhttp', function($http, $ionicLoading) {
             return {
@@ -14,6 +15,19 @@ define([
                         data.token = token;
                     }
                     return $http.post(url, data, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                },
+                get: function(api, data) {
+                    var token = MyApp.token;
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    if (token) {
+                        data.token = token;
+                    }
+                    return $http.get(url, data, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
@@ -104,21 +118,64 @@ define([
                         template: 'Uploading 0%, please wait ...'
                     });
                     ft.upload(fileUrl, url, success, error, options);
+                },
+                ajaxForm: function(api, form, successCallBack, errorCallBack, finallyCallBack) {
+                    if (!$(form).length) {
+                        console.log('No form data to post.');
+                        return;
+                    }
+                    var url = MyApp.settings.serviceUrl + '?api=' + api;
+
+                    var token = MyApp.token;
+
+                    if (token) {
+                        url += '&token=' + token;
+                    }
+                    var fd = new FormData($(form)[0]);
+                    var request = $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                    }).done(function(data) {
+                        if (typeof successCallBack !== 'undefined') {
+                            successCallBack(data);
+                        }
+                    }).fail(function(data) {
+                        if (typeof errorCallBack !== 'undefined') {
+                            errorCallBack(data);
+                        }
+                    }).always(function(data) {
+                        if (typeof finallyCallBack !== 'undefined') {
+                            finallyCallBack(data);
+                        }
+                    });
                 }
             }
         })
+        // todo: defined list service
         .factory('$dListService', function($dhttp) {
             return {
                 init: function($scope, $model) {
                     $scope.items = [];
                     $scope.iMaxId = 0;
                     $scope.iMinId = 0;
-
+                    if (!$scope.listConfig) {
+                        console.log('listConfig is not defined on controller');
+                        return;
+                    }
+                    $scope.reverse = $scope.listConfig.reverse;
                     $scope.canLoadMore = true;
 
                     $scope.updateListInfo = function() {
-                        $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
-                        $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        if (!$scope.reverse) {
+                            $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                            $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        } else {
+                            $scope.iMinId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                            $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        }
                     }
 
                     $scope.doRefresh = function() {
@@ -133,15 +190,18 @@ define([
                             action: 'loadnew'
                         }
                         if ($scope.listConfig.listData) {
-                            sendData = $.extend({}, $scope.listData, sendData);
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
-                            $scope.$broadcast('scroll.refreshComplete');
-                            $scope.isLoadNewProcessing = false;
-                            if ($scope.refreshSuccess) {
-                                $scope.refreshSuccess(data);
+                            if (!$scope.reverse) {
+                                $scope.$broadcast('scroll.refreshComplete');
+                            } else {
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
                             }
+
+                            $scope.isLoadNewProcessing = false;
+
                             if (data.status) {
                                 if (data.data) {
                                     if (typeof $model !== 'undefined') {
@@ -149,8 +209,20 @@ define([
                                     } else {
                                         var items = data.data;
                                     }
-                                    $scope.items = items.concat($scope.items);
+                                    if (!$scope.reverse) {
+                                        // $scope.items = items.concat($scope.items);
+                                        $scope.items.prependAll(items);
+                                    } else {
+                                        items.reverse();
+                                        // $scope.items = $scope.items.concat(items);
+                                        $scope.items.appendAll(items);
+                                    }
+
                                     $scope.updateListInfo();
+
+                                    if ($scope.refreshSuccess) {
+                                        $scope.refreshSuccess(data);
+                                    }
                                 }
 
                             } else {
@@ -173,15 +245,17 @@ define([
                             min_id: $scope.iMinId,
                         }
                         if ($scope.listConfig.listData) {
-                            sendData = $.extend({}, $scope.listData, sendData);
+                            sendData = $.extend({}, $scope.listConfig.listData, sendData);
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                            $scope.isProcessing = false;
-                            if ($scope.loadMoreSuccess) {
-                                $scope.loadMoreSuccess(data);
+                            if (!$scope.reverse) {
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            } else {
+                                $scope.$broadcast('scroll.refreshComplete');
                             }
+                            $scope.isProcessing = false;
+
                             if (data.status) {
                                 if (data.data) {
                                     if (typeof $model !== 'undefined') {
@@ -189,8 +263,19 @@ define([
                                     } else {
                                         var items = data.data;
                                     }
-                                    $scope.items = $scope.items.concat(items);
+                                    if (!$scope.reverse) {
+                                        // $scope.items = $scope.items.concat(items);
+                                        $scope.items.appendAll(items);
+                                    } else {
+                                        items.reverse();
+                                        // $scope.items = items.concat($scope.items);
+                                        $scope.items.prependAll(items);
+                                    }
                                     $scope.updateListInfo();
+
+                                    if ($scope.loadMoreSuccess) {
+                                        $scope.loadMoreSuccess(data);
+                                    }
                                 }
 
                                 if (!data.data || data.data.length == 0) {
@@ -207,4 +292,15 @@ define([
                 }
             }
         });
+
+    if (typeof cordova === 'undefined') {
+        angular.module(MyApp.appName)
+            .factory('$cordovaToast', function() {
+                return {
+                    show: function(text) {
+                        Dmobi.showToast(text);
+                    }
+                }
+            });
+    }
 });

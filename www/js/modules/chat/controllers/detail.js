@@ -50,7 +50,7 @@ define([
             $scope.isSendingMessage = true;
             var chatMessage = new ChatMessage();
             chatMessage.message = $scope.form.message;
-            chatMessage.receiveUsername = $scope.chatUser.getUsername();
+            chatMessage.receiveUsername = $scope.username;
             chatMessage.roomName = $scope.roomName;
 
             $chat.sendMessage(chatMessage);
@@ -95,7 +95,7 @@ define([
             var chatMessage = new ChatMessage();
             chatMessage.photo = filePath;
             chatMessage.is_processing = true;
-            chatMessage.receiveUsername = chatUser.getUsername();
+            chatMessage.receiveUsername = $scope.username;
             chatMessage.attachment_type = "photo";
             chatMessage.roomName = $scope.roomName;
 
@@ -195,13 +195,38 @@ define([
             }, 1000);
         });
 
-        $chat.onSavedMessageSuccess(function(){
+        $chat.addUserJoinCallbacks(function(user) {
+            DMobi.log(TAG, "addUserJoinCallbacks");
+            if(!$scope.chatUser && user.username == $scope.username){
+                $scope.chatUser = chatUser = $chat.getUser($scope.username);
+            }
+            $scope.$$phrase || $scope.$apply();
+        });
+
+        $chat.addUserLeftCallback(function(user) {
+            DMobi.log(TAG, "addUserLeftCallback");
+            if($scope.chatUser && user.username == $scope.username){
+                $scope.$$phrase || $scope.$apply();
+            }
+        });
+
+        $chat.onSavedMessageSuccess(function() {
             $scope.updateListInfo();
         });
-        
-        // todo: scroll to bottom on first time load
-        $scope.loadMoreSuccess = function(data){
 
+        // todo: scroll to bottom on first time load
+        $scope.loadMoreSuccess = function(data) {
+            if($scope.bFirstLoad){
+                $scope.scrollToBottom();
+                $scope.bFirstLoad = false;
+            }
+        }
+
+        $scope.loadFrist = function() {
+            $scope.bFirstLoad = true;
+            $timeout(function() {
+                $scope.doLoadMore();
+            }, 200);
         }
 
         $chat.init();
@@ -209,13 +234,16 @@ define([
         // todo init list service
         $scope.listConfig = {
             apiService: 'dchat.message.gets',
-            reverse : true,
-            listData : {
-                room_name : $scope.roomName
+            reverse: true,
+            listData: {
+                room_name: $scope.roomName
             }
         };
+
         var $model = new ChatMessage();
         $dListService.init($scope, $model);
+
+        $scope.loadFrist();
 
         $$chatDetailScope = $scope;
     }

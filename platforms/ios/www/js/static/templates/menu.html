@@ -13,7 +13,7 @@
     <ion-side-menu side="left">
         <ion-content class="dleft-menu">
             <ion-list class="user-image-menu" ng-if="$viewer.isUser()">
-                <ion-item class="item-avatar" menu-close nav-clear href="#/app/user/profile/{{viewer.user_id}}">
+                <ion-item style="{{(viewer.cover_photo ? 'background-image: url(' + viewer.cover_photo.full.url + ')' : '')}}" class="item-avatar" menu-close nav-clear href="#/app/user/profile/{{viewer.user_id}}">
                     <img class="image-menu-avatar full-image" ng-src="{{viewer.images.full.url}}" />
                     <span class="menu-full-name">{{viewer.full_name}}</span>
                     <span class="menu-email">{{viewer.email}}</span>

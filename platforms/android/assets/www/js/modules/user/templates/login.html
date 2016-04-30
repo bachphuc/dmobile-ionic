@@ -5,7 +5,7 @@
                 <div class="site-login-logo">
                     <i class="material-icons">&#xE859;</i>
                 </div>
-                <div class="list">
+                <div class="list padding">
                     <label class="item item-input">
                         <span class="input-label">Username</span>
                         <input type="text" ng-model="loginData.login">
@@ -14,9 +14,13 @@
                         <span class="input-label">Password</span>
                         <input type="password" ng-model="loginData.password">
                     </label>
-                    <label class="item">
+                    <label>
                         <button class="button button-block button-positive" type="submit">Log in</button>
                     </label>
+                    <p class="text-align-center">or</p>
+                    <div>
+                        <a class="button button-block button-positive" type="button" go-to url="user/signup">Signup</a>
+                    </div>
                 </div>
             </form>
         </div>

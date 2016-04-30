@@ -154,18 +154,28 @@ define([
                 }
             }
         })
+        // todo: defined list service
         .factory('$dListService', function($dhttp) {
             return {
                 init: function($scope, $model) {
                     $scope.items = [];
                     $scope.iMaxId = 0;
                     $scope.iMinId = 0;
-
+                    if (!$scope.listConfig) {
+                        console.log('listConfig is not defined on controller');
+                        return;
+                    }
+                    $scope.reverse = $scope.listConfig.reverse;
                     $scope.canLoadMore = true;
 
                     $scope.updateListInfo = function() {
-                        $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
-                        $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        if (!$scope.reverse) {
+                            $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                            $scope.iMinId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        } else {
+                            $scope.iMinId = ($scope.items.length > 0 ? $scope.items[0].id : 0);
+                            $scope.iMaxId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].id : 0);
+                        }
                     }
 
                     $scope.doRefresh = function() {
@@ -184,11 +194,14 @@ define([
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
-                            $scope.$broadcast('scroll.refreshComplete');
-                            $scope.isLoadNewProcessing = false;
-                            if ($scope.refreshSuccess) {
-                                $scope.refreshSuccess(data);
+                            if (!$scope.reverse) {
+                                $scope.$broadcast('scroll.refreshComplete');
+                            } else {
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
                             }
+
+                            $scope.isLoadNewProcessing = false;
+
                             if (data.status) {
                                 if (data.data) {
                                     if (typeof $model !== 'undefined') {
@@ -196,8 +209,20 @@ define([
                                     } else {
                                         var items = data.data;
                                     }
-                                    $scope.items = items.concat($scope.items);
+                                    if (!$scope.reverse) {
+                                        // $scope.items = items.concat($scope.items);
+                                        $scope.items.prependAll(items);
+                                    } else {
+                                        items.reverse();
+                                        // $scope.items = $scope.items.concat(items);
+                                        $scope.items.appendAll(items);
+                                    }
+
                                     $scope.updateListInfo();
+
+                                    if ($scope.refreshSuccess) {
+                                        $scope.refreshSuccess(data);
+                                    }
                                 }
 
                             } else {
@@ -224,11 +249,13 @@ define([
                         }
 
                         $dhttp.post($scope.listConfig.apiService, sendData).success(function(data) {
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                            $scope.isProcessing = false;
-                            if ($scope.loadMoreSuccess) {
-                                $scope.loadMoreSuccess(data);
+                            if (!$scope.reverse) {
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            } else {
+                                $scope.$broadcast('scroll.refreshComplete');
                             }
+                            $scope.isProcessing = false;
+
                             if (data.status) {
                                 if (data.data) {
                                     if (typeof $model !== 'undefined') {
@@ -236,8 +263,19 @@ define([
                                     } else {
                                         var items = data.data;
                                     }
-                                    $scope.items = $scope.items.concat(items);
+                                    if (!$scope.reverse) {
+                                        // $scope.items = $scope.items.concat(items);
+                                        $scope.items.appendAll(items);
+                                    } else {
+                                        items.reverse();
+                                        // $scope.items = items.concat($scope.items);
+                                        $scope.items.prependAll(items);
+                                    }
                                     $scope.updateListInfo();
+
+                                    if ($scope.loadMoreSuccess) {
+                                        $scope.loadMoreSuccess(data);
+                                    }
                                 }
 
                                 if (!data.data || data.data.length == 0) {

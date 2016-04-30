@@ -5,7 +5,7 @@ define([
     	$history.push('Home', true);
 
     	if(!$viewer.isUser()){
-    		$location.path('/app/user/login');
+    		return $location.path('/app/user/login');
     	}
     }
 });

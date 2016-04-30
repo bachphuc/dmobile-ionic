@@ -1,9 +1,35 @@
-<ion-view>
-    <div class="bar bar-header bar-{{theme.mainClass}}">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">
+    <ion-header-bar class="bar-positive" align-title="center">
+        <div class="buttons">
+            <button class="button button-icon button-clear" back-dir></button>
+        </div>
         <h1 class="title">Home</h1>
-    </div>
-    <ion-content class="has-header">
-        <feed-display-dir></feed-display-dir>
+    </ion-header-bar>
+    <left-content class="background-color-red media">
+    </left-content>
+    <ion-content class="has-header media has-left-content has-right-content">
+        <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list align-left">
+            <div class="padding-top-20">
+            </div>
+            <div class="list dcard no-border-child" ng-repeat="item in items">
+                <span class="bt_remove_feed" ng-click="onItemSetting(item)"><i class="color-666 material-icons cursor-pointer">&#xE5C5;</i></span>
+                <div class="item item-avatar">
+                    <img go-to url="user/profile/{{item.user.user_id}}" ng-src="{{item.user.images.avatar.url}}">
+                    <h2 go-to url="user/profile/{{item.user.user_id}}">{{item.user.full_name}} <span class="feed-head-line">{{item.header}}</span></h2>
+                    <p>{{item.time}}</p>
+                </div>
+                <div class="dcard-body">
+                    <p class="dcard-content padding-10 no-margin">{{item.content}}</p>
+                    <div ng-html-compile="item.getItemContent()"></div>
+                    <div ng-if="item.images && !item.item" class="ratio-image" style="padding-bottom:{{item.images.full.height * 100 / item.images.full.width}}%;background-image:url({{item.images.full.url}});"></div>
+                </div>
+                <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
     </ion-content>
+    <right-content class="background-color-green media">
+    </right-content>
+    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>
 </ion-view>
