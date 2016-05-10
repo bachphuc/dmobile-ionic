@@ -1,6 +1,9 @@
 <div>
-    <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>
-    <div class="list align-left">
+    <div class="ion-refresher" ng-click="doRefresh()" ng-show="!isProcessing">
+        <span ng-if="!isLoadNewProcessing">Click to refresh</span>
+        <ion-spinner ng-if="isLoadNewProcessing" icon="ripple" class="spinner-royal"></ion-spinner>
+    </div>
+    <div class="list align-left" ng-if="items.length > 0">
         <div class="padding-top-20">
         </div>
         <div class="list dcard no-border-child" ng-repeat="item in items">
@@ -18,5 +21,8 @@
             <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>
         </div>
     </div>
-    <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>
+    <div class="ion-infinite-scroll" ng-click="loadMore()" ng-if="canLoadMore">
+        <span ng-if="!isProcessing">Click to load more</span>
+        <ion-spinner ng-if="isProcessing" icon="ripple" class="spinner-royal"></ion-spinner>
+    </div>
 </div>

@@ -45,13 +45,19 @@ define([
                     'ui.router',
                     'ngCordova'
 
-                ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
+                ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider, $locationProvider) {
                     $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
                     // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
-                    //     console.log('Turn off ionic scroll on android');
-                    //     $ionicConfigProvider.scrolling.jsScrolling(false);
+                        console.log('Turn off ionic scroll on android');
+                        $ionicConfigProvider.scrolling.jsScrolling(false);
                     // }
+
+                    // pretty url html5 support
+                    $locationProvider.html5Mode(true);
+
+                    // turn off page transition animation
+                    $ionicConfigProvider.views.transition('none'); 
 
                     // Turn off animate transition to increase performan
                     if (typeof cordova === 'undefined') {

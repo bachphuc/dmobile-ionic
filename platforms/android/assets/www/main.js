@@ -515,6 +515,232 @@ Function.prototype.getArgs = function() {
 };
 define("exobject", function(){});
 
+// todo declare JSONObject
+var JSONObject = function() {
+    this.put = function(key, value) {
+        this[key] = value;
+    }
+}
+
+var DObject = function() {
+
+}
+
+var DMobi = {
+    log: function(tag, message) {
+        console.log(tag + ": " + message);
+    }
+}
+
+DObject.prototype.has = function(key) {
+    return this.hasOwnProperty(key);
+}
+
+DObject.prototype.get = function(key) {
+    return (this[key] ? this[key] : false);
+}
+
+DObject.prototype.put = function(key, value) {
+    this[key] = value;
+}
+DObject.prototype.getLong = function(key) {
+    return this.get(key);
+}
+
+DObject.prototype.getString = function(key) {
+    return this.get(key);
+}
+
+DObject.prototype.getInt = function(key) {
+    return this.get(key);
+}
+
+DObject.prototype.containsKey = function(key) {
+    return this.hasOwnProperty(key);
+}
+
+String.prototype.equals = function(str) {
+    return (this == str ? true : false);
+}
+
+Array.prototype.put = function(item) {
+    this.push(item);
+}
+
+Array.prototype.add = function(item) {
+    this.push(item);
+}
+
+Array.prototype.appendAll = function(items) {
+    Array.prototype.push.apply(this, items);
+}
+
+Array.prototype.prependAll = function(items) {
+    for (var i = items.length - 1; i >= 0; i--) {
+        this.splice(0, 0, items[i]);
+    }
+}
+
+function dObject(o) {
+    var obj = new DObject();
+    $.extend(obj, o);
+    return obj;
+}
+
+
+// todo declare ChatMessage Class
+var ChatMessage = function() {
+    this.key;
+
+    this.getKey = function() {
+        return this.key;
+    }
+
+    this.senderKey;
+
+    this.getSenderKey = function() {
+        return this.senderKey;
+    }
+
+    this.id;
+    this.getId = function() {
+        return this.id;
+    }
+    this.message;
+    this.sender;
+    this.receiver;
+    this.user;
+    this.senderUsername;
+    this.is_complete = false;
+    this.is_update = false;
+    this.is_processing = false;
+    this.attachment_type;
+
+    this.getSenderUsername = function() {
+        return this.senderUsername;
+    }
+
+    this.receiveUsername;
+
+    this.getReceiveUsername = function() {
+        return this.receiveUsername;
+    }
+
+    this.senderImage;
+
+    this.getSenderImage = function() {
+        return this.senderImage;
+    }
+
+    this.photo;
+    this.bMine = false;
+
+    this.isMine = function() {
+        return this.bMine;
+    }
+
+    this.getTitle = function() {
+        return this.senderUsername;
+    }
+
+    this.getMessage = function() {
+        return this.message;
+    }
+
+    this.merge = function(chatMessage) {
+        this.photo = chatMessage.photo;
+        this.is_update = chatMessage.is_update;
+        this.is_complete = chatMessage.is_complete;
+        this.message = chatMessage.message;
+        this.is_processing = chatMessage.is_processing;
+        this.attachment_type = chatMessage.attachment_type;
+    }
+
+    this.cloneFromJSONObject = function(data) {
+        if (data.message) {
+            this.message = data.message;
+        }
+        if (data.is_processing) {
+            this.is_processing = data.is_processing;
+        }
+        if (data.is_update) {
+            this.is_update = data.is_update;
+        }
+        if (data.is_complete) {
+            this.is_complete = data.is_complete;
+        }
+        if (data.photo) {
+            this.photo = data.photo;
+        }
+        if (data.attachment_type) {
+            this.attachment_type = data.attachment_type;
+        }
+    }
+}
+
+// todo declare ChatUser Class
+var ChatUser = function() {
+    var TAG = 'ChatUser';
+    this.online_time;
+    this.online;
+    this.username;
+    this.image;
+    this.fullname;
+    this.is_processing;
+    this.maxFeedId = 0;
+
+    this.id;
+    this.getId = function() {
+        return this.id;
+    }
+
+    this.getTitle = function() {
+        return this.fullname;
+    }
+
+    this.getUsername = function() {
+        return this.username;
+    }
+
+    this.getImage = function() {
+        return this.image;
+    }
+
+    this.messages = [];
+    this.processingMessages = {};
+
+    this.addProcessingMessage = function(message) {
+        console.log(TAG + ":addProcessingMessage to user " + this.username);
+        var key = message.bMine ? message.getKey() : message.getSenderKey();
+        this.processingMessages[key] = message;
+    }
+
+    this.removeProcessingMessage = function(key) {
+        if (typeof this.processingMessages[key] !== 'undefined') {
+            delete this.processingMessages[key];
+        }
+    }
+
+    this.getProcessingMessage = function(key) {
+        console.log(TAG + ":getProcessingMessage from user " + this.username);
+        if (typeof this.processingMessages[key] === 'undefined') {
+            console.log(TAG + ":getProcessingMessage: no message processing");
+            return false;
+        }
+        return this.processingMessages[key];
+    }
+
+    this.getMessages = function() {
+        return this.messages;
+    }
+
+    this.loadOlderMessages = function() {
+
+    }
+}
+;
+define("chatprototype", function(){});
+
 define('moduleObjs',[], function() {
 	return [
 		'base',
@@ -703,10 +929,13 @@ define('application',[
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
                     $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
-                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                    // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
                         console.log('Turn off ionic scroll on android');
                         $ionicConfigProvider.scrolling.jsScrolling(false);
-                    }
+                    // }
+
+                    // turn off page transition animation
+                    $ionicConfigProvider.views.transition('none'); 
 
                     // Turn off animate transition to increase performan
                     if (typeof cordova === 'undefined') {
@@ -1914,157 +2143,12 @@ define('js/modules/user/controllers/members',[
 define('js/modules/feed/controllers/index',[
     'js/modules/feed/models/feed',
 ], function($feedModel) {
-    return function($scope, $dhttp, $rootScope, $ionicModal, $history, $viewer, $location, $timeout) {
-        $history.push('Home', true);
+    return function($scope, $dhttp, $rootScope, $ionicModal, $history, $viewer, $location ) {
+    	$history.push('Home', true);
 
-        if (!$viewer.isUser()) {
-            return $location.path('/app/user/login');
-        }
-
-        $scope.items = [];
-        $scope.iMaxFeedId = 0;
-        $scope.iMinFeedId = 0;
-
-        $scope.canLoadMore = true;
-        $scope.feedData = {};
-
-        $scope.isCache = false;
-
-        if ($scope.obj) {
-            if ($scope.obj.user_id) {
-                $scope.feedData.user_id = $scope.obj.user_id;
-            }
-        }
-        $scope.updateFeedInfo = function() {
-            $scope.iMaxFeedId = ($scope.items.length > 0 ? $scope.items[0].feed_id : 0);
-            $scope.iMinFeedId = ($scope.items.length > 0 ? $scope.items[$scope.items.length - 1].feed_id : 0);
-        }
-
-        $scope.doRefresh = function() {
-            if ($scope.isLoadNewProcessing) {
-                return;
-            }
-            $scope.isLoadNewProcessing = true;
-
-            var sendData = {
-                max_id: $scope.iMaxFeedId,
-                min_id: $scope.iMinFeedId,
-                action: 'loadnew'
-            }
-            sendData = $.extend({}, $scope.feedData, sendData);
-            $dhttp.post('feed.gets', sendData).success(function(data) {
-                $timeout(function() {
-                    $scope.$broadcast('scroll.refreshComplete');
-                }, 300);
-                $scope.isLoadNewProcessing = false;
-                if (data.status) {
-                    if (data.data) {
-                        var items = $scope.setModel(data.data, $feedModel);
-                        $scope.items = items.concat($scope.items);
-                        $scope.updateFeedInfo();
-                    }
-
-                } else {
-                    alert(data.errors.join('.'));
-                }
-            }).error(function(data) {
-                $scope.isLoadNewProcessing = false;
-                alert('Can not get data from server.');
-            });
-        };
-
-        $rootScope.$on('feed.refresh', function() {
-            if (!$scope.isCache) {
-                return;
-            }
-            console.log('Feed Refresh...');
-            $scope.doRefresh();
-        });
-
-        $scope.loadMore = function() {
-            console.log('loadMore');
-            if ($scope.isProcessing) {
-                return;
-            }
-            $scope.isProcessing = true;
-            var sendData = {
-                max_id: $scope.iMaxFeedId,
-                min_id: $scope.iMinFeedId,
-            }
-            sendData = $.extend({}, $scope.feedData, sendData);
-            $dhttp.post('feed.gets', sendData).success(function(data) {
-                $scope.$broadcast('scroll.infiniteScrollComplete');
-                $scope.isProcessing = false;
-                if (data.status) {
-                    if (data.data) {
-                        var items = $scope.setModel(data.data, $feedModel);
-                        $scope.items = $scope.items.concat(items);
-                        $scope.updateFeedInfo();
-                    }
-
-                    if (!data.data || data.data.length == 0) {
-                        $scope.canLoadMore = false;
-                    }
-                } else {
-                    alert(data.errors.join('.'));
-                }
-            }).error(function(data) {
-                $scope.isProcessing = false;
-                alert('Can not get data from server.');
-            });
-        };
-
-        $scope.onDelete = function(item) {
-            if ($scope.isDeleteProcessing) {
-                return;
-            }
-            $scope.isDeleteProcessing = true;
-
-            var sendData = {
-                feed_id: item.feed_id
-            }
-            $dhttp.post('feed.delete', sendData).success(function(data) {
-                $scope.isDeleteProcessing = false;
-                if (data.status) {
-                    if (data.data) {
-                        var index = $scope.items.indexOf(item);
-                        if (index != -1) {
-                            $scope.items.splice(index, 1);
-                            if (data.messages) {
-                                Dmobi.showToast(data.messages.join('.'));
-                            }
-                        }
-                    }
-                } else {
-                    alert(data.errors.join('.'));
-                }
-            }).error(function(data) {
-                $scope.isDeleteProcessing = false;
-                alert('Can not get data from server.');
-            });
-        }
-
-        $scope.onItemSetting = function(item) {
-            $ionicActionSheet.show({
-                buttons: [{
-                    text: ' <i class="material-icons">&#xE2C3;</i> Delete Feed',
-                    action: $scope.onDelete,
-                    type: false
-                }, {
-                    text: ' <i class="material-icons">camera</i> Report Feed',
-                    action: $scope.choosePhoto,
-                    type: true
-                }],
-                cancelText: 'Cancel',
-                cancel: function() {
-
-                },
-                buttonClicked: function(index) {
-                    this.buttons[index].action(item);
-                    return true;
-                }
-            });
-        }
+    	if(!$viewer.isUser()){
+    		return $location.path('/app/user/login');
+    	}
     }
 });
 
@@ -2871,13 +2955,13 @@ define('text!js/modules/core/templates/welcome.html',[],function () { return '<i
 define('text!js/modules/user/templates/login.html',[],function () { return '<ion-view hide-nav-bar="true">\r\n    <ion-content class="has-header login-page">\r\n        <div class="login-page-content">\r\n            <form ng-submit="doLogin()">\r\n                <div class="site-login-logo">\r\n                    <i class="material-icons">&#xE859;</i>\r\n                </div>\r\n                <div class="list padding">\r\n                    <label class="item item-input">\r\n                        <span class="input-label">Username</span>\r\n                        <input type="text" ng-model="loginData.login">\r\n                    </label>\r\n                    <label class="item item-input">\r\n                        <span class="input-label">Password</span>\r\n                        <input type="password" ng-model="loginData.password">\r\n                    </label>\r\n                    <label>\r\n                        <button class="button button-block button-positive" type="submit">Log in</button>\r\n                    </label>\r\n                    <p class="text-align-center">or</p>\r\n                    <div>\r\n                        <a class="button button-block button-positive" type="button" go-to url="user/signup">Signup</a>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </ion-content>\r\n</ion-view>\r\n';});
 
 
-define('text!js/modules/user/templates/profile.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">{{user.full_name}}</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header overflow-initial">\r\n        <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? \'background-image:url(\'+user.cover_photo.full.url+\');\' : \'\'}}">\r\n            <div>\r\n                <span class="profile_avatar" ng-style="myStyle={\'background-image\':\'url(\' + user.images.full.url + \')\'}"></span>\r\n                <h2 class="profile_title">{{user.full_name}}</h2>\r\n            </div>\r\n        </div>\r\n        <div class="media center-content">\r\n            <div>\r\n                <feed-display-dir obj="feedConfig"></feed-display-dir>\r\n            </div>\r\n        </div>\r\n    </ion-content>\r\n</ion-view>\r\n';});
+define('text!js/modules/user/templates/profile.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">{{user.full_name}}</h1>\r\n    </ion-header-bar>\r\n    <!-- <ion-content class="has-header overflow-initial"> -->\r\n    <div class="scroll-content has-header overflow-scroll">\r\n        <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? \'background-image:url(\'+user.cover_photo.full.url+\');\' : \'\'}}">\r\n            <div>\r\n                <span class="profile_avatar" ng-style="myStyle={\'background-image\':\'url(\' + user.images.full.url + \')\'}"></span>\r\n                <h2 class="profile_title">{{user.full_name}}</h2>\r\n            </div>\r\n        </div>\r\n        <div class="media center-content">\r\n            <div>\r\n                <feed-display-dir obj="feedConfig"></feed-display-dir>\r\n            </div>\r\n        </div>\r\n    <!-- </ion-content> -->\r\n    </div>\r\n</ion-view>\r\n';});
 
 
 define('text!js/modules/user/templates/members.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Members</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header">\r\n        <ion-refresher ng-if="!isProcessing" on-refresh="doRefresh()"></ion-refresher>\r\n        <div class="list">\r\n            <div class="item item-avatar" ng-repeat="item in items">\r\n                <img go-to url="user/profile/{{item.user_id}}" ng-src="{{item.images.avatar.url}}">\r\n                <h2 go-to url="user/profile/{{item.user_id}}">{{item.full_name}}</h2>\r\n                <p>{{item.time}}</p>\r\n            </div>\r\n        </div>\r\n        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="doLoadMore()" distance="60px"></ion-infinite-scroll>\r\n    </ion-content>\r\n</ion-view>\r\n';});
 
 
-define('text!js/modules/feed/templates/index.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Home</h1>\r\n    </ion-header-bar>\r\n    <left-content class="background-color-red media">\r\n    </left-content>\r\n    <ion-content class="has-header media has-left-content has-right-content">\r\n        <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher>\r\n        <div class="list align-left">\r\n            <div class="padding-top-20">\r\n            </div>\r\n            <div class="list dcard no-border-child" ng-repeat="item in items">\r\n                <span class="bt_remove_feed" ng-click="onItemSetting(item)"><i class="color-666 material-icons cursor-pointer">&#xE5C5;</i></span>\r\n                <div class="item item-avatar">\r\n                    <img go-to url="user/profile/{{item.user.user_id}}" ng-src="{{item.user.images.avatar.url}}">\r\n                    <h2 go-to url="user/profile/{{item.user.user_id}}">{{item.user.full_name}} <span class="feed-head-line">{{item.header}}</span></h2>\r\n                    <p>{{item.time}}</p>\r\n                </div>\r\n                <div class="dcard-body">\r\n                    <p class="dcard-content padding-10 no-margin">{{item.content}}</p>\r\n                    <div ng-html-compile="item.getItemContent()"></div>\r\n                    <div ng-if="item.images && !item.item" class="ratio-image" style="padding-bottom:{{item.images.full.height * 100 / item.images.full.width}}%;background-image:url({{item.images.full.url}});"></div>\r\n                </div>\r\n                <feed-action-bar-dir obj="item.item" parent="item"></feed-action-bar-dir>\r\n            </div>\r\n        </div>\r\n        <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll>\r\n    </ion-content>\r\n    <right-content class="background-color-green media">\r\n    </right-content>\r\n    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>\r\n</ion-view>\r\n';});
+define('text!js/modules/feed/templates/index.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Home</h1>\r\n    </ion-header-bar>\r\n    <left-content class="background-color-red media">\r\n    </left-content>\r\n    <!-- <ion-content class="has-header media has-left-content has-right-content"> -->\r\n    <div class="media has-left-content has-right-content scroll-content has-header overflow-scroll">\r\n        <!-- <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher> -->\r\n        <feed-display-dir></feed-display-dir>\r\n        <!-- <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll> -->\r\n        <!-- </ion-content> -->\r\n    </div>\r\n    <right-content class="background-color-green media">\r\n    </right-content>\r\n    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>\r\n</ion-view>\r\n';});
 
 
 define('text!js/modules/feed/templates/add.html',[],function () { return '<ion-view cache-view="false" hide-back-button="true" hide-nav-bar="true">\r\n    <ion-header-bar class="bar-positive" align-title="center">\r\n        <div class="buttons">\r\n            <button class="button button-icon button-clear" back-dir></button>\r\n        </div>\r\n        <h1 class="title">Post Status</h1>\r\n    </ion-header-bar>\r\n    <ion-content class="has-header has-footer">\r\n        <form method="POST" id="form_feed_add">\r\n            <div class="list">\r\n                <label class="item item-input">\r\n                    <textarea name="content" ng-model="data.content" style="min-height:100px;" placeholder="What\'s on your mind?"></textarea>\r\n                </label>\r\n            </div>\r\n            <div class="padding">\r\n                <input class="disapear" type="file" name="image" id="image" ng-model="image">\r\n                <button ng-click="doPost()" class="button button-block button-balanced">Post</button>\r\n            </div>\r\n            <div ng-if="bHasItem">\r\n                <div ng-if="data.module == \'photo\'"><img ng-src="{{data.dataUrl}}" ng-if="data.dataUrl" class="full-image"></div>\r\n                <div ng-if="data.module == \'link\'">\r\n                    <input type="hidden" name="linkdata[title]" value="{{data.linkdata.title}}">\r\n                    <input type="hidden" name="linkdata[link]" value="{{data.linkdata.link}}">\r\n                    <input type="hidden" name="linkdata[default_image]" value="{{data.linkdata.default_image}}">\r\n                    <input type="hidden" name="linkdata[description]" value="{{data.linkdata.description}}">\r\n                    <h2>{{data.linkdata.title}}</h2>\r\n                    <p><a ng-href="{{data.linkdata.link}}">{{data.linkdata.link}}</a></p>\r\n                    <img ng-src="{{data.linkdata.default_image}}">\r\n                    <p>{{data.linkdata.description}}</p>\r\n                </div>\r\n            </div>\r\n            <input type="hidden" name="module" value="{{data.module}}" />\r\n        </form>\r\n    </ion-content>\r\n    <ion-footer-bar align-title="left" class="no-padding">\r\n        <div class="tabs tabs-icon-left">\r\n            <a class="tab-item" ng-click="shareStatus()">\r\n                <i class="icon ion-share"></i>\r\n            </a>\r\n            <a class="tab-item" ng-click="addPhoto()">\r\n                <i class="icon ion-camera"></i>\r\n            </a>\r\n            <a class="tab-item" ng-click="showLinkPopup()">\r\n                <i class="icon ion-link"></i>\r\n            </a>\r\n            <a class="tab-item">\r\n                <i class="icon ion-document"></i>\r\n            </a>\r\n            <a class="tab-item">\r\n                <i class="icon ion-music-note"></i>\r\n            </a>\r\n        </div>\r\n    </ion-footer-bar>\r\n</ion-view>\r\n';});
@@ -2915,6 +2999,8 @@ requirejs.config({
             settings: './js/settings/settings',
             theme: './js/settings/theme',
             exobject: './js/static/libs/extensions/object',
+            chatprototype: './js/static/libs/extensions/chatprototype',
+            chatservice: './js/static/libs/extensions/chatservice',
             // gdraw : '../lib/gsap/DrawSVGPlugin',
             // gmax : '../lib/gsap/TweenMax.min',
             // gthrow : '../lib/gsap/plugins/ThrowPropsPlugin.min',
@@ -2932,7 +3018,7 @@ requirejs.config({
                 exports: 'ionic'
             },
             application: {
-                deps: ['settings', 'exobject', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi', 'extendScope']
+                deps: ['settings', 'exobject', 'chatprototype', 'moduleObjs', /*'gmax', 'gdraw', 'gthrow' , 'gdrag',*/ 'jquery', 'dmobi', 'extendScope']
             },
             bootstrap: {
                 deps: ['application']

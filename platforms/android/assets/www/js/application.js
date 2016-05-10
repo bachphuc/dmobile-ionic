@@ -48,10 +48,13 @@ define([
                 ]).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $compileProvider) {
                     $$config = $ionicConfigProvider;
                     // Turn off js scroll if current platform different ios or ipad
-                    if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
+                    // if (!ionic.Platform.isIOS() && !ionic.Platform.isIPad()) {
                         console.log('Turn off ionic scroll on android');
                         $ionicConfigProvider.scrolling.jsScrolling(false);
-                    }
+                    // }
+
+                    // turn off page transition animation
+                    $ionicConfigProvider.views.transition('none'); 
 
                     // Turn off animate transition to increase performan
                     if (typeof cordova === 'undefined') {

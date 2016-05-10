@@ -117,7 +117,7 @@ define([
                 }
             }
         }])
-        .directive('goTo', ['$location', function($location) {
+        .directive('goTo', ['$location', '$rootScope', function($location, $rootScope) {
             return {
                 restrict: 'A',
                 scope: {
@@ -125,11 +125,16 @@ define([
                 },
                 link: function(scope, element, attrs) {
                     element.bind('click', function(e) {
+                        console.log('goto directive click');
                         if ((!scope.url) || $(e.currentTarget).has($(e.target).closest('a')).length || $(e.currentTarget).has($(e.target).closest('[go-to]')).length || $(e.currentTarget).has($(e.target).closest('[ng-click]')).length) {
                             return;
                         }
 
-                        window.location.href = '#app/' + scope.url;
+                        $rootScope.$apply(function() {
+                            console.log('goto url ' + scope.url);
+                            $location.path('/app/' + scope.url);
+                        });
+                        // window.location.href = '#app/' + scope.url;
                     });
                 }
             }

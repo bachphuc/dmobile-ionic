@@ -5,5 +5,6 @@ define([
         .addFactory('chat.chat')
         .addController('chat/index', 'chat.index')
         .addController('chat/detail/:username/:fullname', 'chat.detail')
-        .addMenu('Chat', 'chat/index');
+        // .addMenu('Chat', 'chat/index')
+    ;
 });

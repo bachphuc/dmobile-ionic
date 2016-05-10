@@ -5,7 +5,8 @@
         </div>
         <h1 class="title">{{user.full_name}}</h1>
     </ion-header-bar>
-    <ion-content class="has-header overflow-initial">
+    <!-- <ion-content class="has-header overflow-initial"> -->
+    <div class="scroll-content has-header overflow-scroll">
         <div class="profile-header vertical-middle text-align-center" style="{{user.cover_photo ? 'background-image:url('+user.cover_photo.full.url+');' : ''}}">
             <div>
                 <span class="profile_avatar" ng-style="myStyle={'background-image':'url(' + user.images.full.url + ')'}"></span>
@@ -17,5 +18,6 @@
                 <feed-display-dir obj="feedConfig"></feed-display-dir>
             </div>
         </div>
-    </ion-content>
+    <!-- </ion-content> -->
+    </div>
 </ion-view>

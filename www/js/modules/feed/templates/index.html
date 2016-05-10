@@ -7,10 +7,14 @@
     </ion-header-bar>
     <left-content class="background-color-red media">
     </left-content>
-    <ion-content class="has-header media overflow-initial  has-left-content has-right-content">
+    <!-- <ion-content class="has-header media has-left-content has-right-content"> -->
+    <div class="media has-left-content has-right-content scroll-content has-header overflow-scroll">
+        <!-- <ion-refresher ng-if="!isProcessing && !item.isFeedDetail" on-refresh="doRefresh()"></ion-refresher> -->
         <feed-display-dir></feed-display-dir>
-    </ion-content>
+        <!-- <ion-infinite-scroll ng-if="canLoadMore" on-infinite="loadMore()" distance="60px"></ion-infinite-scroll> -->
+        <!-- </ion-content> -->
+    </div>
     <right-content class="background-color-green media">
     </right-content>
-    <a class="bt-post-feed" href="#/app/feed/add"><i class="material-icons">&#xE145;</i></a>
+    <a class="bt-post-feed" go-to url="feed/add"><i class="material-icons">&#xE145;</i></a>
 </ion-view>

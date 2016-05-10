@@ -23,9 +23,11 @@
 .dcard-content:empty {
     display: none;
 }
-.dcard .feed-head-line{
-    color:#666;
+
+.dcard .feed-head-line {
+    color: #666;
 }
+
 .dcontent {
     position: absolute;
     right: 0;
@@ -414,6 +416,7 @@
     -webkit-box-shadow: 3px 3px 10px #999;
     cursor: pointer;
     text-decoration: none;
+    z-index: 9999;
 }
 
 .bt-post-feed i {
@@ -444,7 +447,7 @@
     margin-bottom: 0px;
 }
 
-.item-message p{
+.item-message p {
     margin-top: 10px;
 }
 
@@ -494,4 +497,25 @@
 .message-item-photo {
     max-width: 100%;
     margin-top: 10px;
+}
+
+
+/** format ion-refresher and ion-ifinity-scroll */
+
+.ion-refresher,
+.ion-infinite-scroll {
+    height: 40px;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 40px;
+}
+
+.ion-refresher .spinner,
+.ion-infinite-scroll .spinner {
+    position: relative;
+    top: 6px;
+}
+
+.overflow-scroll {
+    overflow-y: auto;
 }

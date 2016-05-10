@@ -4,7 +4,7 @@ define([
 
     function($feedModel) {
         return function($scope, $viewer, $dhttp, $ionicModal, $timeout, $rootScope, $cordovaToast, $ionicActionSheet) {
-            if(!$viewer.isUser()){
+            if (!$viewer.isUser()) {
                 return;
             }
             $scope.items = [];
@@ -39,7 +39,7 @@ define([
                 }
                 sendData = $.extend({}, $scope.feedData, sendData);
                 $dhttp.post('feed.gets', sendData).success(function(data) {
-                    $timeout(function(){
+                    $timeout(function() {
                         $scope.$broadcast('scroll.refreshComplete');
                     }, 300);
                     $scope.isLoadNewProcessing = false;
@@ -60,7 +60,7 @@ define([
             };
 
             $rootScope.$on('feed.refresh', function() {
-                if(!$scope.isCache){
+                if (!$scope.isCache) {
                     return;
                 }
                 console.log('Feed Refresh...');
@@ -100,23 +100,23 @@ define([
                 });
             };
 
-            $scope.onDelete = function(item){
-                if($scope.isDeleteProcessing){
+            $scope.onDelete = function(item) {
+                if ($scope.isDeleteProcessing) {
                     return;
                 }
                 $scope.isDeleteProcessing = true;
 
                 var sendData = {
-                    feed_id : item.feed_id
+                    feed_id: item.feed_id
                 }
                 $dhttp.post('feed.delete', sendData).success(function(data) {
                     $scope.isDeleteProcessing = false;
                     if (data.status) {
                         if (data.data) {
                             var index = $scope.items.indexOf(item);
-                            if(index != -1){
-                                $scope.items.splice(index,1);
-                                if(data.messages){
+                            if (index != -1) {
+                                $scope.items.splice(index, 1);
+                                if (data.messages) {
                                     Dmobi.showToast(data.messages.join('.'));
                                 }
                             }
@@ -130,26 +130,30 @@ define([
                 });
             }
 
-            $scope.onItemSetting = function(item){
+            $scope.onItemSetting = function(item) {
                 $ionicActionSheet.show({
-                buttons: [{
-                    text: ' <i class="material-icons">&#xE2C3;</i> Delete Feed',
-                    action: $scope.onDelete,
-                    type: false
-                }, {
-                    text: ' <i class="material-icons">camera</i> Report Feed',
-                    action: $scope.choosePhoto,
-                    type: true
-                }],
-                cancelText: 'Cancel',
-                cancel: function() {
+                    buttons: [{
+                        text: ' <i class="material-icons">&#xE2C3;</i> Delete Feed',
+                        action: $scope.onDelete,
+                        type: false
+                    }, {
+                        text: ' <i class="material-icons">camera</i> Report Feed',
+                        action: $scope.choosePhoto,
+                        type: true
+                    }],
+                    cancelText: 'Cancel',
+                    cancel: function() {
 
-                },
-                buttonClicked: function(index) {
-                    this.buttons[index].action(item);
-                    return true;
-                }
-            });
+                    },
+                    buttonClicked: function(index) {
+                        this.buttons[index].action(item);
+                        return true;
+                    }
+                });
             }
+
+            $timeout(function() {
+                $scope.loadMore();
+            }, 100);
         }
     });
